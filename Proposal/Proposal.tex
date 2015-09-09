@@ -1,0 +1,80 @@
+\documentclass[a4paper,titlepage,11pt]{article}
+\usepackage{a4wide,graphicx,fancyhdr,amsmath,amssymb,color,hyperref}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage[english]{babel}
+
+%----------------------- Macros and Definitions --------------------------
+
+\setlength\headheight{20pt}
+\addtolength\topmargin{-10pt}
+\addtolength\footskip{20pt}
+
+\fancypagestyle{plain}{%
+	\fancyhf{}
+	\fancyfoot[RO,LE]{\sffamily\bfseries\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{1pt}
+}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\newcommand{\uni}{Eindhoven University of Technology}
+\newcommand{\fase}{Computer Science and Engineering}
+\newcommand{\vak}{Web Information Retrieval \& Data Mining}
+\newcommand{\vakcode}{2IMW15 }
+\newcommand{\essaytitle}{Project Proposal}
+\newcommand{\stad}{Eindhoven}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\vak}
+\fancyhead[L]{\uni}
+\fancyfoot[R]{\sffamily\bfseries\thepage}
+\fancyfoot[L]{\essaytitle}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+
+\graphicspath{{Images/}}
+
+\author{
+	Francis Hoogendijk (TODO) - \texttt{TODO}
+	\and
+	Bram Kohl (0746107) - \texttt{b.j.e.kohl@student.tue.nl}
+	\and
+	Guus Lankveld (TODO) - \texttt{TODO}
+	\and
+	Jasper Selman (0741516) - \texttt{j.w.m.selman@student.tue.nl}
+	\and
+	Ramon de Vaan (0758873) - \texttt{r.d.vaan@student.tue.nl}
+	\and
+	Bart van Wezel (TODO) - \texttt{TODO}
+}
+\begin{document}
+	
+	\input{Sections/Titlepage.tex}
+	
+	\input{Sections/Introduction.tex}
+	\input{Sections/Architecture.tex}
+	
+	\section{Information Retrieval}
+	\input{Sections/IRFrancis}
+	\input{Sections/IRBram}
+	\input{Sections/IRGuus}
+	\input{Sections/IRJasper}
+	\input{Sections/IRRamon}
+	\input{Sections/IRBart}
+	
+	\section{Machine Learning}
+	\input{Sections/MLFrancis}
+	\input{Sections/MLBram}
+	\input{Sections/MLGuus}
+	\input{Sections/MLJasper}
+	\input{Sections/MLRamon}
+	\input{Sections/MLBart}
+
+	\input{Sections/Evaluation.tex}
+	\input{Sections/Plan.tex}
+\end{document}
