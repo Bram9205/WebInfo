@@ -1,1 +1,39 @@
 \section{Introduction}
+\subsection*{Project Idea}
+Every now and then people wonder if the neighborhood they are living in is still safe and whats happening in their neigborhood. 
+We got a solution for this. We want to create a program in which people can search for their (home)city what's happening. They receive a news feed of articles in their neighborhood and a list (visualized by circles on a map) of events in which the emergency services were involved. To do this we will use the P2000 system used in the Netherlands. The news feed will either be extraced from local news sites or from Twitter. This is yet to be determined. 
+
+\subsection*{Data}
+The data that we will use for our project will be extracted from several different sources. These sources are yet to be determined but the data can already be cut in two clear distinct parts. One part consists of data that we will extract out of the P2000 system used in the Netherlands. This system contains notifications of events where emergency services were needed. There are several sites which can be used to retrieve this data. 
+The second part contains the news feed or Twitter data we want to show when people are searching for their citiy. We do not yet know if we want to use Twitter data or local newsfeed because we do not know how hard it is to retrieve data from local news sites and we do not know how much noise Twitter will contain.
+\subsection*{Goals}
+The goals in this project are as follows. At first we want to create a basic system where people can search for a city and a timeframe. When they do that we want to visualize a map of the Netherlands zoomed in on that city. The map contains several colored dots on it. Every dot will represent an event in which the emergency services were involved. We want to use different colors for different services (police, fire fighthers and ambulances) and let the size of the circle depend on how serious the event was. This is the basic outline of the project which has to work for 100$\%$. We also want to be able to click on the circles and that in that case a pop up appears with local, related news to the event. This news is extraced from either Twitter or local news sites as mentioned before. Another feautre we would like to implement is to use classifications in the search. For example I would like to only see events which involved murder or robbery. We do not know how hard this is, so we see it as a feature.
+\subsection*{Tasks}
+The IR and ML tasks are divided such that one person contributes at at least one of each. The tasks are shown in \autoref{tab:tasks}
+
+\begin{table}[!h]
+\begin{center}
+\centering
+
+\begin{tabular}{| l| l | l| l |}
+\hline
+                   & {\bf Student ID} & {\bf Information Retrieval}                                                            & {\bf Machine Learning}                                                                       \\
+\hline
+Francis Hoogendijk & TODO             & Collect P2000 notifications                                                            & \begin{tabular}[c]{@{}l@{}}Retrieving keywords from \\ P2000 notifications\end{tabular}     \\
+\hline
+Bram Kohl          & 0746107          & Indexing of notifications                                                              & Cluster notifications                                                                       \\
+\hline
+Guus Lankveld      & TODO             & \begin{tabular}[c]{@{}l@{}}Collect news feed / \\ twitter data\end{tabular}            & \begin{tabular}[c]{@{}l@{}}Extract locations from \\ news feed / twitter data\end{tabular}   \\
+\hline
+Jasper Selman      & 0741516          & \begin{tabular}[c]{@{}l@{}}Language detection \& \\ spell check\end{tabular}           & \begin{tabular}[c]{@{}l@{}}Classify news feed / twitter \\ data\end{tabular}                 \\
+\hline
+Ramon de Vaan      & 0758873          & \begin{tabular}[c]{@{}l@{}}Create database of P2000 \\ notification codes\end{tabular} & Association analyzer                                                                         \\
+\hline
+Bart van Wezel     & TODO             & Indexing of news feed / twitter data                                                   & Classify P2000 notifications                                                                \\
+\hline
+
+\end{tabular}
+\caption{Tasks}
+\label{tab:tasks}
+\end{center}
+\end{table}
