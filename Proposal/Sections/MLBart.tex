@@ -1,9 +1,21 @@
-\subsection{TODO BART}
-\subsubsection*{Name part}
-\textbf{Name:} TODO \indent \textbf{StudentNumber:} TODO
+\subsection{Classification of P2000 notifications }
+\textbf{Name:} Bart van Wezel \indent \textbf{StudentNumber:} 0740608
 
 \subsubsection*{Motivation}
+Not all P2000 notification are really clear. A example of an notification can be: \\ 
+10-09-15	16:05:06	Ambulance	Midden- en West Brabant	B1 5011ME X : Mahlerstraat X Tilburg 67893  \\
+This notification is not really interesting to see, because when you get to see such a notification you probably have no idea what happened. 
+With a bit of research you can find that B1 means ordered transport. For example from the hospital to a nursing home. 
+We are going to try to classify the P2000 notifications, such that we can get a clear classification for each P2000 notification.
+This way we can make the program more useful for a general public. 
 
 \subsubsection*{Approach}
+To classify the P2000 notifications, we will try to find a main classification and a sub-classification. 
+A main classification could be some issue with the train. 
+The sub classification could be fire on the track. 
+To find those classifications we have to write a algorithm that tries to classifies the notifications. 
+Those classification can be done with a list of all abbreviations and use this list to determine which main classifications and sub classifications there should be. 
 
 \subsubsection*{Evaluation }
+We can evaluate this part by manually classifying  multiple P2000 notifications and then apply the algorithm to those P2000 notifications.
+When the result of the algorithm is the same as the manually classified notifications, we know that the algorithm probably works correctly.
