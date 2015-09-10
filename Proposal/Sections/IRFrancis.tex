@@ -1,9 +1,12 @@
 \subsection{TODO FRANCIS}
-\subsubsection*{Name part}
-\textbf{Name:} TODO \indent \textbf{StudentNumber:} TODO
+\subsubsection*{Collect P2000 notifications}
+\textbf{Name:} Francis Hoogendijk \indent \textbf{StudentNumber:} 0834628
 
 \subsubsection*{Motivation}
+As described in the introduction, the program that we want to build should show events which required emergency services in a specified neighbourhood. For this we plan to use notifications of the Dutch P2000 system. These notifications can be accessed through several different websites and contain timestamped information about which emergency response team is required, where they should go and sometimes other information. In order to process this information, we first need to extract the notifications from one or more sources (to be determined). To do this, we intend to use a crawler that will extract the notifications' content from the website(s). Since the P2000 system is continually operational, the crawler should frequently check for new notifications (the exact frequency still needs to be determined). 
 
 \subsubsection*{Approach}
+The crawler will be made so that it extracts P2000 notifications from a given source (or sources). The notifications may go back several years, so an endpoint (starting date) will have to be determined to limit the amount of data to be collected. Once all available notifications up to the present time are collected, the crawler should frequently check for new notification and add them to the collection if necessary. The implementation of the crawler still needs to be determined based on the choice of websites to extract from and their content. Also available API's that are of use (if any) will be utilized. The crawler will only collect the raw notification data, which will later be indexed and processed to extract relevant information. 
 
-\subsubsection*{Evaluation }
+\subsubsection*{Evaluation}
+The evaluation of the crawler will be done mainly by manually checking the collected data, and the ability for it to update its collection with new P2000 notifications.
