@@ -1,9 +1,11 @@
-\subsection{TODO BRAM}
-\subsubsection*{Name part}
-\textbf{Name:} TODO \indent \textbf{StudentNumber:} TODO
+\subsection{Indexing of notifications}
+\textbf{Name:} Bram Kohl \indent \textbf{StudentNumber:} 0746107
 
 \subsubsection*{Motivation}
-
+When the P2000 data has been retrieved, it is just raw data. There is no clear structure in it yet and as such, it has to be indexed, so we can easily use it later on. For example, in order to be able to associate the P2000 notifications with the messages from the news feed or twitter data, we want to be able to easily and quickly obtain information about the notifications. Information like the date and time the emergency service was called, which emergency service was called, with what urgence the emergency service was called and suchlike. So what we want to do is extract the useful information from the raw data and store it in a structured and easily accessible way.
 \subsubsection*{Approach}
-
-\subsubsection*{Evaluation }
+The indexing part kicks in when the raw data has already been retrieved. This data probably contains html which has some structure we can work with,  for example a table with specific columns for the date, or \textit{'<div>'} tags with a class that indicates what the field holds. So we will first find out what this structure is and then try to extract useful information from this, for example using an html parser.\\\\
+After that, if necessary we can still use some other methods to further extract data from the raw information. For example, if the postal code is contained in some other plain text, we can use a regular expression to find and isolate it from the other text.\\\\
+Once we have isolated the useful information, we store it in a SQL database table with a clear structure, so we can later easily access it. We can create indexes on this database on several fields (e.g. date and time and postal code) to speed up future search queries.
+\subsubsection*{Evaluation}
+The indexing of notifications will be evaluated by manually checking the resulting data in the database, to see whether the data has been split up properly, and by running queries and testing how long they take to see whether the indexes are working properly.
