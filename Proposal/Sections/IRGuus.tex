@@ -1,9 +1,14 @@
+
 \subsection{TODO GUUS}
 \subsubsection*{Name part}
 \textbf{Name:} TODO \indent \textbf{StudentNumber:} TODO
 
 \subsubsection*{Motivation}
+To be able to link certain (groups of) P2000 notifications to news articles or tweets, these articles and tweets need to be retrieved from a number of sources and filtered for relevant information.
 
 \subsubsection*{Approach}
+A (yet to be determined) number of local news websites will be scanned based on a specified date and time and all pages within this timeframe are returned. Which local website is chosen will be based on a specified location. After retrieving the pages, all non-relevant information such as scripts and style information will be removed.\\\\
+To retrieve tweets, the Twitter search API can be used. All tweets within a specified timeframe and with a specified geolocation (and radius) can be retrieved using this API.
 
 \subsubsection*{Evaluation }
+Evaluation of this component will be accomplished by manually assessing if both small and large timeframes and location-radii combinations as input will yield a set of news articles and tweets that match them.
