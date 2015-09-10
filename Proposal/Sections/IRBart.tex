@@ -1,9 +1,11 @@
-\subsection{TODO BART}
-\subsubsection*{Name part}
-\textbf{Name:} TODO \indent \textbf{StudentNumber:} TODO
+\subsection{Indexing of news feed / twitter data   }
+\textbf{Bart van Wezel}  \indent \textbf{0740608} 
 
 \subsubsection*{Motivation}
+The indexing should happen after the Language detection \& spell check is applied. This way we know that the input data is mostly correct.  The collected data should be stored in a efficient way, such that queries can be executed on the data. This should be done in an efficient way, which can be done with indexing the collected data. 
 
 \subsubsection*{Approach}
+How the data is going to be indexed still depends on the queries needed by the machine learning components. Especially the components: Classify news feed/twitter data and the Association analyser. If those components need phrase queries , we create a Positional index.  A positional index is now commonly used, because of the power and usefulness of phrase and proximity queries. However if no phrase queries are needed, a simple Inverted index construction will be used. Here multiple query optimization techniques will be applied. For example the merge method with skip pointers could be implemented. 
 
 \subsubsection*{Evaluation }
+The evaluation of the Indexing of news feed / twitter data component, can be done by executing queries on the indexed data. Then we can compare those results with actually searching the documents for the same query. Actually searching the documents can be done automatically, but will probably take some time. For testing the queries this is not a real problem, because the tests can be executed before the indexing is going to be used. The tests are probably secure, because actually searching the original documents gives the exact desired outcome. This outcome should match the outcome of the queries. However we will probably only execute this tests just after indexing, because storing all the original documents will occupy a lot of space. 
