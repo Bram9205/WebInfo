@@ -1,12 +1,12 @@
-\subsection{Cluster news feed / twitter data}
+\subsection{Cluster news feed}
 \textbf{Name:}  Guus van Lankveld \indent \textbf{StudentNumber:} 0629468
 
 \subsubsection*{Motivation}
-Assuming that a set of tweets and news articles has been retrieved that match a specified timeframe and geolocation, an exact location in 'natural language' (e.g. streetname, buildingname) needs to be extracted from these pieces of information in order to be able to classify them accurately. 
+Assuming that a set of news articles has been retrieved that match a specified timeframe and (geo)location, an exact location in 'natural language' (e.g. streetname, buildingname) needs to be extracted from these pieces of information in order to be able to classify them accurately. 
 
 \subsubsection*{Approach}
 Language analysis techniques can be used to determine whether certain parts of a text refer to a location. Since the system will only process P2000 notifications from the Netherlands and all local news sources (and probabaly tweets) that will be used will be in dutch, this analysis will be limited to the dutch language.\\\\
 If possible, an existing plugin will be used to extract locations. However, some degree of additional selection might be required because at this point it is uncertain if such a plugin will only return relevant locations.
 
 \subsubsection*{Evaluation }
-Evaluation of this component will be accomplished by manually inputting a number of news articles and tweets (or similar texts) and checking wether relevant locations are returned. Relevancy of locations can be assessed by manually checking is the location is only referred to or if the text states that the location is (one of) the site(s) of the event where the text is about.
+Evaluation of this component will be accomplished by manually inputting a number of news articles (or similar texts) and checking wether relevant locations are returned. Relevancy of locations can be assessed by manually checking is the location is only referred to or if the text states that the location is (one of) the site(s) of the event where the text is about.
