@@ -1,8 +1,23 @@
-\subsection{TODO RAMON}
-\textbf{Name:} TODO \indent \textbf{StudentNumber:} TODO
+\subsection{Document P2000 notification codes \& Collect Twitter data}
+\textbf{Name:} Ramon de Vaan \indent \textbf{StudentNumber:} 0758873
 
 \subsubsection*{Motivation}
+Most of the P2000 notifications contain an extra attribute, which provides some extra data regarding the nature of the incident.
+This attribute comes in the form of a notification code.
+We need to translate these codes to human-readable text, so that we can use it later on for classification. \\
+
+As stated above, we would like to link P2000 notifications to additional data sources.
+Twitter is an interesting source of information, as it is a very fast-pace and accessible medium.
+As a result, when an incident occurs, corresponding messages often appear within a very small time frame.
+Additionally, Twitter offers an API which facilitates data retrieval.
 
 \subsubsection*{Approach}
+First of all, we should obtain a list of P2000 notification codes, which may differ per region.
+In the database, we could add a table with the notification code as key, and the meaning as an attribute.
+Later on, when indexing the P2000 notifications, this table can be referenced to gather the meaning of the codes. \\
+
+As for the Twitter data collection, Twitter offers an API which allows us to easily query Twitter.
+We will search for Twitter notifications within a specified time frame and a location, depending on the P2000 notifications we receive.
 
 \subsubsection*{Evaluation }
+Since both of these data sources are of a rather strict format, running the program a few times should be sufficient to evaluate the behaviour. 
