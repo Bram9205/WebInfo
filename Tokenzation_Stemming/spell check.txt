@@ -1,0 +1,116 @@
+SLIDESET 2
+- Wildcard queries
+- Tokenization
+- N-grams
+- Normalization
+- Case folding
+- Soundex
+- Thesauri
+- lemmatization
+- stemming -> Porters algorithm, Lovins stemmer
+- Slide 60
+
+
+Tokenizer:
+http://docs.oracle.com/javase/7/docs/api/java/util/StringTokenizer.html
+http://opennlp.apache.org/index.html
+https://cwiki.apache.org/confluence/display/solr/Language+Analysis
+http://opennlp.sourceforge.net/models-1.5/
+https://stanbol.apache.org/docs/trunk/components/enhancer/engines/opennlppos
+
+https://wiki.apache.org/solr/Hunspell
+http://opennlp.sourceforge.net/models-1.5/
+https://www.elastic.co/guide/en/elasticsearch/guide/current/hunspell.html
+http://joelabrahamsson.com/elasticsearch-101/
+http://wiki.apache.org/solr/LanguageAnalysis#Dutch
+
+<analyzer type="index">
+  <tokenizer class="solr.StandardTokenizerFactory"/>
+  <filter class="solr.LowerCaseFilterFactory"/>
+  <filter class="solr.SnowballPorterFilterFactory" language="Dutch"/>
+</analyzer>
+
+ <filter class="solr.HunspellStemFilterFactory"
+    dictionary="en_GB.dic"
+    affix="en_GB.aff"
+    ignoreCase="true" />
+	
+	
+-----------
+indices.analysis.hunspell.dictionary.ignore_case: true
+indices.analysis.hunspell.dictionary.strict_affix_parsing: true
+
+Normal Tokenizer
+PUT /Tokenizer
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "nl_NL": {
+          "type":     "hunspell",
+          "language": "nl_NL" 
+        }
+      },
+      "analyzer": {
+        "nl_NL": {
+          "tokenizer":  "standard",
+          "filter":   [ "lowercase", "nl_NL" ]
+        }
+      }
+    }
+  }
+}
+
+PUT /EdgeNGrams
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "nl_NL": {
+          "type":     "hunspell",
+          "language": "nl_NL" 
+        }
+      },
+      "analyzer": {
+        "edge_ngram_analyzer": {
+          "tokenizer":  "my_edge_ngram_tokenizer",
+          "filter":   [ "lowercase", "nl_NL" ]
+        }
+      },
+        "tokenizer" : {
+            "my_edge_ngram_tokenizer" : {
+                "type" : "edgeNGram",
+                "min_gram" : "2",
+                "max_gram" : "5",
+                "token_chars": [ "letter", "digit" ]
+            }
+        }
+      }
+    }
+  }
+}
+
+PUT /snowball <-- werkt redelijk goed!!
+{
+    "index" : {
+        "analysis" : {
+            "analyzer" : {
+                "my_analyzer" : {
+                    "tokenizer" : "standard",
+                    "filter" : ["standard", "lowercase", "my_snow"]
+                }
+            },
+            "filter" : {
+                "my_snow" : {
+                    "type" : "snowball",
+                    "language" : "Dutch"
+                }
+            }
+        }
+    }
+}
+GET /my_index/_analyze?analyzer=nl_NL 
+  {boehoe}
+ 
+https://www.elastic.co/guide/en/marvel/current/_installation.html
+
