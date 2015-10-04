@@ -59,11 +59,17 @@ class Main {
 			preg_match_all('/[0-9]{4}\s?[a-zA-Z]{2}/', $content, $postals);
 			$postal = (!empty($postals[0])) ? $postals[0][0] : "";
 
+			$notification = new Notification($date, $time, $type, $region, $postal, $content);
+
 			if (count($raw) >= 4) {
-				echo "TODO: add capcodes <br>";
+				for ($i=1; $i < count($raw)-2; $i++) { 
+					$capContent = explode("<", explode(">", $raw[$i])[10])[0];
+					$capCode = explode(" ", $capContent)[0];
+					$cc = new Capcode($capCode, $capContent);
+					$notification->addCapCode($cc);
+				}
 			}
 
-			$notification = new Notification($date, $time, $type, $region, $postal, $content);
 			$notification->store();
 
 			$notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
@@ -76,12 +82,15 @@ class Main {
 		$testRawNotification = '<tr><td class="DT">02-10-15</td><td class="DT">15:26:24</td><td class="Am">Ambulance</td><td class="Regio">Gelderland-Midden</td><td class="Md">A1 Renkumseheide X Renkum 6871NR X 69658</td></tr>
 								<tr><td></td><td></td><td></td><td></td><td class="OmsAm">0920113 Ambulance Ambulance-07-113</td></tr>
 								<tr><td class="Oms">&nbsp;</td></tr>';
-		$testRawNotification2 = '<tr><td class="DT">02-10-15</td><td class="DT">19:05:42</td><td class="Br">Brandweer</td><td class="Regio">Limburg-Noord</td><td class="Md">ONTALARMERING 1 AM AUTOM.BRAND MELDING Kleermakersgroes, 1234AB Zorgcentra P Kleermakersgroes 20 GENN</td></tr>
+		$testRawNotification2 = '<tr><td class="DT">02-10-15</td><td class="DT">19:05:42</td><td class="Br">Brandweer</td><td class="Regio">Limburg-Noord</td><td class="Md">ONTALARMERING 1 AM AUTOM.BRAND MELDING Kleermakersgroes, Zorgcentra P Kleermakersgroes 20 GENN</td></tr>
 								<tr><td></td><td></td><td></td><td></td><td class="OmsBr">1001576 Brandweer Gennep Blusgroep 1</td></tr>
 								<tr><td></td><td></td><td></td><td></td><td class="OmsBr">1001577 Brandweer Gennep Blusgroep 2</td></tr>
 								<tr><td class="Oms"> </td></tr>'; //with multiple capcodes
+		$testRawNotification3 = '<tr><td class="DT">04-10-15</td><td class="DT">21:52:28</td><td class="Am">Ambulance</td><td class="Regio">Brabant Noord</td><td class="Md">B1 5481AD X : Hoofdstraat Schijndel Obj: Vws VWS SCHIJNDEL Rit: 43045</td></tr>
+								<tr><td class="Oms"> </td></tr>'; //without capcodes
 		array_push($testResult, $testRawNotification);
 		array_push($testResult, $testRawNotification2);
+		array_push($testResult, $testRawNotification3);
 		return $testResult;
 	}
 

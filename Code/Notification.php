@@ -25,12 +25,27 @@ class Notification {
         $date = $this->date->format('Y/m/d');
         $stmt->bind_param("ssssss", $date, $this->time, $this->type, $this->region, $this->postalCode, $this->content);
         $stmt->execute();
+        $nId = $db->insert_id;
         $stmt->close();
+        foreach ($this->capCodes as $capcode) {
+            $stmt = $db->prepare("INSERT INTO capcodes (notification_id, code, content) VALUES (?,?,?)");
+            $code = $capcode->getCode();
+            $content = $capcode->getContent();
+            $stmt->bind_param("iss", $nId, $code, $content);
+            $stmt->execute();
+            $stmt->close();
+        }
     }
 
     function printNotification() {
         echo "Date: " . $this->date->format('d-m-Y') . "<br/>Time: " . $this->time . "<br/>Type: " . $this->type . "<br/>Region: " . $this->region . 
         "<br/>Postal code: " . $this->postalCode . "<br/>Content: " . $this->content;
+        if (count($this->capCodes)) {
+            echo "<br/>Capcodes:<br/>";
+        }
+        foreach ($this->capCodes as $capcode) {
+            echo "&nbsp;&nbsp;Code: " . $capcode->getCode() . "<br/>&nbsp;&nbsp;Content: " . $capcode->getContent() . "<br/>";
+        }
     }
 
     function setDate($date) {
@@ -53,7 +68,7 @@ class Notification {
         $this->content = $content;
     }
 
-    function setCapCode($capCode) {
+    function addCapCode($capCode) {
         array_push($this->capCodes, $capCode);
     }
 
