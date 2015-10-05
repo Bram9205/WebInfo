@@ -1,0 +1,12 @@
+\subsection{Collect news feed}
+\textbf{Name:} Guus van Lankveld \indent \textbf{StudentNumber:} 0629468
+
+\subsubsection*{Motivation}
+To be able to link certain (groups of) P2000 notifications to news articles. These articles need to be retrieved from a number of sources and filtered for relevant information.
+
+\subsubsection*{Approach}
+A (yet to be determined) number of local news websites will be scanned based on a specified date and time and all pages within this timeframe are returned. Which local website is chosen will be based on a specified location. After retrieving the pages, all non-relevant information such as scripts and style information will be removed before returning the article.\\\\
+To be able to determine which news site should be accessed based on the input location, the system also needs to extract a city region from a specified geolocation or town name.
+
+\subsubsection*{Evaluation }
+Evaluation of this component will be accomplished by manually assessing if both small and large timeframes and location combinations as input will yield a set of news articles and tweets that match them.
