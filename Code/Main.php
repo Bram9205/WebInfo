@@ -38,7 +38,9 @@ class Main {
 	 * Return an array of raw html notifications
 	 */
 	private function getAndIndexNotifications($startDate = null, $endDate = null){
-		
+		$Scraper = new P2000Scraper("http://www.p2000-online.net/alleregiosf.html");
+                $Scraper->scrapePages(10, 60 / 100.0);
+                indexNotifications($Scraper->getRawNotifications());               
 	}
 
 	/**
@@ -72,7 +74,7 @@ class Main {
 
 			$notification->store();
 
-			$notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
+			//$notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
 		}
 	}
 
