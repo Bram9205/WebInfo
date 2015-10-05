@@ -20,6 +20,7 @@ class Notification {
     }
 
     public function store(){
+        // check of nog niet bestaat TODO
         $db = Database::getConnection();
         $stmt = $db->prepare("INSERT INTO notifications (date, time, type, region, postal_code, content) VALUES (?,?,?,?,?,?)");
         $date = $this->date->format('Y/m/d');

@@ -29,7 +29,7 @@ class Main {
 	 * Find associations between the P2000 notifications and news feed and twitter data
 	 */
 	public function retrieveData(){
-		$rawNotifications = $this->getRawNotifications();
+		$this->getAndIndexNotifications();
 		$testNotifications = $this->getTestNotifications(); //TODO: remove this line and function
 		$this->indexNotifications($testNotifications);//TODO: change to $rawNotifications);
 	}
@@ -37,7 +37,7 @@ class Main {
 	/**
 	 * Return an array of raw html notifications
 	 */
-	private function getRawNotifications($startDate = null, $endDate = null){
+	private function getAndIndexNotifications($startDate = null, $endDate = null){
 		
 	}
 
