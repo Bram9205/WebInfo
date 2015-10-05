@@ -1,0 +1,33 @@
+\subsection{Associate the data sources}
+\textbf{Name:} Ramon de Vaan \indent \textbf{StudentNumber:} 0758873
+
+\subsubsection*{Motivation}
+As stated in the introduction, one of the main goals for the project is to find news sources that are related to a certain P2000 notification.
+From P2000 notifications alone, it is difficult to fully grasp the events that occurred at a certain location, as they tend to be rather basic, containing only basic information.
+If incidents occurs, the first slivers of information regarding these are provided by local news media and twitter sources, often within a very small time frame. \\
+Thus, to provide the user with as much information as possible, we would like to link these information sources to the lacking P2000 notifications.
+
+\subsubsection*{Approach}
+At this step in the process, we will have already mined keywords from both P2000 notifications and local news/twitter sources, with hopes these accurately describe what the corresponding source is about.
+We will need to develop an algorithm that can produce a measure of relevance between a pair of these keyword sets.
+There might be different options and/or configuration for the algorithm we will use, but most likely several will need to be tested and compared. \\
+
+Given a certain location and timespan, we will find the corresponding P2000 notifications.
+For each of these, we will be iterating over a (sub)set of data sources, producing a relevance score between each P2000 - data source pair.
+We will then sort the data sources based on the relevance score our algorithm produces.
+The top-most relevant sources can then be displayed to the user.
+Additionally, it might be wise to declare a lower bound for the relevance score. 
+It might be better to show the user there were no relevant data sources than to have the user read those that are not relevant at all. \\
+
+There are a few additions to this approach, however.
+We will need to filter the results depending on the options the user has selected.
+For example, the user may have selected to only show twitter messages.
+If possible, it would be best to apply a filter on the data sources before computing the relevance, as the latter is probably a more costly operation, so running that on fewer entries would increase performance. \\
+Additionally, it might be wise to not only show the top-most relevant sources, but try to maintain a certain variance in data sources.
+For example, it might be better to show a few local news articles instead of solely twitter messages, even if they have a higher relevance score.
+
+
+
+\subsubsection*{Evaluation}
+There is no solid means to evaluate the performance of the algorithm apart from user testing.
+As stated above, we will have to test different algorithms and manually compare the results.

@@ -1,0 +1,11 @@
+\subsection{Retrieve keywords from P2000 notifications}
+\textbf{Name:} Francis Hoogendijk  \indent \textbf{StudentNumber:} 0834628
+
+\subsubsection*{Motivation}
+A keyword extraction functionality is required to distinguish between common useful data like location, time, ambulance/firemen/police, urgency, etc. and uncommon data like descriptions in text. The notifications however may come with some descriptive text which can contain keywords. These keywords may be valuable to establish a connection between a P2000 notification and tweets or local news articles. 
+ 
+\subsubsection*{Approach}
+Since the P2000 notifications are expected to come as structured data, most useful information should be straight-forward to extract. This is also covered by this part of the program. The descriptive text however should be separated and searched for distinguishing keywords. The extraction of keywords from such small amounts of text needs to be researched further. There may be some available algorithms or API's to help with this. 
+
+\subsubsection*{Evaluation }
+The evaluation of the keyword retrieval will be done manually by determining if distinguishing features in the text are found. Furthermore, the effectiveness of using the keywords as a query to find related tweets or news articles will be determined by manually finding P2000 notifications that are almost certainly related to a news article, and then seeing if the program detected the same relationship (so the other way around or backwards to the functionality of the program). 

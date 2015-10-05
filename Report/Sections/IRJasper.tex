@@ -1,0 +1,12 @@
+\subsection{Language detection \& spell check}
+\textbf{Name:} Jasper Selman \indent \textbf{StudentNumber:} 0741516
+
+\subsubsection*{Motivation}
+When retrieving data from the internet there is a problem which every programmer faces: the incapability of the human being to agree on one single set of unambiguous rules to write words notion to write words and the ability to actually write according to these rules. On most sites there are a lot of spelling errors made and words are written in a different way because the grammatical and spelling rules let him do that. \\
+When you want to index the data retrieved you do not want that two words who only differ in some spelling error are indexed different from each other. That's why we need a spell check. We also do not want the same words in different languages to differ from each other. When we focus on local news sites this will not be a problem, but if we use Twitter data this might be a problem.
+
+\subsubsection*{Approach}
+Before the indexing of the retrieved data of the local news sites and the P2000 notifications we need to run a spelling check (and possibly language detector) to correct spelling errors made. To do this I will first need to use input data for the correct way to spell. If available I will use dictionaries for this. Next I will need some algorithm like the Lovins stemming algorithm, but which particular algorithm I will use has yet to be researched and determined. 
+
+\subsubsection*{Evaluation }
+The evaluation of the language detector can be done manually, since we can immediately see if that worked, if a lot of the words are corrected we might have detected the wrong language. To evaluate the spelling check is bit more tricky I guess. One thing that comes to my mind is to first index the retrieved data without a spelling check and after that do the same with a spelling check. This will be done using small text documents like news feed. Using this small documents we can manually check if the spelling corrector, did his work.

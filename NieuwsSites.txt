@@ -1,0 +1,12 @@
+Zeeland: http://www.omroepzeeland.nl/
+Zuid-Holland: http://www.rijnmond.nl/
+Noord-Holland: http://www.rtvnh.nl/
+Gelderland: http://www.omroepgelderland.nl/
+Noord-Brabant: http://www.omroepbrabant.nl/
+Flevoland: http://www.omroepflevoland.nl/
+Limburg: http://www.1limburg.nl/
+Groningen: http://groningen.nieuws.nl/
+Friesland: http://www.lc.nl/
+Overijssel: http://www.rtvoost.nl/
+Drenthe: http://www.rtvdrenthe.nl/nieuws
+Utrecht: http://www.rtvutrecht.nl/

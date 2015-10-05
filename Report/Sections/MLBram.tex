@@ -1,0 +1,10 @@
+\subsection{Cluster notifications}
+\textbf{Name:} Bram Kohl \indent \textbf{StudentNumber:} 0746107
+
+\subsubsection*{Motivation}
+When an incident that requires emergency services happens, there are often multiple notifications in the P2000 system concerning that single incident. Take for example a car accident. This often requires the fire department to cut open cars, the police department to organize the other traffic and one or more ambulances to take care of the passengers of the cars involved in the accident. These all show up as separate notifications in the P2000 system. As we want to be able to associate the P2000 notifications with news messages and/or twitter messages, we would like to combine these notifications that belong to the same incident.
+\subsubsection*{Approach}
+As input, we have many P2000 notifications and as output we would like to know which P2000 notifications belong together. In order to do this, we run through the database and for each P2000 notification, we check for other notifications that came in around the same time this one did (with a certain error, for example 2 hours) and that went to the same address. We assume that these notifications belong to the same incident.\\\\
+We might extend this by checking whether the addresses of two notifications are close to each other when they do not exactly match (but the time does match), and similarly whether it concerns the same incident when the calls are further apart but address does match. We could determine a probability for this by looking for similar words in the message provided with the call.
+\subsubsection*{Evaluation}
+The clustering of notifications will be evaluated manually, by searching for a few P2000 notifications that should be matched together (these occur rather frequently, so that should not be too hard) and checking whether they are properly indicated as belonging together. Furthermore, we will check whether messages that should not be matched are not indicated as belonging together as well.

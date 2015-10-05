@@ -39,20 +39,20 @@ class Main {
     /**
      * Return an array of raw html notifications
      */
-    private function getAndIndexNotifications($n = 100,$delay=60/100.0) {
-        $p=0;
+    private function getAndIndexNotifications($n = 100, $delay = 60 / 100.0) {
+        $p = 0;
         $Scraper = new P2000Scraper("http://www.p2000-online.net/alleregiosf.html");
         for ($i = 0; $i < $n; $i++) {
             $Scraper->scrapePage();
             //usleep($delay * 1000000);
             $now = round(microtime(true) * 1000); //time();
             $this->indexNotifications($Scraper->getRawNotifications());
-            $elapsed = round(microtime(true) * 1000)-$now; //time()-$now;
+            $elapsed = round(microtime(true) * 1000) - $now; //time()-$now;
             //echo $elapsed."<br/>";
             $Scraper->clearRawNotifications();
             $Scraper->loadNextPage();
             $p++;
-            echo "Scraped ". $p. " pages - Time elapsed: ".$elapsed."[ms] <br/>";
+            echo "Scraped " . $p . " pages - Time elapsed: " . $elapsed . "[ms] <br/>";
         }
     }
 
@@ -76,6 +76,7 @@ class Main {
 
             $notification = new Notification($date, $time, $type, $region, $postal, $content);
 
+
             if (count($raw) >= 4) {
                 for ($i = 1; $i < count($raw) - 2; $i++) {
                     $capContent = explode("<", explode(">", $raw[$i])[10])[0];
@@ -86,8 +87,9 @@ class Main {
             }
 
             if (!$notification->store()) {
-                echo '<span style="color: red;">Notification was already in database! Nothing stored.</span><br/>';
+                echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
             }
+
 
             // $notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
         }
