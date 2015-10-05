@@ -73,7 +73,7 @@ class Main {
 			}
 
 			if(!$notification->store()){
-				echo '<span style="color: red;">Notification was already in database! Nothing stored.</span><br/>';
+				echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
 			}
 
 			// $notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
