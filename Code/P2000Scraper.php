@@ -37,21 +37,12 @@ class P2000Scraper {
     public function getRawNotifications() {
         return $this->rawNotifications;
     }
-        
-    /*
-     * Scrape $n pages with a delay of $delay [s] between requests
-     */
-
-    public function scrapePages($n, $delay) {
-        for ($i = 0; $i < $n; $i++) {
-            $this->scrapePage();
-            //echo "----------Page " . ($i + 1) . "----------";
-            usleep($delay * 1000000); // limit amount of requests 
-            $this->loadNextPage();
-        }
+    
+    public function clearRawNotifications() {
+        $this->rawNotifications = array();
     }
 
-    private function scrapePage() {
+    public function scrapePage() {
         foreach ($this->html->find('table[style=align:center]') as $table) {
             $startwrapper = "<" . $table->tag . ">"; // used for testing
             $endwrapper = "</" . $table->tag . ">"; // used for testing
@@ -78,9 +69,10 @@ class P2000Scraper {
                 $prevLength = $length;
             }
         }
+        
     }
 
-    private function loadNextPage() {
+    public function loadNextPage() {
         $formStr = "";
 
         foreach ($this->html->find('table form') as $form) {
