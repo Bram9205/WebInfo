@@ -9,22 +9,29 @@
 class Database {
 
     private static $CONN_ARGS = [
-        "localhost", //178.62.156.148
+        "178.62.156.148", //178.62.156.148
         "admin",
         "LiftenZijnGevaarlijk",
-        "webInfo",
+        "test",
         3306
     ];
 
     public static function createDB()
     {
-        $sqlPage = "CREATE TABLE IF NOT EXISTS `webInfo`.`news_retriever_page` "
+        echo "setting up DB\n";
+        $sqlPage = "CREATE TABLE IF NOT EXISTS `test`.`news_retriever_page` "
                 . "( `id` INT NOT NULL AUTO_INCREMENT , `date` DATE NOT NULL , "
                 . "`title` TEXT NOT NULL , `siteroot` TEXT NOT NULL , "
                 . "`pageurl` TEXT NOT NULL, `content` LONGTEXT NOT NULL , "
                 . "PRIMARY KEY (`id`));";
 
         $mysqli = self::connect();
+
+        if (!$mysqli)
+        {
+            echo "Connection failed";
+            exit();
+        }
 
         $mysqli->query($sqlPage);
 
@@ -60,14 +67,14 @@ class Database {
     public static function retrievePages(DateTime $startDate, DateTime $endDate, $rootUrl)
     {
         $mysqli = self::connect();
-        
-        $query = "SELECT * FROM news_retriever_page WHERE (date BETWEEN ? AND ?) AND siteroot=?";
-        
+
+        $query = "SELECT date, title, siteroot, pageurl, content FROM news_retriever_page WHERE (date BETWEEN ? AND ?) AND siteroot=?";
+
         $statement = $mysqli->prepare($query);
         $statement->bind_param('sss', $startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $rootUrl);
         $statement->execute();
         
-        $result = $statement->get_result();
+        $statement->bind_result($date, $title, $siteRoot, $pageUrl, $content);
 
         $articles = array();
 
@@ -75,16 +82,12 @@ class Database {
         {
             while ($row = $result->fetch_assoc())
             {
-                $title = $row['title'];
-                $date = $row['date'];
-                $pageUrl = $row['pageurl'];
-                $siteRoot = $row['siteroot'];
-                $content = $row['content'];
                 $article = new Article($title, $date, $pageUrl, $siteRoot, $content);
                 array_push($articles, $article);
             }
         }
-        
+
+        $mysqli->close();
         return $articles;
     }
 
@@ -93,24 +96,22 @@ class Database {
         $mysqli = self::connect();
 
         $query = "SELECT DISTINCT pageurl FROM news_retriever_page WHERE siteroot=?";
-        
+
         $statement = $mysqli->prepare($query);
         $statement->bind_param('s', $rootUrl);
-        
+
         $statement->execute();
-        
-        $result = $statement->get_result();
+
+        $statement->bind_result($pageurl);
 
         $titles = array();
-
-        if ($result)
+        
+        while ($statement->fetch())
         {
-            while ($row = $result->fetch_assoc())
-            {
-                array_push($titles, $row['pageurl']);
-            }
+            array_push($titles, $pageurl);
         }
         
+        $mysqli->close();
         return $titles;
     }
 

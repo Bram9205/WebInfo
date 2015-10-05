@@ -7,15 +7,9 @@
  */
 class Util {
 
-    private static $MONTH_REGEX = '/januari|'
-            . 'februari|maart|april|mei|juni|juli|augustus|september|oktober'
-            . '|november|december/i';
+    private static $MONTH_REGEX = '/januari|februari|maart|april|mei|juni|juli|augustus|september|oktober|november|december/i';
     
-    private static $DATE_REGEX = '/((0[1-9]|[1-2][0-9]|3[0-1]|[1-9])\s+(januari|'
-            . 'februari|maart|april|mei|juni|juli|augustus|september|oktober'
-            . '|november|december)\s+([0-9]{4}|[0-9]{2}))|'
-            . '((0[1-9]|[1-2][0-9]|3[0-1]|[1-9])-(0[1-9]|1[0-2]|[1-9])-[0-9]{4})|'
-            . '([0-9]{4}-(0[1-9]|1[0-2]|[1-9])-(0[1-9]|[1-2][0-9]|3[0-1]|[1-9]))/i';
+    private static $DATE_REGEX = '/((0[1-9]|[1-2][0-9]|3[0-1]|[1-9])\s+(januari|februari|maart|april|mei|juni|juli|augustus|september|oktober|november|december)\s+([0-9]{4}|[0-9]{2}))|((0[1-9]|[1-2][0-9]|3[0-1]|[1-9])-(0[1-9]|1[0-2]|[1-9])-[0-9]{4})|([0-9]{4}-(0[1-9]|1[0-2]|[1-9])-(0[1-9]|[1-2][0-9]|3[0-1]|[1-9]))/i';
     
     private static $QUERY_REGEX = '/(\?|\#).*/';
     
@@ -45,6 +39,23 @@ class Util {
         $haystackTrim = trim($haystack);
         $needleTrim = trim($needle);
         return strpos($haystackTrim, $needleTrim) === 0;
+    }
+    
+    public static function endsWith($haystack, $needle)
+    {
+        $haystackTrim = trim($haystack);
+        $needleTrim = trim($needle);
+        return strpos($haystackTrim, $needleTrim) === strlen($haystack)-1;
+    }
+    
+    public static function removeLastUrlPart($url)
+    {
+        $lastPosition = strrpos($url, '/');
+        if (!$lastPosition)
+        {
+            return $url;
+        }
+        return $pageUrl = substr($url, 0, $lastPosition);
     }
 
     public static function filterLink($link, $pageUrl, Crawler $crawler)

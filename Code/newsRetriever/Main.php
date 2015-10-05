@@ -29,9 +29,9 @@ class Main {
      * @param type $newsSiteUrl The root URL of the news site (the seed of the crawler)
      * @return type
      */
-    public function crawlForNews($nrOfDaysBack, $newsSiteUrl)
+    public function crawlForNews($nrOfDaysBack, $newsSiteUrl, $timeToLive)
     {
-        $crawler = new Crawler($newsSiteUrl);
+        $crawler = new Crawler($newsSiteUrl, $timeToLive);
         $crawler->crawl($nrOfDaysBack);
         return count($crawler->getCrawled());
     }

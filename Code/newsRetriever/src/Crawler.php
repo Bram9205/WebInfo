@@ -14,15 +14,19 @@ class Crawler {
     private $ignore;
     private $currentStopDate;
     private $lastCrawlTime;
+    private $startDate;
+    private $timeToLive;
     private static $WAIT_BETWEEN_CRAWLS = 6; //seconds
 
-    public function __construct($rootUrl)
+    public function __construct($rootUrl, $timeToLive)
     {
         $this->rootUrl = $rootUrl;
         $this->robots = $this->parseRobotsTxt($rootUrl);
         $this->urlFrontier = array();
         $this->crawled = array();
         $this->ignore = Database::getRetrievedLinks($rootUrl);
+        $this->startDate = new DateTime();
+        $this->timeToLive = $timeToLive;
     }
 
     public function getRobots()
@@ -52,6 +56,14 @@ class Crawler {
 
     function crawlStep($isRootStep = false)
     {
+        $now = new DateTime();
+        $timeLeft = ($this->startDate->getTimestamp() + ($this->timeToLive * 60)) - $now->getTimestamp();
+        echo "$timeLeft seconds left in this crawl session\n";
+        if ($timeLeft <= 0)
+        {
+            return;
+        }
+        
         echo "Frontier size: " . count($this->urlFrontier) . "\n";
         if (count($this->urlFrontier) < 1)
         {

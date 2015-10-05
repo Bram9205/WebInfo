@@ -74,11 +74,25 @@ class Page {
     {
         $dateMatches = array();
         preg_match(Util::getDateRegex(), $this->dom->saveHTML(), $dateMatches);
-        if (!isset($dateMatches[0]))
+        
+        $lowestDate = new DateTime();
+        
+        foreach($dateMatches as $dateMatch)
         {
-            return new DateTime();
+            $current = Util::parseDateString($dateMatch);
+            
+            if (!$current)
+            {
+                continue;
+            }
+            
+            if ($current->getTimestamp() < $lowestDate->getTimestamp())
+            {
+                $lowestDate = $current;
+            }
         }
-        return Util::parseDateString($dateMatches[0]);
+
+        return $lowestDate;
     }
 
     private function processPage()
@@ -143,7 +157,14 @@ class Page {
             
             if (Util::isRelative($url))
             {
-                $url = Util::removeParams($this->pageUrl).$url;
+                $pageUrl = '';
+                if (!Util::endsWith($this->pageUrl, '/'))
+                {
+                    $pageUrl = Util::removeParams($this->pageUrl);
+                    $pageUrl = Util::removeLastUrlPart($pageUrl);
+                }
+                
+                $url = $pageUrl.$url;
             }
             
             if (in_array($url, $this->crawler->getCrawled()) || in_array($url, $this->crawler->getCrawled()))

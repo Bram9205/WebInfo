@@ -17,7 +17,10 @@ if (!$rootUrl)
     return;
 }
 
-//$crawler = new Crawler($rootUrl);
+echo Util::removeLastUrlPart($rootUrl);
+
+//$crawler = new Crawler($rootUrl, 15);
+//$crawler->crawl(1);
 
 echo '</pre>';
 
