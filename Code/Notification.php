@@ -20,7 +20,9 @@ class Notification {
     }
 
     public function store(){
-        // check of nog niet bestaat TODO
+        if($this->existsInDatabase()){
+            return false;
+        }
         $db = Database::getConnection();
         $stmt = $db->prepare("INSERT INTO notifications (date, time, type, region, postal_code, content) VALUES (?,?,?,?,?,?)");
         $date = $this->date->format('Y/m/d');
@@ -36,6 +38,7 @@ class Notification {
             $stmt->execute();
             $stmt->close();
         }
+        return true;
     }
 
     function printNotification() {
@@ -47,6 +50,11 @@ class Notification {
         foreach ($this->capCodes as $capcode) {
             echo "&nbsp;&nbsp;Code: " . $capcode->getCode() . "<br/>&nbsp;&nbsp;Content: " . $capcode->getContent() . "<br/>";
         }
+    }
+
+    private function existsInDatabase() {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE date = ? AND time = ?");
     }
 
     function setDate($date) {

@@ -70,7 +70,9 @@ class Main {
 				}
 			}
 
-			$notification->store();
+			if(!$notification->store()){
+				echo "Notification was already in database! Nothing stored.";
+			}
 
 			$notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
 		}
