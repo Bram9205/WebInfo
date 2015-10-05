@@ -54,7 +54,14 @@ class Notification {
 
     private function existsInDatabase() {
         $db = Database::getConnection();
-        $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE date = ? AND time = ?");
+        $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE date = ? AND time = ? AND region = ?");
+        $date = $this->date->format('Y/m/d');
+        $stmt->bind_param("sss", $date, $this->time, $this->region);
+        $stmt->execute();
+        $stmt->bind_result($amount);
+        $stmt->fetch();
+        $stmt->close();
+        return $amount > 0;
     }
 
     function setDate($date) {
