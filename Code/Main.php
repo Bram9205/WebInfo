@@ -43,6 +43,7 @@ class Main {
         $date=DateTime::createFromFormat('d-m-Y', $enddate);
         $p = 0;
         
+        //TODO: remove database entries older than given date
         
         $Scraper = new P2000Scraper("http://www.p2000-online.net/alleregiosf.html");
         while ($this->entriesInDatabase($date) == 0){
@@ -69,6 +70,9 @@ class Main {
         }
     }
     
+    /*
+     * Returns number of entries in database with given input date
+     */
     private function entriesInDatabase($inputdate) {
         $db = Database::getConnection();
         $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE date = ?");
