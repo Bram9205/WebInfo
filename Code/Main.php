@@ -37,23 +37,48 @@ class Main {
     }
 
     /**
-     * Return an array of raw html notifications
+     * Return an array of raw html notifications, delay in [s]
      */
-    private function getAndIndexNotifications($n = 100, $delay = 60 / 100.0) {
+    private function getAndIndexNotifications($enddate="05-10-2015", $delay =0.5) {
+        $date=DateTime::createFromFormat('d-m-Y', $enddate);
         $p = 0;
+        
+        
         $Scraper = new P2000Scraper("http://www.p2000-online.net/alleregiosf.html");
-        for ($i = 0; $i < $n; $i++) {
+        while ($this->entriesInDatabase($date) == 0){
             $Scraper->scrapePage();
-            //usleep($delay * 1000000);
-            $now = round(microtime(true) * 1000); //time();
+
+            $now = round(microtime(true) * 1000); 
             $this->indexNotifications($Scraper->getRawNotifications());
-            $elapsed = round(microtime(true) * 1000) - $now; //time()-$now;
-            //echo $elapsed."<br/>";
+            $elapsed = round(microtime(true) * 1000) - $now; 
+                      
+            if($elapsed<$delay*1000.0){ // ensure proper delay between requests
+                usleep(($delay -$elapsed/1000.0)* 1000000);
+            }           
+            $end = round(microtime(true) * 1000) - $now;
+            
             $Scraper->clearRawNotifications();
             $Scraper->loadNextPage();
             $p++;
-            echo "Scraped " . $p . " pages - Time elapsed: " . $elapsed . "[ms] <br/>";
+            //echo "Scraped " . $p . " pages - Time elapsed: " . $elapsed . "[ms] <br/>"; // for webpage
+            fwrite(STDOUT, "\n\tScraped " . $p . " pages - Time elapsed: " . $end . "[ms]\n"); // for CLI
+            
+            $amount = $this->entriesInDatabase($date);
+            fwrite(STDOUT, $amount." pages indexed of date: ".$enddate."\n");//->format('d-m-Y')."\n");
+            
         }
+    }
+    
+    private function entriesInDatabase($inputdate) {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE date = ?");
+        $date = $inputdate->format('Y/m/d');
+        $stmt->bind_param("s", $date);
+        $stmt->execute();
+        $stmt->bind_result($amount);
+        $stmt->fetch();
+        $stmt->close();
+        return $amount;
     }
 
     /**
@@ -87,7 +112,8 @@ class Main {
             }
 
             if (!$notification->store()) {
-                echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
+                //echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
+                fwrite(STDOUT, "Notification was already in database! Nothing stored.\n"); // for CLI
             }
 
 
