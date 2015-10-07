@@ -6,7 +6,7 @@ class Database {
     private $connection;
 
     private function __construct() {
-        $this->connection = new MySQLi('178.62.156.148','admin','LiftenZijnGevaarlijk','test');
+        $this->connection = new MySQLi('95.85.50.60','admin','t249DJK8','test');
         if ($this->connection->connect_errno) {
             printf("Connect failed: %s\n", $this->connection->connect_error);
         }
