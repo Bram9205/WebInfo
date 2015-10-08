@@ -10,6 +10,8 @@ class Notification {
     public $postalCode;
     public $town;
     public $capCodes = array();
+    private $minContentLength = 5;
+    private $filterWords = array('test','scenario','proefalarm','dienstwissel');
 
     function __construct($date, $time, $type, $region, $postalCode, $content) {
         $this->date = DateTime::createFromFormat('d-m-y', $date);
@@ -98,6 +100,21 @@ class Notification {
         return $this->town;
     }
 
+    /*
+     * Returns whether the notification content contains one of the filter words or is shorter than $this->minContentLength characters
+     */
+    public function isActualNotification(){
+        if (strlen($this->content) < $this->minContentLength) {
+            return false;
+        }
+        foreach ($this->filterWords as $word) {
+            if (strpos($this->content, $word) !== false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     function setDate($date) {
         $this->date = DateTime::createFromFormat('d-m-y', $date);
     }
@@ -164,7 +181,7 @@ class Notification {
         curl_close($ch);
 
         $json = json_decode($result, true);
-        
+
         return $json;
     }
 

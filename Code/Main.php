@@ -133,6 +133,9 @@ class Main {
 
             $notification = new Notification($date, $time, $type, $region, $postal, $content);
 
+            if (!$notification->isActualNotification()) {
+            	continue; //Skip current iteration, this notification won't be stored
+            }
 
             if (count($raw) >= 4) {
                 for ($i = 1; $i < count($raw) - 2; $i++) {
