@@ -8,6 +8,7 @@ class Notification {
     public $region;
     public $content;
     public $postalCode;
+    public $town;
     public $capCodes = array();
 
     function __construct($date, $time, $type, $region, $postalCode, $content) {
@@ -19,14 +20,17 @@ class Notification {
         $this->content = $content;
     }
 
+    /**
+     * Store in database
+     */
     public function store(){
         if($this->existsInDatabase()){
             return false;
         }
         $db = Database::getConnection();
-        $stmt = $db->prepare("INSERT INTO notifications (date, time, type, region, postal_code, content) VALUES (?,?,?,?,?,?)");
+        $stmt = $db->prepare("INSERT INTO notifications (date, time, type, region, postal_code, town, content) VALUES (?,?,?,?,?,?,?)");
         $date = $this->date->format('Y/m/d');
-        $stmt->bind_param("ssssss", $date, $this->time, $this->type, $this->region, $this->postalCode, $this->content);
+        $stmt->bind_param("sssssss", $date, $this->time, $this->type, $this->region, $this->postalCode, $this->town, $this->content);
         $stmt->execute();
         $nId = $db->insert_id;
         $stmt->close();
@@ -64,6 +68,36 @@ class Notification {
         return $amount > 0;
     }
 
+    /**
+     * Tries to deduce a town from postal code and if that fails from content.
+     * Stores (in object, not db) and returns the town
+     */
+    public function detectTown(){
+        if($this->postalCode !== null && $this->postalCode != ""){
+            $address = $this->get_address($this->postalCode);
+            if($address['success']){
+                $this->town = $address['resource']['town'];
+                return $this->town;
+            }
+        }
+        $towns = array();
+        $db = Database::getConnection();
+        if ($result = $db->query("SELECT name FROM towns")) {
+            foreach ($result as $townarr) {
+                if(preg_match("#\b(".$townarr['name'].")\b#i", $this->content)){ //If isolated word (\b is non word character, like begin of string or ","), /i for non-case-sensitive
+                    $towns[] = $townarr['name'];
+                }
+            }
+            $result->close();
+        }
+        if(!empty($towns)) {
+            $this->town =  implode("||", $towns);
+        } else {
+            $this->town =  "";
+        }
+        return $this->town;
+    }
+
     function setDate($date) {
         $this->date = DateTime::createFromFormat('d-m-y', $date);
     }
@@ -82,6 +116,10 @@ class Notification {
 
     function setContent($content) {
         $this->content = $content;
+    }
+
+    function setTown($town) {
+        $this->town = $town;
     }
 
     function addCapCode($capCode) {
@@ -110,6 +148,24 @@ class Notification {
 
     function getCapCodes() {
         return $this->capCodes;
+    }
+
+    function get_address($postcode){ 
+        $postcode=strtoupper(preg_replace("/\s+/", '', $postcode));
+        $url="http://api.postcodeapi.nu/".$postcode;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array ('Accept: */*','Content-Type: application/x-www-form-urlencoded;','charset=UTF-8','Accept-Language: en',
+            'Api-Key: 7c733f30911b0398c363ef34e81dea08e2d2ad77'));
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $json = json_decode($result, true);
+        
+        return $json;
     }
 
 }

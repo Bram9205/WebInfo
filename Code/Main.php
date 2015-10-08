@@ -32,8 +32,6 @@ class Main {
      */
     public function retrieveData() {
         $this->getAndIndexNotifications();
-        // $testNotifications = $this->getTestNotifications(); //TODO: remove this line and function
-        // $this->indexNotifications($testNotifications);//TODO: change to $rawNotifications);
     }
 
     /**
@@ -115,14 +113,23 @@ class Main {
                 }
             }
 
+            if($notification->detectTown() == ""){
+            	//echo "No town detected (no postal code and no town in content)\n";
+            	fwrite(STDOUT, "No town detected (no postal code and no town in content)\n"); // for running on CLI
+            }
+
             if (!$notification->store()) {
                 //echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
                 fwrite(STDOUT, "Notification was already in database! Nothing stored.\n"); // for CLI
             }
-
-
             // $notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
         }
+    }
+
+    //TODO: delete this function which is solely for testing
+    public function test(){
+        $rawNotifications = $this->getTestNotifications();
+        $this->indexNotifications($rawNotifications);
     }
 
     //Temporary function for testing, TODO: remove
@@ -131,7 +138,7 @@ class Main {
         $testRawNotification = '<tr><td class="DT">02-10-15</td><td class="DT">15:26:24</td><td class="Am">Ambulance</td><td class="Regio">Gelderland-Midden</td><td class="Md">A1 Renkumseheide X Renkum 6871NR X 69658</td></tr>
 								<tr><td></td><td></td><td></td><td></td><td class="OmsAm">0920113 Ambulance Ambulance-07-113</td></tr>
 								<tr><td class="Oms">&nbsp;</td></tr>';
-        $testRawNotification2 = '<tr><td class="DT">02-10-15</td><td class="DT">19:05:42</td><td class="Br">Brandweer</td><td class="Regio">Limburg-Noord</td><td class="Md">ONTALARMERING 1 AM AUTOM.BRAND MELDING Kleermakersgroes, Zorgcentra P Kleermakersgroes 20 GENN</td></tr>
+        $testRawNotification2 = '<tr><td class="DT">02-10-15</td><td class="DT">19:05:42</td><td class="Br">Brandweer</td><td class="Regio">Limburg-Noord</td><td class="Md">ONTALARMERING 1 AM AUTOM.BRAND MELDING Kleermakersgroes, Heijenrath Zorgcentra P Kleermakersgroes 20 GENN</td></tr>
 								<tr><td></td><td></td><td></td><td></td><td class="OmsBr">1001576 Brandweer Gennep Blusgroep 1</td></tr>
 								<tr><td></td><td></td><td></td><td></td><td class="OmsBr">1001577 Brandweer Gennep Blusgroep 2</td></tr>
 								<tr><td class="Oms"> </td></tr>'; //with multiple capcodes
