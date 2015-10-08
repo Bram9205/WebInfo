@@ -42,16 +42,17 @@ class Main {
     private function getAndIndexNotifications($enddate = "06-10-2015", $delay = 0.5) {
         $date = DateTime::createFromFormat('d-m-Y', $enddate);
         $p = 0;
+        $alreadyStoredPages=0;
 
         //TODO: remove database entries older than given date
         $this->deleteEntriesInDatabase($date);
 
         $Scraper = new P2000Scraper("http://www.p2000-online.net/alleregiosf.html");
-        while ($this->entriesInDatabase($date) == 0) {
+        while ($this->entriesInDatabase($date) == 0 && $alreadyStoredPages<5) {
             $Scraper->scrapePage();
 
             $now = round(microtime(true) * 1000);
-            $this->indexNotifications($Scraper->getRawNotifications());
+            $alreadyStored=$this->indexNotifications($Scraper->getRawNotifications());
             $elapsed = round(microtime(true) * 1000) - $now;
 
             if ($elapsed < $delay * 1000.0) { // ensure proper delay between requests
@@ -59,6 +60,9 @@ class Main {
             }
             $end = round(microtime(true) * 1000) - $now;
 
+            if($alreadyStored==15){
+                $alreadyStoredPages++;
+            }
             $Scraper->clearRawNotifications();
             $Scraper->loadNextPage();
             $p++;
@@ -114,6 +118,7 @@ class Main {
      * Split and store Notification objects
      */
     private function indexNotifications($rawNotifications) {
+        $alreadyStored=0;
         if ($rawNotifications == null || empty($rawNotifications)) {
             return false;
         }
@@ -143,11 +148,13 @@ class Main {
             if (!$notification->store()) {
                 //echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
                 fwrite(STDOUT, "Notification was already in database! Nothing stored.\n"); // for CLI
+                $alreadyStored++;
             }
 
 
             // $notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
         }
+        return $alreadyStored;
     }
 
     //Temporary function for testing, TODO: remove
