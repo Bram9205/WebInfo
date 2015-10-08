@@ -37,43 +37,72 @@ class Main {
     /**
      * Return an array of raw html notifications, delay in [s]
      */
-    private function getAndIndexNotifications($enddate="05-10-2015", $delay =0.5) {
-        $date=DateTime::createFromFormat('d-m-Y', $enddate);
+    private function getAndIndexNotifications($enddate = "06-10-2015", $delay = 0.5) {
+        $date = DateTime::createFromFormat('d-m-Y', $enddate);
         $p = 0;
-        
+        $alreadyStoredPages=0;
+
         //TODO: remove database entries older than given date
-        
+        $this->deleteEntriesInDatabase($date);
+
         $Scraper = new P2000Scraper("http://www.p2000-online.net/alleregiosf.html");
-        while ($this->entriesInDatabase($date) == 0){
+        while ($this->entriesInDatabase($date) == 0 && $alreadyStoredPages<5) {
             $Scraper->scrapePage();
 
-            $now = round(microtime(true) * 1000); 
-            $this->indexNotifications($Scraper->getRawNotifications());
-            $elapsed = round(microtime(true) * 1000) - $now; 
-                      
-            if($elapsed<$delay*1000.0){ // ensure proper delay between requests
-                usleep(($delay -$elapsed/1000.0)* 1000000);
-            }           
+            $now = round(microtime(true) * 1000);
+            $alreadyStored=$this->indexNotifications($Scraper->getRawNotifications());
+            $elapsed = round(microtime(true) * 1000) - $now;
+
+            if ($elapsed < $delay * 1000.0) { // ensure proper delay between requests
+                usleep(($delay - $elapsed / 1000.0) * 1000000);
+            }
             $end = round(microtime(true) * 1000) - $now;
-            
+
+            if($alreadyStored==15){
+                $alreadyStoredPages++;
+            }
             $Scraper->clearRawNotifications();
             $Scraper->loadNextPage();
             $p++;
             //echo "Scraped " . $p . " pages - Time elapsed: " . $elapsed . "[ms] <br/>"; // for webpage
             fwrite(STDOUT, "\n\tScraped " . $p . " pages - Time elapsed: " . $end . "[ms]\n"); // for CLI
-            
+
             $amount = $this->entriesInDatabase($date);
-            fwrite(STDOUT, $amount." pages indexed of date: ".$enddate."\n");//->format('d-m-Y')."\n");
-            
+            fwrite(STDOUT, $amount . " pages indexed of date: " . $enddate . "\n"); //->format('d-m-Y')."\n");
         }
     }
-    
+
+    /*
+     * Removes entries in database up to given input date
+     */
+
+    private function deleteEntriesInDatabase($inputdate) {
+        if ($this->entriesInDatabase($inputdate) > 0) {
+            $db = Database::getConnection();
+            $stmt = $db->prepare("DELETE FROM notifications WHERE date <= ?");
+            $date = $inputdate->format('Y/m/d');
+            $stmt->bind_param("s", $date);
+            $stmt->execute();
+            $stmt->close();
+            fwrite(STDOUT,"----- Deleted entries! -----");
+            // delete orphan capcodes
+            $stmt = $db->prepare("DELETE FROM capcodes WHERE notification_id NOT IN (SELECT id FROM notifications)");
+            $stmt->execute();
+            $stmt->close();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
      * Returns number of entries in database with given input date
      */
+
     private function entriesInDatabase($inputdate) {
         $db = Database::getConnection();
-        $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE date = ?");
+        $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE date <= ?");
         $date = $inputdate->format('Y/m/d');
         $stmt->bind_param("s", $date);
         $stmt->execute();
@@ -87,6 +116,7 @@ class Main {
      * Split and store Notification objects
      */
     private function indexNotifications($rawNotifications) {
+        $alreadyStored=0;
         if ($rawNotifications == null || empty($rawNotifications)) {
             return false;
         }
@@ -121,9 +151,11 @@ class Main {
             if (!$notification->store()) {
                 //echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
                 fwrite(STDOUT, "Notification was already in database! Nothing stored.\n"); // for CLI
+                $alreadyStored++;
             }
             // $notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
         }
+        return $alreadyStored;
     }
 
     //TODO: delete this function which is solely for testing
