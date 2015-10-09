@@ -26,7 +26,7 @@ class Notification {
      * Store in database
      */
     public function store(){
-        if($this->existsInDatabase() || strcmp($this->date->format('d-m-y'),DateTime::createFromFormat('d-m-y', '00-00-00')->format('d-m-y'))==0){
+        if($this->existsInDatabase()){
             return false;
         }
         $db = Database::getConnection();
@@ -102,9 +102,12 @@ class Notification {
 
     /*
      * Returns whether the notification content contains one of the filter words or is shorter than $this->minContentLength characters
+     * Also notifications with a date of '00-00-00' are skipped
      */
     public function isActualNotification(){
         if (strlen($this->content) < $this->minContentLength) {
+            return false;
+        } else if (strcmp($this->date->format('d-m-y'),DateTime::createFromFormat('d-m-y', '00-00-00')->format('d-m-y'))==0){
             return false;
         }
         foreach ($this->filterWords as $word) {
