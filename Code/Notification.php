@@ -26,7 +26,7 @@ class Notification {
      * Store in database
      */
     public function store(){
-        if($this->existsInDatabase()){
+        if($this->existsInDatabase() || strcmp($this->date->format('d-m-y'),DateTime::createFromFormat('d-m-y', '00-00-00')->format('d-m-y'))==0){
             return false;
         }
         $db = Database::getConnection();

@@ -37,8 +37,10 @@ class Main {
     /**
      * Return an array of raw html notifications, delay in [s]
      */
-    private function getAndIndexNotifications($enddate = "06-10-2015", $delay = 0.5) {
-        $date = DateTime::createFromFormat('d-m-Y', $enddate);
+    private function getAndIndexNotifications($daysBack=14, $delay = 0.5) {
+        $date = new DateTime(); // DateTime::createFromFormat('d-m-Y', $enddate);
+        date_sub($date, date_interval_create_from_date_string($daysBack.' days'));
+        
         $p = 0;
         $alreadyStoredPages=0;
 
@@ -68,7 +70,7 @@ class Main {
             fwrite(STDOUT, "\n\tScraped " . $p . " pages - Time elapsed: " . $end . "[ms]\n"); // for CLI
 
             $amount = $this->entriesInDatabase($date);
-            fwrite(STDOUT, $amount . " pages indexed of date: " . $enddate . "\n"); //->format('d-m-Y')."\n");
+            fwrite(STDOUT, $amount . " pages indexed of date: " . $date->format('d-m-Y') . "\n"); //->format('d-m-Y')."\n");
         }
     }
 
