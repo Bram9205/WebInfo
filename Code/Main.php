@@ -48,7 +48,7 @@ class Main {
         $this->deleteEntriesInDatabase($date);
 
         $Scraper = new P2000Scraper("http://www.p2000-online.net/alleregiosf.html");
-        while ($this->entriesInDatabase($date) == 0 && $alreadyStoredPages<5) {
+        while ($this->entriesInDatabase($date) == 0){// && $alreadyStoredPages<5) {
             $Scraper->scrapePage();
 
             $now = round(microtime(true) * 1000);
@@ -147,7 +147,11 @@ class Main {
                     $notification->addCapCode($cc);
                 }
             }
-
+            
+            if($notification->existsInDatabase()){
+                continue; // Skip detectTown() and store()
+            }
+            
             if($notification->detectTown() == ""){
             	//echo "No town detected (no postal code and no town in content)\n";
             	fwrite(STDOUT, "No town detected (no postal code and no town in content)\n"); // for running on CLI

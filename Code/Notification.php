@@ -58,7 +58,7 @@ class Notification {
         }
     }
 
-    private function existsInDatabase() {
+    public function existsInDatabase() {
         $db = Database::getConnection();
         $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE date = ? AND time = ? AND region = ?");
         $date = $this->date->format('Y/m/d');
