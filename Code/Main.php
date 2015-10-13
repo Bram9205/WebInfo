@@ -157,7 +157,6 @@ class Main {
                 //echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
                 fwrite(STDOUT, "Notification was already in database! Nothing stored.\n"); // for CLI
                 $alreadyStored++;
-                continue; // Skip detectTown()
             }
             // $notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
         }
