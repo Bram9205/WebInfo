@@ -44,11 +44,11 @@ class Main {
         $p = 0;
         $alreadyStoredPages=0;
 
-        //TODO: remove database entries older than given date
+        // remove database entries older than given date
         $this->deleteEntriesInDatabase($date);
 
         $Scraper = new P2000Scraper("http://www.p2000-online.net/alleregiosf.html");
-        while ($this->entriesInDatabase($date) == 0){// && $alreadyStoredPages<5) {
+        while ($this->entriesInDatabase($date) == 0 && $alreadyStoredPages<5) {
             $Scraper->scrapePage();
 
             $now = round(microtime(true) * 1000);
@@ -149,6 +149,7 @@ class Main {
             }
             
             if($notification->existsInDatabase()){
+                $alreadyStored++;
                 continue; // Skip detectTown() and store()
             }
             
@@ -160,7 +161,7 @@ class Main {
             if (!$notification->store()) {
                 //echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
                 fwrite(STDOUT, "Notification was already in database! Nothing stored.\n"); // for CLI
-                $alreadyStored++;
+                
             }
             // $notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
         }
