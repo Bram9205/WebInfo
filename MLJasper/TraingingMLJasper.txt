@@ -1,0 +1,24 @@
+Labels:
+Politie
+
+Brandweer
+
+Ambulance
+
+Ongeluk
+
+Criminaliteit
+
+Overlijden
+
+Sport
+
+Politiek
+
+Economie
+
+Algemeen nuttige woorden 
+Politie, wiet, crimineel, opgepakt, inval, onderzoek, drugs, inbreker, dode, wapen, 
+geweer, pistool, brand, brandweer, ambulance, misdrijf, overleden, gewond, hartstilstand,
+knooppunt, ongeval, afgebrand, rook, rookpluimen, slachtoffer, schiet, geweld,
+overleden, levenloos, levenloze, lichaam, vermoord, mishandelt, neergeschoten
