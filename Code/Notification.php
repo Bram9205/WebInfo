@@ -10,8 +10,10 @@ class Notification {
     public $postalCode;
     public $town;
     public $capCodes = array();
+    public $cluster;
     private $minContentLength = 5;
     private $filterWords = array('test','scenario','proefalarm','dienstwissel');
+    private $clusterDeltaTime = 30;//minutes before and after a notification that can be taken into a cluster
 
     function __construct($date, $time, $type, $region, $postalCode, $content) {
         $this->date = DateTime::createFromFormat('d-m-y', $date);
@@ -30,9 +32,9 @@ class Notification {
             return false;
         }
         $db = Database::getConnection();
-        $stmt = $db->prepare("INSERT INTO notifications (date, time, type, region, postal_code, town, content) VALUES (?,?,?,?,?,?,?)");
+        $stmt = $db->prepare("INSERT INTO notifications (date, time, type, region, postal_code, town, content, cluster) VALUES (?,?,?,?,?,?,?,?)");
         $date = $this->date->format('Y/m/d');
-        $stmt->bind_param("sssssss", $date, $this->time, $this->type, $this->region, $this->postalCode, $this->town, $this->content);
+        $stmt->bind_param("ssssssss", $date, $this->time, $this->type, $this->region, $this->postalCode, $this->town, $this->content, $this->cluster);
         $stmt->execute();
         $nId = $db->insert_id;
         $stmt->close();
@@ -68,6 +70,27 @@ class Notification {
         $stmt->fetch();
         $stmt->close();
         return $amount > 0;
+    }
+
+    /**
+     * Sets the cluster id if there is another notification that seems to be concerning the same incident
+     * null otherwise
+     * @pre detectTown called
+     */
+    public function cluster(){
+        $db = Database::getConnection();
+        $stmt = $db->prepare('SELECT id FROM notifications WHERE date = ? AND time BETWEEN ? AND ? AND ((town != "" AND town = ?) 
+            OR (postal_code != "" AND postal_code = ?)) ORDER BY id ASC LIMIT 1');
+        $date = $this->date->format("Y/m/d");
+        $dt = DateTime::createFromFormat('H:i:s',$this->time);
+        $low = $dt->sub(DateInterval::createFromDateString($this->clusterDeltaTime . " minutes"))->format("H:i:s");
+        $high = $dt->add(DateInterval::createFromDateString(2*$this->clusterDeltaTime . " minutes"))->format("H:i:s");
+        $stmt->bind_param('sssss', $date, $low, $high, $this->town, $this->postalCode);
+        $stmt->execute();
+        $stmt->bind_result($cluster);
+        $stmt->fetch();
+        $stmt->close();
+        $this->cluster = $cluster;
     }
 
     /**

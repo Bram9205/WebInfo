@@ -158,6 +158,8 @@ class Main {
             	fwrite(STDOUT, "No town detected (no postal code and no town in content)\n"); // for running on CLI
             }
 
+            $notification->cluster(); //sets the cluster this notification belongs to, if any. Call after detectTown
+
             if (!$notification->store()) {
                 //echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
                 fwrite(STDOUT, "Notification was already in database! Nothing stored.\n"); // for CLI
@@ -171,7 +173,25 @@ class Main {
     //TODO: delete this function which is solely for testing
     public function test(){
         $rawNotifications = $this->getTestNotifications();
-        $this->indexNotifications($rawNotifications);
+        foreach ($rawNotifications as $raw) {
+            $raw = explode("</tr>", $raw);
+            $row1 = explode("</td>", $raw[0]);
+            $date = str_replace("<tr><td class=\"DT\">", "", $row1[0]);
+            $time = explode(">", $row1[1])[1];
+            $type = explode(">", $row1[2])[1];
+            $region = explode(">", $row1[3])[1];
+            $content = explode(">", $row1[4])[1];
+            preg_match_all('/[0-9]{4}\s?[a-zA-Z]{2}/', $content, $postals);
+            $postal = (!empty($postals[0])) ? $postals[0][0] : "";
+
+            $notification = new Notification($date, $time, $type, $region, $postal, $content);
+            if($notification->detectTown() == ""){
+            	echo "No town detected (no postal code and no town in content)\n";
+            	//fwrite(STDOUT, "No town detected (no postal code and no town in content)\n"); // for running on CLI
+            }
+            $notification->cluster();
+            $notification->store();
+        }
     }
 
     //Temporary function for testing, TODO: remove
