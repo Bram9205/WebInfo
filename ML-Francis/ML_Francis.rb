@@ -66,7 +66,7 @@ begin
 	# Dit is om het label in de database op te slaan.
 	# Dit moet nog wel even aangepast worden wanneer de tweets in de database staan.
     con = Mysql.new '95.85.50.60', 'admin', 't249DJK8', 'test'
-	con.query("INSERT INTO `test`.`labels_news` (`id`, `news_id`, `label`) VALUES (NULL, '" + id_input.to_s + "', '" + label.to_s + "')")
+	con.query("INSERT INTO `test`.`labels_tweets` (`id`, `tweet_id`, `label_tweet`) VALUES (NULL, '" + id_input.to_s + "', '" + label.to_s + "')")
 	rescue Mysql::Error => e
     puts e.errno
     puts e.error
