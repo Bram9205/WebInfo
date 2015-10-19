@@ -7,36 +7,33 @@ require 'multi_json'
 require 'stuff-classifier'
 require 'csv'
 
+# Makes you able to execute it on a single ID, given as input. A call to this is made by the file index_Jasper.rb for every article.
 id_input = ARGV[0]
-#data = CSV.read("notificiations.csv", { :col_sep => ',' })
-#puts data[0][7]
 
-# for the naive bayes implementation
-#brandweer = StuffClassifier::Bayes.new("Cats or Dogs")
-
-# for the Tf-Idf based implementation
-# brandweer = StuffClassifier::TfIdf.new("Brandweer")
-
-# these classifiers use word stemming by default, but if it has weird
-# behavior, then you can disable it on init:
+# We use one classifier (type Naive Bayes) for the news articles. We use our own stemming algorithm, which is the same for the retrieved articles for the train data.
+# That is why the stemming is set to false.
 news = StuffClassifier::Bayes.new("News", :stemming => false)
-#politie = StuffClassifier::Bayes.new("politie", :stemming => false)
-#ziekenhuis = StuffClassifier::Bayes.new("politie", :stemming => false)
 
+# Use a stopword dictionary to filter often occuring words in Dutch which have no real meaning.
 news.ignore_words = ['aan', 'afd', 'als', 'bij', 'dat', 'de', 'den', 'der', 'des', 'deze', 'die', 'dit', 'dl', 'door', 'dr', 'ed', 'een', 'en', 'enige', 'enkele',
 'enz', 'et', 'etc', 'haar', 'het', 'hierin', 'hoe', 'hun', 'ik', 'in', 'inzake', 'is', 'je', 'met', 'na', 'naar', 'nabij', 'niet', 'no', 'nu', 'of', 'om', 'onder',
 'ons', 'onze', 'ook', 'oorspr', 'op', 'over', 'pas', 'pres', 'prof', 'publ', 'sl', 'st', 'te', 'tegen', 'ten', 'ter', 'tot', 'uit', 'uitg', 'vakgr', 'van', 'vanaf',
 'vert', 'vol', 'voor', 'voortgez', 'voortz', 'wat', 'wie', 'zijn']
 
+# This goes the same for all test items, first we put the news article in a string. We remove locations and person names and most dates from it
+# to make sure it does not accidentaly match on that. For example I had the problem before that Eindhoven occured in a lot of the "Misdaad" labeled data
+# so all the news from Eindhoven got that label.
 string = "In ,  en  zijn donderdag nog eens drie wietkwekerijen gevonden als gevolg van een onderzoek naar drie hennepcriminelen die maandag en 
 dinsdag werden gepakt. Eerder deze week trof de politie in dit onderzoek al achtduizend planten en stekjes aan en een flinke hoeveelheid harddrugs onder meer in 
 panden aan de  in  en de  in . In  werden twee  gepakt en in het huis aan de  
 nog een derde. De politie trof op de locaties, waaronder ook een loods in , professioneel aangelegde kwekerijen, drogerijen en knipperijen aan waar de 
 productie van plantje tot verkoopbare drugs plaatsvond. 'Gezien de hoeveelheid kwekerijen zorgde men voor een continuproces en kon altijd wel ergens in een kwekerij 
 geoogst worden', laat de politie weten."
+# Now remove all the spaces and quotes from the string
 string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
 string.gsub!('somethingthatneveroccurs', '%20')
+# Apply our own analyzer on the string (tokenization and stemming)
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -46,6 +43,7 @@ while  i < parsed["tokens"].length
 	tokonized_text += parsed["tokens"][i]["token"] + " "
 	i +=1
 end
+# Now train the classifier for the given label, in this case Politie, with the stemmed and tokenized text.
 news.train(:Politie, tokonized_text)
 
 string = "De inval in hennepkwekerij in een winkelpand aan de  in  leidde maandagavond tot onderzoek in meerdere 
@@ -1612,14 +1610,24 @@ while  i < parsed["tokens"].length
 end
 news.train(:Overig, tokonized_text)
 
+# Get the specific news article from our Elasticsearch server.
 response = RestClient.get 'http://localhost:9200/news/article/'+id_input.to_s
 json = response
 parsed = MultiJson.load(json)
 if( parsed["exists"])
+	# Label the new article 
 	puts id_input
 	puts news.classify(parsed["_source"]["tokonized_text:"])
-	
 	label = news.classify(parsed["_source"]["tokonized_text:"])
-	RestClient.post "http://localhost:9200/news/article/"+id_input.to_s , {"tokonized_text:" => parsed["_source"]["tokonized_text:"],"text:" => parsed["_source"]["text:"], "datum:" => parsed["_source"]["datum:"], "title:" => parsed["_source"]["title:"],  "locatie:" => parsed["_source"]["locatie:"], "label:" => label }.to_json, :content_type => :json, :accept => :json
+begin
+	# Put the labelled article back in the database, with the new created label.
+    con = Mysql.new '95.85.50.60', 'admin', 't249DJK8', 'test'
+	con.query("INSERT INTO `test`.`labels_news` (`id`, `news_id`, `label`) VALUES (NULL, '" + id_input.to_s + "', '" + label.to_s + "')")
+	rescue Mysql::Error => e
+    puts e.errno
+    puts e.error
+ensure
+    con.close if con
+end	
 end
 

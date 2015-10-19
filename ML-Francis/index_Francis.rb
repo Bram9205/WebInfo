@@ -3,6 +3,6 @@ i = 0
 # Change the boundary to the number of entries in the database.
 while(i < 300)
 	j = i
-	system("ruby ML_Jasper.rb " + j.to_s)
+	system("ruby ML_Francis.rb " + j.to_s)
 	i += 1
 end
