@@ -34,9 +34,9 @@ panden aan de  in  en de  in . In  werden twee  gepakt en in het huis aan de
 nog een derde. De politie trof op de locaties, waaronder ook een loods in , professioneel aangelegde kwekerijen, drogerijen en knipperijen aan waar de 
 productie van plantje tot verkoopbare drugs plaatsvond. 'Gezien de hoeveelheid kwekerijen zorgde men voor een continuproces en kon altijd wel ergens in een kwekerij 
 geoogst worden', laat de politie weten."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -58,9 +58,9 @@ kwekerij gevonden. In de loods was een wand geplaatst met een geheime doorgang, 
 magneten. Met de modernste apparatuur was de kwekerij nagenoeg zelfvoorzienend, zegt de politie. De invallen en aanhouding waren het resultaat van de inval op 
 maandagavond in een  woonwinkelpand aan de . Daar werd een kwekerij gevonden achter een 'geheime wand' achterin de winkel.
 In de kwekerij werden twee  van 37 en 44 jaar aangehouden."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -84,9 +84,9 @@ Het heeft alle ouders en verzorgers van de kinderen die vanaf  tot nu op de  heb
 In de brief staat hoe ouders contact kunnen opnemen met het ziekenhuis wanner zij vragen hebben. 
 Afhankelijk van het aantal telefoontjes zal het verdere stappen ondernemen door bijvoorbeeld een meeting te organiseren. 
 De kinderarts zit vast voor verhoor door rechercheurs van het team Bestrijding Kinderporno ."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -115,9 +115,9 @@ Het is een rumoerige week in . Donderdag werden twee vermoorde mannen gevonden i
 Daarvoor werd  in een dag opgeschrikt door twee schietincidenten.
 In  werd een neergeschoten man van vermoedelijk Turkse komaf door onbekenden gedropt in het  Ziekenhuis. Rond hetzelfde tijdstip werd 
 een 46-jarige  in het huis van zijn moeder neergeschoten. Opvallend: beide mannen weigeren te vertellen wat er is gebeurd."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -141,9 +141,9 @@ Theo besloot de beelden van de bewakingscamera op online te plaatsen. We hebben 
 Er lopen zoveel mensen hier rond. Het is niet te controleren.
 Vanmiddag gaat hij aangifte bij de politie doen. Ik wacht nog even een telefoontje van een tipgever af. Die heeft de dief mogelijk herkend.
 Herken jij de man in de video? Neem dan contact op met ."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -163,9 +163,9 @@ Agenten gingen snel naar de woning toe en wilden daar een deur forceren. Maar no
 Na controle bleek dat de inbreker uit  een gat onder de woning door had gegraven en via de kruipruimte in het pand was gekomen.
 Het is nog niet duidelijk of de man iets uit de woning had meegenomen. De politie vermoedt dat hij zijn zinnen had gezet op bouwmateriaal. 
 Het gereedschap dat de man bij zich had, is in beslag genomen."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -183,9 +183,9 @@ onder meer in panden aan de  in  en de  in . In  werden twee  gepakt en in het h
 aan de  nog een derde. De politie trof op de locaties, waaronder ook een loods in , professioneel aangelegde kwekerijen, drogerijen en 
 knipperijen aan waar de productie van plantje tot verkoopbare drugs plaatsvond. 'Gezien de hoeveelheid kwekerijen zorgde men voor een continuproces en kon 
 altijd wel ergens in een kwekerij geoogst worden', laat de politie weten."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -202,9 +202,9 @@ De man is medeplichtig bevonden aan een overval op kerstnacht van een bejaarde .
 Doelwit was de oom van de vrouw, die volgens haar zes mille in huis had. Dat bleek niet zo te zijn. De vrouw komt binnenkort voor de rechter, 
 volgens haar had de vriend het plan bedacht en haar gedwongen mee te doen.
 Het OM vond dat de man meteen een kliniek inmoest, maar de rechtbank wil dat hij eerst zijn celstraf uitzit."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -226,9 +226,9 @@ kwekerij gevonden. In de loods was een wand geplaatst met een geheime doorgang, 
 magneten. Met de modernste apparatuur was de kwekerij nagenoeg zelfvoorzienend, zegt de politie. De invallen en aanhouding waren het resultaat van de inval op 
 maandagavond in een  woonwinkelpand aan de . Daar werd een kwekerij gevonden achter een 'geheime wand' achterin de winkel.
 In de kwekerij werden twee  van 37 en 44 jaar aangehouden."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -257,9 +257,9 @@ Het is een rumoerige week in . Donderdag werden twee vermoorde mannen gevonden i
 Daarvoor werd  in een dag opgeschrikt door twee schietincidenten.
 In  werd een neergeschoten man van vermoedelijk Turkse komaf door onbekenden gedropt in het  Ziekenhuis. Rond hetzelfde tijdstip werd 
 een 46-jarige  in het huis van zijn moeder neergeschoten. Opvallend: beide mannen weigeren te vertellen wat er is gebeurd."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -278,9 +278,9 @@ Daarbij zijn onder meer drie vuurwapens, telefoons, administratie en een speedbo
 De rechter-commissaris in  heeft vandaag besloten dat de 54-jarige verdachte nog twee weken vast blijft zitten. De andere man is in vrijheid gesteld.
 De onderschepping van de partij coke met een groothandelswaarde van 28 miljoen euro is al geruime tijd in onderzoek. Half  zijn vier bemanningsleden 
 van een kotter, de schipper en diens vrouw in  aangehouden op verdenking van drugshandel."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -301,9 +301,9 @@ In  is de man eerder bij verstek veroordeeld tot de doodstraf.
 Een deel van het strafdossier waardoor hij de doodstraf kreeg, is door de  autoriteiten overgedragen aan . 
 De  politie heeft inmiddels een aantal getuigen gehoord. Het gaat hier om  die in het buitenland wonen. 
 Zij hebben verklaard dat  misdaden zou hebben gepleegd in de  ."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -321,9 +321,9 @@ mensen als schoonmakers en technisch personeel inzette in onder meer keukens van
 Vier van hen werden dinsdag opgepakt, een vijfde verdachte meldde zich woensdag zelf op het politiebureau. De politie kwam de mannen op het spoor na een aangifte.
 Volgens een woordvoerder van de Inspectie SZW werden veel werknemers ondergebracht op een adres, waar ze weinig vrijheid hadden. 
 Naast de rol van de verdachten wordt ook de rol van de opdrachtgevers van het uitzendbureau onderzocht."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -343,9 +343,9 @@ De man werd doodgeschoten in een bedrijfsruimte aan de  in  .
 Ambulancepersoneel probeerde het slachtoffer nog te reanimeren, maar dat mocht niet meer baten.
 Volgens   betrof het een kantoor van een bouwbedrijf, waar Zengin volgens bekenden de administratie deed. 
 Over de dader(s) is nog niets bekend. De laatste dodelijke schietpartij in  was een paar maanden geleden."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -362,9 +362,9 @@ De weg richting  was daardoor dicht en moest het verkeer bij knooppunt Batadorp 
 De wagen stond dwars op de weg en lekte koelvloeistof. Daardoor stonden er files op de A2 en op de A58. 
 Rond 11.00 uur is een spoedreparatie begonnen op de plek van het ongeval. Daarom was de rechterrijstrook dicht. 
 De reparatie is om 12.30 uur afgerond. Alle rijstroken zijn weer vrij. "
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -383,9 +383,9 @@ Duikers van de brandweer zochten nog naar eventuele andere inzittenden, maar von
 Een bergingsbedrijf heeft de wagen vervolgens meegenomen.
 Afgesloten
 De N377 tussen en  was enige tijd afgesloten na het ongeluk."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -400,9 +400,9 @@ news.train(:Ongeluk, tokonized_text)
 string = "Een automobiliste is vrijdagochtend rond 09.00 uur gewond geraakt bij een botsing met een bestelbusje op de kruising  en de . 
 Ze is met een ambulance naar het ziekenhuis gebracht. Het busje wilde de weg oversteken en botste daarbij met de personenwagen van de vrouw. 
 De chauffeur van het busje kwam met de schrik vrij. De politie onderzoekt de oorzaak van het ongeluk."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -420,9 +420,9 @@ De bus zou door een bergingsbedrijf uit het gras zijn getrokken. De gemeente  la
 omleidingen in . Zo is de straat  afgesloten en zijn er twee tijdelijke bushaltes aan de .Blijkbaar was dat niet bekend bij de chauffeur, 
 aldus een gemeentewoordvoerder. Volgens de gemeente gaat het om een incident en is er geen sprake van een structureel probleem.
 Hoe de chauffeur zich precies heeft vastgereden in het grasveld, is nog onbekend."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -439,9 +439,9 @@ De 52-jarige vrouw had ruim 4,5 keer de toegestane hoeveelheid alcohol op. De po
 Wegrijden
 De vrouw probeerde na de botsing weg te rijden. Omstanders verhinderden dat en pakten haar autosleutels af. 
 Agenten namen de vrouw mee naar het politiebureau. Tegen haar is proces-verbaal opgemaakt. "
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -457,9 +457,9 @@ string = "De politie is op zoek naar een onbekende automobilist die woensdag een
 Het ongeluk gebeurde op  in . Het slachtoffer, een 67-jarige vrouw uit , meldde zich woensdagavond bij de politie.
 Volgens haar was ze rond 20.30 uur aangereden door een achteropkomende auto. Ze was lelijk ten val gekomen tegen een boom. 
 De vrouw wist op eigen kracht thuis te komen maar had hoofdletsel en moest voor behandeling naar het ziekenhuis."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -480,9 +480,9 @@ Hij is daarna met een ambulance naar het ziekenhuis gebracht. De 23-jarige man u
 Hij wordt ervan verdacht dat hij betrokken is bij het incident waarbij de man gewond raakte.
 De politie heeft nog geen idee hoe de man uit  gewond is geraakt. 
 Ook wordt er nog altijd gezocht naar de bestuurder van de auto, die is doorgereden."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -499,9 +499,9 @@ landbouwmachines opgeslagen. Een daarvan is in brand gevlogen. De loods is compl
 De brandweer had door de inzet van groot materieel de brand snel onder controle. Rond 1:00 uur was de brand onder controle.
 Grote rookpluimen trokken over het gebied bij de loods.
 Op ongeveer 100 meter afstand bevindt zich een pluimveebedrijf, zover bekend is het bedrijf ongeschonden gebleven."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -518,9 +518,9 @@ landbouwmachines opgeslagen. Een daarvan is in brand gevlogen. De loods is compl
 De brandweer had door de inzet van groot materieel de brand snel onder controle. Rond 1:00 uur was de brand onder controle.
 Grote rookpluimen trokken over het gebied bij de loods.
 Op ongeveer 100 meter afstand bevindt zich een pluimveebedrijf, zover bekend is het bedrijf ongeschonden gebleven."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -537,9 +537,9 @@ De asbest heeft zich niet verder verspreid dan het terrein van de eigenaar van d
 Die is volgens de brandweer dan ook verantwoordelijk voor de verwijdering van de asbest. 
 De brandweer heeft de gemeente in kennis gesteld van de besmetting, zodat deze kan toezien op correcte verwijdering. 
 Bij de brand werd ook de personenauto die in de garagebox stond, beschadigd."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -553,9 +553,9 @@ news.train(:Brandweer, tokonized_text)
 
 string = "Tijdens graafwerkzaamheden in de  in  is maandagochtend rond 10 uur een gaslek ontstaan in de aansluiting van een woning.
 De monteurs van Endinet repareren het lek. De mensen in de woning hebben maandag weer gewoon gas, volgens een woordvoerder van Endinet."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -570,9 +570,9 @@ news.train(:Brandweer, tokonized_text)
 string = "In de  aan de  in  is vrijdagochtend een korte brand geweest. Het pand wordt bewoond via een antikraak regeling. 
 De bewoners zijn ongedeerd. De brand is geblust en de brandweer is bezig met ventileren van de kerk. Ook wordt onderzocht of het gebouw veilig is voor bewoning. 
 De oorzaak van de brand is nog niet bekend. "
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -588,9 +588,9 @@ string = "Bij een bedrijfsongeval op een terrein aan de  in  is een 51-jarige ma
 De brandweer werd rond half elf opgeroepen omdat de man bekneld was komen te zitten.
 Onderzoek
 Wat er precies is gebeurd is nog niet duidelijk, de arbeidsinspectie en de technische recherche doen onderzoek."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -605,9 +605,9 @@ news.train(:Brandweer, tokonized_text)
 string = "De brandweer is vanmiddag te hulp geroepen bij het onderzoek naar een vreemde lucht die rondhangt in een bedrijfspand van   aan de  in . 
 Het bedrijfspand is uit voorzorg ontruimd. De medewerkers staan buiten, terwijl de brandweer het gebouw ventileert. 
 Het is nog niet duidelijk wat de oorzaak is van de scherpe stank in het bedrijf."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -622,9 +622,9 @@ news.train(:Brandweer, tokonized_text)
 string = "De hulpdiensten hebben de doorgaande  in de  wijk  donderdagavond tijdelijk afgesloten vanwege een brand in een  restaurant.
 De brand was rond 21.50 uur in de afzuiginstallatie van het restaurant ontstaan. Bewoners van de bovenliggende woningen moesten hun huizen uit. 
 De brandweer had de brand snel onder controle. Nadat de brand was geblust en de panden geventileerd, mocht iedereen weer hun woning in en werd de weg weer opengesteld."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -639,9 +639,9 @@ news.train(:Brandweer, tokonized_text)
 string = "Een automobiliste is vrijdagochtend rond 09.00 uur gewond geraakt bij een botsing met een bestelbusje op de kruising  en de . 
 Ze is met een ambulance naar het ziekenhuis gebracht. Het busje wilde de weg oversteken en botste daarbij met de personenwagen van de vrouw. 
 De chauffeur van het busje kwam met de schrik vrij. De politie onderzoekt de oorzaak van het ongeluk."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -662,9 +662,9 @@ Ambulancepersoneel probeerde het slachtoffer nog te reanimeren, maar dat mocht n
 Volgens  betrof het een kantoor van een bouwbedrijf, waar Zengin volgens bekenden de administratie deed. 
 Over de dader(s) is nog niets bekend. De laatste dodelijke schietpartij in  was een paar maanden geleden.
 "
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -680,9 +680,9 @@ string = "Aan de  in   is maandag iemand gewond geraakt bij sloopwerkzaamheden w
 De persoon viel waarschijnlijk door het dak. Het is nog onduidelijk wat er precies is gebeurd.
 Ontsmet
 De brandweer heeft de kleding van de gewonde persoon uit voorzorg ontsmet. De gewonde is met een ambulance naar  gebracht."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -698,9 +698,9 @@ string = "De politie is op zoek naar een onbekende automobilist die woensdag een
 Het ongeluk gebeurde op  in . Het slachtoffer, een 67-jarige vrouw uit , meldde zich woensdagavond bij de politie.
 Volgens haar was ze rond 20.30 uur aangereden door een achteropkomende auto. Ze was lelijk ten val gekomen tegen een boom. 
 De vrouw wist op eigen kracht thuis te komen maar had hoofdletsel en moest voor behandeling naar het ziekenhuis."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -716,9 +716,9 @@ string = "Bij een bedrijfsongeval op een terrein aan de  in  is een 51-jarige ma
 De brandweer werd rond half elf opgeroepen omdat de man bekneld was komen te zitten.
 Onderzoek
 Wat er precies is gebeurd is nog niet duidelijk, de arbeidsinspectie en de technische recherche doen onderzoek."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -734,9 +734,9 @@ string = " heeft met grote verslagenheid kennis genomen van het overlijden van  
 Het overlijden van  kwam  onverwacht snel. Zij stierf na een kort ziekbed.
 , die  de gewonnen topper tegen miste, en krijgen van alle ruimte en steun om de ingrijpende gebeurtenissen met hun te verwerken. ,,
 We zijn natuurlijk erg geschokt door deze treurige berichten, zegt trainer  . ,,We leven met  en  mee en proberen hen waar mogelijk te helpen en te steunen."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -756,9 +756,9 @@ De man werd doodgeschoten in een bedrijfsruimte aan de  in  .
 Ambulancepersoneel probeerde het slachtoffer nog te reanimeren, maar dat mocht niet meer baten.
 Volgens   betrof het een kantoor van een bouwbedrijf, waar Zengin volgens bekenden de administratie deed. 
 Over de dader(s) is nog niets bekend. De laatste dodelijke schietpartij in  was een paar maanden geleden."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -780,9 +780,9 @@ Volgens de gemeente bestaat er een 'reele mogelijkheid' dat de jongeren de still
 Een noodbevel is een vergaande maatregel die door een burgemeester kan worden ingezet bij ernstige wanordelijkheden. Het geeft de 
 burgemeester het recht om alle maatregelen te nemen om problemen te voorkomen.  
 Burgemeester   van  is vanavond bij de stille tocht aanwezig.   zendt de stille tocht vanavond vanaf 19.00 uur live uit."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -802,9 +802,9 @@ Ze was heel sociaal, had veel vrienden en vriendinnen, vertelt de vriendin verde
 verzekeren dat ze een goede moeder was.
  arriveerde tussen 04.00 uur en 05.00 uur met twee vriendinnen bij het hotel en ging naar bed. Bij controle van de kamers door een hotel-medewerker 
 de volgende ochtend, werd het stoffelijk overschot gevonden. De recherche heeft de zaak onderzocht. Er is geen sprake van een misdrijf."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -833,9 +833,9 @@ Het is een rumoerige week in . Donderdag werden twee vermoorde mannen gevonden i
 Daarvoor werd  in een dag opgeschrikt door twee schietincidenten.
 In  werd een neergeschoten man van vermoedelijk  komaf door onbekenden gedropt in het  Ziekenhuis. Rond hetzelfde tijdstip werd 
 een 46-jarige  in het huis van zijn moeder neergeschoten. Opvallend: beide mannen weigeren te vertellen wat er is gebeurd."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -852,9 +852,9 @@ ijsinstallatie.
 Nadat de installatie is gerepareerd, moet er opnieuw ijs worden aangemaakt. Tot die tijd gaan alle activiteiten zoals trainingen, 
 lessen en wedstrijden niet door, meldt de schaatsbaan op de website.
 De IJsbaan, die net een paar dagen open was, zegt de storing te betreuren."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -879,9 +879,9 @@ krijgen de renners in etappe  een bijna kilometer lange klimtijdrit naar  voorge
 Het klassement wordt pas bepaald in de laatste dagen van de Ronde van. Etappe voert van naar het   en bevat onder meer het dak van de ronde: 
 de meter hoge . Ook rit twintig, met drie zware beklimmingen in slechts kilometer en met een kort klimmetje naar de finish is voer voor de grote klassementsmannen.
 Op   eindigt de ronde met een vlakke rit naar ."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -903,9 +903,9 @@ In de slotfase van de wedstrijd scoorde  nog drie keer.   wist nogmaals het net 
 Ik loop al zeven jaar mee als trainer, zegt trainer  . Maar zo'n wedstrijd heb ik nog nooit meegemaakt. 
 We hadden de eerste elf minuten vijf kansen gehad, maar niet gescoord. Voor de vijf gemaakte doelpunten hadden we vijftien kansen nodig. 
  heeft zes kansen gehad, en scoorden daaruit drie keer. Hun rendement lag veel hoger."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -926,9 +926,9 @@ Jammer
 Volgens de letter van de wet kon de man van de UCI niks anders doen. Maar we laten ons als organisatie toch horen, want het is zo jammer. 
 Bij het mountainbiken zie je ook al volop camera's. Van wordt nu de dupe van de regeltjes van de UCI, aldus voorzitter   van de  organisatie.
 Van  finishte als twaalfde. De overwinning ging naar  van ."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -943,9 +943,9 @@ news.train(:Sport, tokonized_text)
 string = "is een van de favorieten voor de overwinning tijdens de  DLL Marathon Eindhoven.
  werd in  derde in de prestigieuze  Marathon en scherpte daar zijn persoonlijke record aan tot uur.
 Daarmee heeft  de snelste tijd van de toplopers in  achter zijn naam staan. Hij gaat zondag de strijd aan met sterke  als."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -958,9 +958,9 @@ end
 news.train(:Sport, tokonized_text)
 
 string = "verzorgt op  een openbare spiritualiteitavond in de Yogastudio op in. De bijeenkomst duurt van"
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -982,9 +982,9 @@ Schitterende koers
 Dat de Ronde van  onder druk staat, komt voor Hoogerland niet als een verrassing. Vroeger was de Ronde van 
  een van de grootste wedstrijden van . Ze zijn wel minder belangrijk geworden. Hoe dat precies komt, 
 weet ik niet. Misschien door de World Tour..Toch blijft het een schitterende koers."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1000,9 +1000,9 @@ string = "  volgt   op als coach van . De 46-jarige  was de coach van de rookies
 Dat meldt het  .
 Het bestuur van  heeft  de doelstelling meegegeven om in  de playoffs te halen. 
  speelde ruim vijfhonderd wedstrijden in de honkbal hoofdklasse. Ook kwam hij enige tijd uit voor de Philladelphia Phillies in de  . "
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1021,9 +1021,9 @@ ziet meetrainen met de eerste selectie. Hij traint goed mee maar heeft steeds la
 Hij doet ook aan extra individuele training. We komen uiteindelijk wel met hem daar waar we willen.
 Voor het duel met Cambuur is naast  ook Jan Wuytens er niet bij. In het oefenduel in  viel hij uit. Hij traint apart.
 Overigens speelt AZ met dezelfde elf tegen Cambuur als twee weken geleden tegen FC Twente: Never change a winning team."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1043,9 +1043,9 @@ Lees verder: Telstar-speler Ajnane start in tegen VVV-Venlo
 FC Volendam komt zondag in actie in de uitwedstrijd tegen MVV. Jong Ajax speelt maandag thuis tegen Almere City FC.
 In de hoofdklasse hockey een inhaalduel op topniveau:  speelt thuis tegen Oranje Zwart. De winnaar van het duel klimt naar 
 de koppositie van de hoofdklasse. Het duel begint om half negen en het wedstrijdcommentaar krijg je van  . "
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1063,9 +1063,9 @@ Cocu rekent niet op Luuk de Jong in duel PSV tegen CSKA Moskou
 Mogelijk kan De Jong dan weer een aantal minuten maken, maar dat is wel afhankelijk van de manier waarop zijn revalidatie verloopt. 
 Jetro Willems en Florian Jozefzoon hebben nog wat meer tijd nodig voordat ze voor PSV 1 beschikbaar zijn. 
 Zij zullen allebei vermoedelijk eerst bij Jong PSV beginnen."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1086,9 +1086,9 @@ De actie van  werd bij  Sports duidelijk in beeld werd gebracht, maar arbiter   
 De clubs, betrokken spelers, aanvoerders en officials zijn om een verklaring gevraagd. Die moeten voor  binnen zijn. 
 Als  voor drie duels of meer wordt geschorst, mist hij het bekerduel met Ajax. De Klassieker wordt op in De Kuip afgewerkt.
 Ook  te  moet een schorsing vrezen. De Heerenveen-spits zou net als  een slaande beweging hebben gemaakt richting tegenstander  van Heracles Almelo."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1110,9 +1110,9 @@ De  doet het goed en groeit uit het jasje. Daar moeten we het museum niet voor s
 zegt VVD-fractievoorzitter . GroenLinks-fractievoorzitter   wijst op de toezegging van het  
 college dat er de komende jaren niet meer op cultuur gekort zou worden.
 Over de vraag op welke manier de kortingen teruggedraaid moeten worden, verschillen de verschillen de verschillende partijen nog van mening."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1145,9 +1145,9 @@ Luchtafweer
  dat waar dan ook word bedreigd of aangevallen.  had in het kader van de NAVO van begin  tot begin  in de  provincie , circa  kilometer ten noorden van , 
  Patriot-luchtafweer gestationeerd.  wilde extra bescherming uit vrees voor raketten uit het strijdgewoel in .
  is afgelopen week begonnen met luchtaanvallen in  om de uitgeputte troepen van de  regering van president  te helpen."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1167,9 +1167,9 @@ Opvolger van
 Hij heeft daar inmiddels al een boete voor betaald. 
 Aankomende dinsdag begint  met zijn werkzaamheden in . In overleg met de gemeenteraad heeft de Commissaris van de 
 Koning besloten dat het om een waarnemend burgemeesterschap voor langere tijd gaat."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1199,9 +1199,9 @@ Hij stelt er nu Kamervragen over. Het Kamerlid wil graag van de minister van Inf
 de whisstone in de weg staat, terwijl uit pilots is gebleken dat het een efficiente oplossing is tegen geluidsoverlast. 
 De  is uiteraard blij met de aandacht voor zijn vinding in de Tweede Kamer. Innovatie is de toekomst, hoor je telkens, maar zorg dan ook dat je de regels 
 daar op aanpast."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1221,9 +1221,9 @@ Ook wordt in de brief, die gisteren bezorgd werd bij  , gewaarschuwd voor een aa
 Volgens Plasterk worden de bedreigingen als maar meer en heftiger. Hij vindt dat onacceptabel. 'Blijf met je tengels van onze politici en hou ze in ere', 
 aldus de minister. In alle gevallen is er volgens Plasterk aangifte gedaan. Ook benadrukt hij dat het Openbaar Ministerie bij dit soort bedreigingen een 
 hogere straf eist."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1242,9 +1242,9 @@ De gemeente wil voordat er een definitief besluit wordt genomen over de opvang e
 De inwoners van  mogen dan hun mening geven over de veiligheid van de noodopvang, bereikbaarheid, onderwijs, zorg en dagbesteding. 
  zal de tweede  plaats worden met een tentenkamp voor vluchtelingen. In  worden sinds begin deze maand ongeveer 
 500 vluchtelingen opgevangen. "
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1269,9 +1269,9 @@ Lees ook:  boycot  bloemen nekslag kwekers: Het zou desastreus zijn
 De ondernemer heeft zijn eerste klanten inmiddels binnen. Hoewel de eerste bakken pas begin volgend jaar bij hun voor de deur worden geplaatst, 
 staat  al volop in de picture. Het bedrijf is genomineerd voor de Wereldprijs van  , een prijs voor duurzame initiatieven. 
 Op 19 november wordt bekendgemaakt wie de winnaar is.  lachend: We hopen dat wij uiteindelijk met de bloemen in onze handen staan."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1301,9 +1301,9 @@ De financiele problemen zijn ontstaan door tegenvallende bezoekersaantallen en e
 Het circus moet bijvoorbeeld extra premie betalen omdat het werkt met seizoenskrachten. 
 Daarbij zijn door de overheid beperkingen gesteld aan het gebruik van goedkope rode diesel,
 waardoor het voor zijn generatoren meer geld aan brandstof kwijt is."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1320,9 +1320,9 @@ Dat maakte het concern maandag bekend. De nieuwe manager gaat mede de strategisc
 De  stopt per bij het Utrechtse ziekenhuis en treedt per in dienst van Philips. Hij zal rechtstreeks aan topman  van  rapporteren, zo deelde het bedrijf mee.
 Philips werkt in veel projecten samen met het internationaal bekende en innovatieve ziekenhuis. Volgens Van  kan  helpen bij de transformatie die 
 de zorgindustrie momenteel doormaakt naar betere uitkomsten voor patienten tegen lagere kosten."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1339,9 +1339,9 @@ Op het raam van de winkel in  hangt een briefje dat deze 'wegens omstandigheden'
  is niet de eerste   die afgelopen tijd in de problemen kwam. In augustus ging   failliet. 
  De  had vestigingen in , ,  en  en een  op bedrijfsterrein  in . 
 De  van   maakte een doorstart."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1364,9 +1364,9 @@ Er blijven nog vijf hotelkamers in  beschikbaar voor andere gasten. Ook de horec
 zegt . Ik ben gewoon altijd geinteresseerd geweest in zorg.
 Appartementen in  zijn beschikbaar vanaf  euro per maand, afhankelijk van de faciliteiten die mensen willen. Op  en  houdt het hotel inloopmiddagen, 
 waar belangstellenden meer informatie kunnen krijgen."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1394,9 +1394,9 @@ maar er komt nog wel een boel op ons af. En daarom is het belangrijk dat we nu i
 maar geen mensen.
 Wethouder De  zal zelf ook actief bijdragen aan het begeleiden van mensen naar een andere baan. Mijn collega  van arbeidsmarkt en 
 ik worden ook beiden buddy van een aantal werkzoekenden. Op die manier kunnen de wethouders die werkzoekenden helpen met bijvoorbeeld het een aanboren van een netwerk."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1416,9 +1416,9 @@ de stremming van het kanaal zo kort mogelijk te houden.
 Het onderhoud aan de sluizen is noodzakelijk. Rijkswaterstaat wil de werkzaamheden beperken tot 16 uur per dag. De organisaties pleiten voor een 24-uurs werkdag.
  een binnenvaartknooppunt voor het achterland. De    slaat containers over voor tientallen bedrijven in het oosten van  en .
 Omdat ook deze bedrijven hun productieproces hierop moeten aanpassen, loopt de totale schade bij langer onderhoud snel hoog op."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1442,9 +1442,9 @@ Grote reorganisatie
  wil zich uitsluitend gaan richten op de verkoop van schoenen via internet en winkels in  en . 
  Daarom staat ook woonwinkel  in de etalage. De beleggers vrezen dat ook de verkoop van dit onderdeel zal tegenvallen. 
 In het afgelopen half jaar gingen de aandelen van  achteruit van ruim 5 euro naar net boven de 1 euro nu."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1470,9 +1470,9 @@ Door het slimme ontwerp van het park en de koeling van het water wordt bovendien
 De bedoeling is dat de opgewekte stroom rechtstreeks naar ondernemers op het bedrijventerrein gaat.
 Volgens het dagblad moet initiatiefnemer   uiterlijk half november toestemming hebben. 
 Zonnecollectief  werkt samen met Liander. Het terrein is gratis beschikbaar gesteld door eigenaar ."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1489,9 +1489,9 @@ Een aankoopprijs is niet bekendgemaakt, maar volgens vastgoedadviseur  is het de
 De Campus, die bestaat uit  gebouwen met  appartementen en verschillende winkels, werd ontwikkeld door ontwikkelaar , bouwbedrijf   en  , 
 het investeringsbedrijf van . Het complex werd voor miljoen euro gekocht. Bij elkaar investeerden zij naar eigen zeggen zo'n  miljoen euro, 
 deels gefinancierd door vastgoedbank "
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1505,9 +1505,9 @@ news.train(:Economie, tokonized_text)
 
 string = "Koor in  geeft om  uur een gratis toegankelijk concert in de in . Dirigent  , die het koor jaar geleden mee oprichtte en het al die jaren leidde, 
 draagt na afloop het stokje over aan  van . Het koor bereidt de gedreven De  die dag een warm afscheid en hoopt op veel publieke belangstelling."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1530,9 +1530,9 @@ De boeren willen graag een transparante dialoog met de burger en burgers via soc
 legt initiatiefneemster  van der  uit.
 Begonnen
 Het  bestaat nu acht weken en heeft inmiddels meer dan  volgers. Van  kunnen de volgers deze week tweets verwachten over onder meer aardappels rooien."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1555,9 +1555,9 @@ Eervolle vermelding
 Biggetje
 Een andere bijzondere vermelding is de inzending van  en haar acht weken oude biggetje . Omdat mijn acht weken lieve  gewoon het liefste en leukste huisdiertje is.
   stuurde haar selfie met haar hond  in via  en kreeg daar ontzettend veel likes. "
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1572,9 +1572,9 @@ news.train(:Overig, tokonized_text)
 string = " De treinen tussen en rijden weer.
 Eerder vandaag was er een sein- en wisselstoring op het traject. Arriva zette bussen in.
 Vanmorgen vroeg was er ook een storing. Rond  uur reden ongeveer een uur lang geen treinen door een sein- en overwegstoring op hetzelfde traject."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1598,9 +1598,9 @@ Ik zie de pyjama van mijn dochter weer die bij de was lag, toen ze al uit huis a
 terwijl ik dacht: nu zie ik haar misschien nooit meer in haar pyjama rondlopen. Ik zie me lang geleden weer afscheid nemen van mijn zeventienjarige zoon 
 die voor een jaar naar  ging en ik denk aan toen ik kort geleden zo dicht naast hem in het vliegtuig zat, dat ik na jaren weer eens echt zijn lichaamswarmte voelde. 
 Ik vond dat zo fijn! Ik denk aan nog zoveel meer, maar ik bedenk ook wat een groot geschenk het is dat ik nu samen met mijn volwassen dochter kan janken om dit lied."
-string.gsub!(' ', 'xbartiscoolx')
+string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
-string.gsub!('xbartiscoolx', '%20')
+string.gsub!('somethingthatneveroccurs', '%20')
 response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
 json = response
 parsed = MultiJson.load(json)
@@ -1623,21 +1623,3 @@ if( parsed["exists"])
 	RestClient.post "http://localhost:9200/news/article/"+id_input.to_s , {"tokonized_text:" => parsed["_source"]["tokonized_text:"],"text:" => parsed["_source"]["text:"], "datum:" => parsed["_source"]["datum:"], "title:" => parsed["_source"]["title:"],  "locatie:" => parsed["_source"]["locatie:"], "label:" => label }.to_json, :content_type => :json, :accept => :json
 end
 
-
-=begin
-i=0
-
-while i < 300
-	#id = 98
-	response = RestClient.get 'http://localhost:9200/news/article/'+i.to_s
-	json = response
-	parsed = MultiJson.load(json)
-	if( parsed["exists"])
-		puts parsed["_source"]["title:"]
-		puts parsed["_source"]["tokonized_text:"]
-	end
-	x =  news.classifiy(parsed["_source"]["tokonized_text:"])
-	i += 1
-end
-
-=end
