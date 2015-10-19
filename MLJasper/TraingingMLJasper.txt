@@ -1,19 +1,19 @@
 Labels:
-Politie
+X Politie
 
-Brandweer
+X Brandweer
 
-Ambulance
+X Ambulance
 
-Ongeluk
+X Ongeluk
 
-Criminaliteit
+X Criminaliteit
 
-Overlijden
+X Overlijden
 
-Sport
+X Sport
 
-Politiek
+X Politiek
 
 Economie
 
