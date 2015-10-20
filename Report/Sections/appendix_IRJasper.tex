@@ -1,60 +1,60 @@
 \section{Appendix Language Analysis in Elasticsearch} \label{app:irjasper}
-In this part we wiill explain how you should install Elasticsearch on you own computer/server and what need to be done to run the analysers created for the language analysis.
+In this part we will explain how you should install Elasticsearch on your own computer/server and what need to be done to run the analyzers created for the language analysis.
 \begin{itemize}
-  \item The first step is to download Elasticsearch from: \url{ https://www.elastic.co/}.
-  \item Start the Elasticsearch filer by running the bat file in the bin directory.
-  \item From the root of the Elasticsearch folder run the command: \\
-	 \texttt{bin/plugin -i elasticsearch/marvel/latest}. This should give an interface to work with Elasticsearch.
-  \item Now in the config directory open the file \texttt{elasticsearch.yml} and add the following two properties to the file: 
-	\texttt{indices.analysis.hunspell.dictionary.ignore$\_$case: true} and \texttt{indices.analysis.hunspell.dictionary.strict$\_$affix$\_$parsing: true}. 
- \item In the same directory create a new folder calle d\texttt{hunspell} and put the Dutch dictionary in it. This dictionary was provided in the TODO LOCATIE VAN DIT TOEVOGEN.
- \item Now go to the url \url{http://localhost:9200/_plugin/marvel/sense/index.html}.
- \item Now in the left side put the two analyzers provided on the next page (simple copy and paste would work).
- \item When you hover over the line with \texttt{put} on it, you see a green triangle. When you click it you create the new analyzer. This has to be done for each of the two analyzers.
- \item Now when  you put a GET request on the left side you are able to analyze text. An example GET request is:\\
-	\texttt{GET $/$snowball$/$$\_$analyze?analyzer$=$my$\_$analyzer }\\
-  	\texttt{$\{$Dit voorbeeld laat zien hoe Nederlandse analyzers werken$\}$ }.\\
-	When you replace \texttt{snowball} by \texttt{hunspell} and \texttt{my$\_$analyzer} by \texttt{nl$\_$NL} you can apply the Hunspell analyzer to the request. 
+\item The first step is to download Elasticsearch from: \url{ https://www.elastic.co/}.
+\item Start the Elasticsearch filer by running the bat file in the bin directory.
+\item From the root of the Elasticsearch folder run the command: \\
+\texttt{bin/plugin -i elasticsearch/marvel/latest}. This should give an interface to work with Elasticsearch.
+\item Now in the config directory open the file \texttt{elasticsearch.yml} and add the following two properties to the file: 
+\texttt{indices.analysis.hunspell.dictionary.ignore$\_$case: true} and \texttt{indices.analysis.hunspell.dictionary.strict$\_$affix$\_$parsing: true}. 
+\item In the same directory create a new folder called \texttt{hunspell} and put the Dutch dictionary in it. This dictionary was provided in the TODO LOCATIE VAN DIT TOEVOGEN.
+\item Now go to the url \url{http://localhost:9200/_plugin/marvel/sense/index.html}.
+\item Now in the left side put the two analyzers provided on the next page (simple copy and paste would work).
+\item When you hover over the line with \texttt{put} on it, you see a green triangle. When you click it you create the new analyzer. This has to be done for each of the two analyzers.
+\item Now when you put a GET request on the left side you are able to analyze text. An example GET request is:\\
+\texttt{GET $/$snowball$/$$\_$analyze?analyzer$=$my$\_$analyzer }\\
+\texttt{$\{$Dit voorbeeld laat zien hoe Nederlandse analyzers werken$\}$ }.\\
+When you replace \texttt{snowball} by \texttt{hunspell} and \texttt{my$\_$analyzer} by \texttt{nl$\_$NL} you can apply the Hunspell analyzer to the request. 
 \end{itemize}
 \newpage
 
 \noindent\texttt{PUT $/$snowball} \\
 \texttt{$\{$}\\
-\indent   \texttt{"index" : $\{$}\\
-\indent \indent       \texttt{"analysis" : $\{$}\\
-\indent \indent \indent            \texttt{"analyzer" : $\{$}\\
-\indent \indent \indent \indent              \texttt{"my$\_$analyzer" : $\{$}\\
-\indent \indent \indent \indent \indent                    \texttt{"tokenizer" : "standard",}\\
-\indent \indent \indent \indent \indent                   \texttt{"filter" : ["standard", "lowercase",     "my$\_$snow"]}\\
-\indent \indent \indent \indent                \texttt{$\}$}\\
-\indent \indent \indent            \texttt{$\}$,}\\
-\indent \indent \indent           \texttt{"filter" : $\{$}\\
-\indent \indent \indent \indent                 \texttt{"my$\_$snow" : $\{$}\\
-\indent \indent \indent \indent \indent                    \texttt{"type" : "snowball",}\\
-\indent \indent \indent \indent \indent                     \texttt{"language" : "Dutch"}\\
-\indent \indent \indent \indent             \texttt{$\}$}\\
-\indent \indent \indent           \texttt{$\}$}\\
-\indent \indent       \texttt{$\}$}\\
-\indent   \texttt{$\}$}\\
+\indent \texttt{"index" : $\{$}\\
+\indent \indent \texttt{"analysis" : $\{$}\\
+\indent \indent \indent \texttt{"analyzer" : $\{$}\\
+\indent \indent \indent \indent \texttt{"my$\_$analyzer" : $\{$}\\
+\indent \indent \indent \indent \indent \texttt{"tokenizer" : "standard",}\\
+\indent \indent \indent \indent \indent \texttt{"filter" : ["standard", "lowercase", "my$\_$snow"]}\\
+\indent \indent \indent \indent \texttt{$\}$}\\
+\indent \indent \indent \texttt{$\}$,}\\
+\indent \indent \indent \texttt{"filter" : $\{$}\\
+\indent \indent \indent \indent \texttt{"my$\_$snow" : $\{$}\\
+\indent \indent \indent \indent \indent \texttt{"type" : "snowball",}\\
+\indent \indent \indent \indent \indent \texttt{"language" : "Dutch"}\\
+\indent \indent \indent \indent \texttt{$\}$}\\
+\indent \indent \indent \texttt{$\}$}\\
+\indent \indent \texttt{$\}$}\\
+\indent \texttt{$\}$}\\
 \texttt{$\}$}\\
 \\
 \noindent\texttt{PUT $/$hunspell} \\
 \texttt{$\{$}\\
-\indent   \texttt{"settings" : $\{$}\\
-\indent \indent       \texttt{"analysis" : $\{$}\\
-\indent \indent \indent            \texttt{"filter" : $\{$}\\
-\indent \indent \indent \indent              \texttt{"nl$\_$NL" : $\{$}\\
-\indent \indent \indent \indent \indent                    \texttt{"type" : "hunspell",}\\
-\indent \indent \indent \indent \indent                   \texttt{"language" : "nl$\_$NL"]}\\
-\indent \indent \indent \indent                \texttt{$\}$}\\
-\indent \indent \indent            \texttt{$\}$,}\\
-\indent \indent \indent           \texttt{"analyzer" : $\{$}\\
-\indent \indent \indent \indent                 \texttt{"nl$\_$NL" : $\{$}\\
-\indent \indent \indent \indent \indent                    \texttt{"tokenizer" : "standard",}\\
-\indent \indent \indent \indent \indent                     \texttt{"filter" : ["lowercase",     "nl$\_$NL"]}\\
-\indent \indent \indent \indent             \texttt{$\}$}\\
-\indent \indent \indent           \texttt{$\}$}\\
-\indent \indent       \texttt{$\}$}\\
-\indent   \texttt{$\}$}\\
+\indent \texttt{"settings" : $\{$}\\
+\indent \indent \texttt{"analysis" : $\{$}\\
+\indent \indent \indent \texttt{"filter" : $\{$}\\
+\indent \indent \indent \indent \texttt{"nl$\_$NL" : $\{$}\\
+\indent \indent \indent \indent \indent \texttt{"type" : "hunspell",}\\
+\indent \indent \indent \indent \indent \texttt{"language" : "nl$\_$NL"]}\\
+\indent \indent \indent \indent \texttt{$\}$}\\
+\indent \indent \indent \texttt{$\}$,}\\
+\indent \indent \indent \texttt{"analyzer" : $\{$}\\
+\indent \indent \indent \indent \texttt{"nl$\_$NL" : $\{$}\\
+\indent \indent \indent \indent \indent \texttt{"tokenizer" : "standard",}\\
+\indent \indent \indent \indent \indent \texttt{"filter" : ["lowercase", "nl$\_$NL"]}\\
+\indent \indent \indent \indent \texttt{$\}$}\\
+\indent \indent \indent \texttt{$\}$}\\
+\indent \indent \texttt{$\}$}\\
+\indent \texttt{$\}$}\\
 \texttt{$\}$}\\
 \clearpage
