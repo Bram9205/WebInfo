@@ -23,8 +23,8 @@ news.ignore_words = ['aan', 'afd', 'als', 'bij', 'dat', 'de', 'den', 'der', 'des
 # This goes the same for all test items, first we put the news article in a string. We remove locations and person names and most dates from it
 # to make sure it does not accidentaly match on that. For example I had the problem before that Eindhoven occured in a lot of the "Misdaad" labeled data
 # so all the news from Eindhoven got that label.
-string = "In ,  en  zijn donderdag nog eens drie wietkwekerijen gevonden als gevolg van een onderzoek naar drie hennepcriminelen die maandag en 
-dinsdag werden gepakt. Eerder deze week trof de politie in dit onderzoek al achtduizend planten en stekjes aan en een flinke hoeveelheid harddrugs onder meer in 
+string = "In ,  en  zijn donderdag nog eens  wietkwekerijen gevonden als gevolg van een onderzoek naar  hennepcriminelen die  en 
+ werden gepakt. Eerder deze week trof de politie in dit onderzoek al achtduizend planten en stekjes aan en een flinke hoeveelheid harddrugs onder meer in 
 panden aan de  in  en de  in . In  werden twee  gepakt en in het huis aan de  
 nog een derde. De politie trof op de locaties, waaronder ook een loods in , professioneel aangelegde kwekerijen, drogerijen en knipperijen aan waar de 
 productie van plantje tot verkoopbare drugs plaatsvond. 'Gezien de hoeveelheid kwekerijen zorgde men voor een continuproces en kon altijd wel ergens in een kwekerij 
@@ -49,13 +49,13 @@ news.train(:Politie, tokonized_text)
 string = "De inval in hennepkwekerij in een winkelpand aan de  in  leidde maandagavond tot onderzoek in meerdere 
 woningen in  en een loods in . Naar aanleiding van informatie die in  werd gevonden, deed de politie onderzoek in verschillende woningen in 
 . Daar troffen ze onderdelen aan van een professionele productielijn van hennepplanten. In de kelder van een woning aan de  in 
- werd een stekkerij aangetroffen met honderd moederplanten en 4000 stekken. Een 53-jarige  is aangehouden. In een van de andere woningen trof de 
-politie een ruimte aan die werd gebruikt als hennepdrogerij. Hier zijn anderhalve kilo henneptoppen en een geldbedrag van veertienduizend euro gevonden.
+ werd een stekkerij aangetroffen met honderd moederplanten en  stekken. Een  is aangehouden. In een van de andere woningen trof de 
+politie een ruimte aan die werd gebruikt als hennepdrogerij. Hier zijn anderhalve kilo henneptoppen en een geldbedrag van  euro gevonden.
 Geheime doorgang Dinsdagmiddag om half twee werd in kader van hetzelfde onderzoek in een loods in  op het industrieterrein aan de  ook een 
 kwekerij gevonden. In de loods was een wand geplaatst met een geheime doorgang, die werd verborgen door een kast. Die kast was voorzien van op afstand bedienbare 
 magneten. Met de modernste apparatuur was de kwekerij nagenoeg zelfvoorzienend, zegt de politie. De invallen en aanhouding waren het resultaat van de inval op 
 maandagavond in een  woonwinkelpand aan de . Daar werd een kwekerij gevonden achter een 'geheime wand' achterin de winkel.
-In de kwekerij werden twee  van 37 en 44 jaar aangehouden."
+In de kwekerij werden twee  van  en  jaar aangehouden."
 string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
 string.gsub!('somethingthatneveroccurs', '%20')
@@ -181,6 +181,26 @@ onder meer in panden aan de  in  en de  in . In  werden twee  gepakt en in het h
 aan de  nog een derde. De politie trof op de locaties, waaronder ook een loods in , professioneel aangelegde kwekerijen, drogerijen en 
 knipperijen aan waar de productie van plantje tot verkoopbare drugs plaatsvond. 'Gezien de hoeveelheid kwekerijen zorgde men voor een continuproces en kon 
 altijd wel ergens in een kwekerij geoogst worden', laat de politie weten."
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Criminaliteit, tokonized_text)
+
+string = "Hoewel is bewezen dat een   zich schuldig heeft gemaakt aan een poging tot zware mishandeling en vernielingen krijgt hij geen straf opgelegd De rechtbank 
+verklaarde hem  ontoerekeningsvatbaarDe man ging op    volledig door het lint Tijdens een ruzie op straat mishandelde hij zijn vader en de buurman die 
+tussenbeide kwamDollemansritNadat zijn vader in een auto was gevlucht zette de  de achtervolging in Daarbij scheurde hij met zijn wagen over een fietspad De 
+dollemansrit eindigde toen de man in botsing kwam met de auto die voor zijn vader reedDe bestuurder van deze wagen liep onder meer een gebroken borstbeen
+op Na het ongeluk ging de doorgedraaide man opnieuw achter zijn vader aanOntoerekeningsvatbaarVolgens een psychiater leed de  die dag aan een psychotische 
+stoornis waardoor hij niet toerekeningsvatbaar was De man is in de afgelopen periode opgenomen geweest en krijgt nu hulpverlening"
 string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
 string.gsub!('somethingthatneveroccurs', '%20')
@@ -374,6 +394,23 @@ while  i < parsed["tokens"].length
 end
 news.train(:Ongeluk, tokonized_text)
 
+string = " Een motorrijder is  ernstig ten val gekomen op motorcrosscircuit De  in  Het slachtoffer zou er ernstig aan toe zijn Hij was wel bij kennis toen hij met 
+ een ambulance naar het ziekenhuis werd gebracht Het ongeluk op de motorcrossbaan aan de  gebeurde rond tien voor drie Twee ambulances kwamen ter plaatse 
+ Een traumahelikopter werd opgeroepen maar is uiteindelijk niet geland in "
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Ongeluk, tokonized_text)
+
 string = "Een automobilist raakte vanmorgen met zijn auto in het water, toen hij over de N377 reed, tussen De  en .
 Mensen die het ongeluk zagen gebeuren, hebben de bestuurder uit de auto gehaald. Hij is naar het ziekenhuis gebracht. Het is onbekend hoe het met hem gaat.
 Geen andere inzittenden
@@ -497,6 +534,73 @@ landbouwmachines opgeslagen. Een daarvan is in brand gevlogen. De loods is compl
 De brandweer had door de inzet van groot materieel de brand snel onder controle. Rond 1:00 uur was de brand onder controle.
 Grote rookpluimen trokken over het gebied bij de loods.
 Op ongeveer 100 meter afstand bevindt zich een pluimveebedrijf, zover bekend is het bedrijf ongeschonden gebleven."
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Brandweer, tokonized_text)
+
+string = "Bij een  aan het   in  zijn  twee   in een  beland Hoe dit kon gebeuren is nog onduidelijk Brandweerlieden van  en  waren sinds kwart voor  s  bezig deze twee 
+zogeheten  te bevrijden De reddingspoging duurde tot in de  Ook in   belandden in  ook al  in een  Daar ging het om   Zij  Volgens de  van de  was een balk onder de 
+roosters gebroken Alle  overleefden het "
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Brandweer, tokonized_text)
+
+string = "Bij een brand in  bij Buren is  een vrijstaande boerderij in vlammen opgegaan De brandweer rukte met groot materieel uit maar de woning was niet meer te 
+reddenHet zou gaan om een huis met rieten dak maar een voorlichter van de brandweer zegt dat die eerste melding niet klopt Het huis heeft gewoon dakpannenRond 
+ uur werd de brand gemeld door een voorbijganger Op dat moment was niemand thuis er zijn dan ook geen gewonden gevallen Het huis kan als verloren worden 
+ beschouwd zegt de woordvoerder De reden dat zoveel brandweereenheden uitrukten kwam omdat er problemen waren met de waterwinning"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Brandweer, tokonized_text)
+
+string = " Er is  korte tijd sprake geweest van een gaslek In de  en  in  Twee huizen en twee appartementen zijn korte tijd ontruimd geweest maar inmiddels zijn de 
+ bewoners weer terugNetbeheerder  heeft het lek gedicht De gasleiding is kapotgegaan bij werkzaamheden aan de riolering"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Brandweer, tokonized_text)
+
+string = " Er is  korte tijd sprake geweest van een gaslek In de  en  in  Twee huizen en twee appartementen zijn korte tijd ontruimd geweest maar inmiddels zijn de 
+ bewoners weer terugNetbeheerder  heeft het lek gedicht De gasleiding is kapotgegaan bij werkzaamheden aan de riolering"
 string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
 string.gsub!('somethingthatneveroccurs', '%20')
@@ -651,6 +755,23 @@ while  i < parsed["tokens"].length
 end
 news.train(:Ambulance, tokonized_text)
 
+string = "Ambulances rijden vandaag in het  van  een paar uur alleen bij spoedgevallen De ambulancemedewerkers voeren opnieuw actie voor een nieuwe caoVakbond 
+FNV Zorg  Welzijn ziet zich genoodzaakt de druk op te voeren omdat eerdere acties niets hebben opgeleverd Voor komende  staat een soortgelijke staking gepland
+Afgelopen week  evenals de ervoor Ze zitten inmiddels   zonder cao en willen onder andere meer  en betere "
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Ambulance, tokonized_text)
+
 string = "Het slachtoffer van de schietpartij gistermiddag in  is de in  geboren Haydar Zengin (37). 
 Dat bevestigt de politie naar aanleiding van een bericht in  .
 Zengin is een voormalig advocaat die kort geleden ook werkzaam was als tolk en administratief medewerker, schrijft de krant. 
@@ -714,6 +835,23 @@ string = "Bij een bedrijfsongeval op een terrein aan de  in  is een 51-jarige ma
 De brandweer werd rond half elf opgeroepen omdat de man bekneld was komen te zitten.
 Onderzoek
 Wat er precies is gebeurd is nog niet duidelijk, de arbeidsinspectie en de technische recherche doen onderzoek."
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Overlijden, tokonized_text)
+
+string = "De familie laat nu weten dat de    is overleden        
+ze hoorde dat ze niet meer lang te leven had ging ze
+familie weten in de kist meegaan naar haar laatste rustplaats"
 string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
 string.gsub!('somethingthatneveroccurs', '%20')
@@ -864,6 +1002,143 @@ while  i < parsed["tokens"].length
 end
 news.train(:Sport, tokonized_text)
 
+string = " De  en vrouwen  op zoek naar een nieuwe hoofdsponsor  en   uit  stopt na   als hoofdsponsor liet   vrijdag  blijft nog wel betrokken bij het volleybal 
+ maar hoe is nog niet duidelijk Volgens een woordvoerder van de bond was  een erg trouwe sponsor ook in moeilijke tijdenNieuwe sponsor nog onduidelijkDe 
+ samenwerking met het bedrijf liep tot en met de afgelopen  kampioenschappen De volleybalmannen werden dinsdag uitgeschakeld op hun EK de  wonnen begin  
+ het zilver De zoektocht naar een nieuwe hoofdsponsor moet nog grotendeels beginnen Het is dus niet duidelijk welke naam er op het shirt van de  
+ zal staan als zij in  strijden op het olympisch kwalificatietoernooi Gierende haastWellicht spelen de  dan zelfs zonder hoofdsponsor op de borst de  
+ heeft geen gierende haast met het vinden van een nieuwe geldschieter  
+"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Sport, tokonized_text)
+
+string = " verving bij   de geschorste   in de dugout Je wereld is wel even wat anders nam samen met zijn collega    de honneurs waar bij PEC  waar Vitesse vernietigend 
+ uithaalde De thuisploeg werd met  afgedroogd Dit verwacht je natuurlijk niet van te voren Een hele mooie uitslag De spelers hebben het antwoord gegeven 
+ in een andere situatieMakkelijk overlaten De interimcoach doelt uiteraard op een wedstrijdag waarbij de hoofdtrainer ontbreekt  zat hoog en droog op de 
+ tribune maar zal genoten hebben van een wervelend Vitesse voor rust Natuurlijk hebben we zaterdagavond nog contact gehad Maar dan laat ie het los Hij zei 
+ ik kan het makkelijk aan jullie overlatenAndere wereldMaas beleefde een droomdebuut Maar spannend was het ook wel De wereld is toch net even wat anders 
+ Maar verder is de speelwijze duidelijk en bij Vitesse altijd hetzelfde Alleen iemand anders deed het praatje Voor de rest niet zoveel andersKomt dat zien
+ Volgende week wacht de topper in Gelredome tegen Ajax Dan zit Maas opnieuw als verantwoordelijke in de dugout Mensen komt dat zien in  en omstreken riep  
+ de supporters alvast op voor zondag Ik heb er in elk geval nu al zin in Prachtig heerlijk"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Sport, tokonized_text)
+
+string = "   uit  won  goud op het EK Baanwielrennen in   Daarmee pakt ze haar vierde medaille Eerder won ze al brons zilver en goudDe  won opnieuw goud ditmaal op het 
+  Olympisch onderdeel keirin  won ze de sprint en samen met Laurine van Riessen pakte ze brons op de teamsprint terwijl ze op de nietolympische  meter tijdrit 
+  het zilver greepZie wel wat het wordtMooi ook voor de medaillespiegel lachte  De winst op de slotdag had ze niet meer zien aankomen Ik dacht vanochtend 
+  poeh ik zie wel wat het wordt Maar het ging heel goed hoewel ik nog werd aangetikt door de    de finale keirin hield Ligtlee in de sprint de 
+     en de    achter zich Het is de negende medaille voor  vijf gouden twee zilveren en twee bronzen"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Sport, tokonized_text)
+
+string = " Rijkaard is gekozen tot coach van het Uefaelftal van De  kreeg op de website van de Uefa de meeste stemmen         
+ is goed vertegenwoordigd in het Elftal van  kampioen van  en  levert vier spelers en dus ook de coach aan de ploeg die door bezoekers van de website zijn 
+ gekozen  Rijkaard onttroonde met zijn benoeming de     Die sleepte de laatste drie jaar de ereprijs in de wacht  is de enige  in het UEFAelftal"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Sport, tokonized_text)
+
+string = " John van den Brom beschouwt Ron Vlaar vanaf dinsdag voor even gewoon als speler van AZ Hij traint gewoon mee met ons programma Eerst voorzichtig maar na een week 
+ hopen we dat hij volledig is gentegreerd        Vlaar werd in  geopereerd en heeft zelf de afgelopen maanden veel aan zijn conditie gedaan Van den Brom 
+ Hij heeft nu groepstraining nodig Dat is voor hem de volgende stap  hebben we lang met elkaar gesproken Wij kunnen en willen hem de ruimte bieden daarvoor
+ Overbrengen ervaringDe verdediger uit  kan daarnaast zijn ruime ervaring als international en Premier Leaguespeler aan de selectie overbrengen Ik beschouw 
+ hem gewoon als n van de groep Maar we hebben een jonge groep Na een tijdje zou hij zijn ervaring vanuit de mooie toernooien die hij speelde kunnen 
+ overbrengen Langer verblijf niet besproken John van den Brom spreekt dan ook van een winwinsituatie waarbij hij tevens aangeeft dat een permanent verblijf van 
+ Vlaar in  voorlopig niet aan de orde is We hebben lang gesproken met elkaar maar nog geen seconde over dit Het gaat er om fit te worden en wij willen 
+ helpen om hem nog een mooie stap in zijn carrire te laten maken"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Sport, tokonized_text)
+
+string = "Voor de baanrenners   en   zit het EK in  er op Beide sprinters slaagden er zondag niet in zich te kwalificeren voor de halve finales op het onderdeel keirin        
+De geboren   werd derde in zijn heat  tweede Ook via de herkansingen slaagden beiden er niet in om hun toernooi een vervolg te geven Dat deed   bij de vrouwen wel 
+De sprintster bereikte zonder problemen de halve finales en gaat zondagnamiddag op jacht naar een vierde medaille Haar collega  van  
+strandde in de eerste ronde Ze kreeg een diskwalificatie wegens het overschrijden van de blauwe lijn tijdens de sprint   zakte op het omnium van de vierde 
+naar de negende plaats Op het vierde onderdeel de  meter tijdrit werd ze tiende "
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Sport, tokonized_text)
+
+string = "  en AZ zijn een contractverlenging overeengekomen tot medio  Vorige week werd al bekend dat beide partijen mondeling akkoord waren Het oude contract van  
+  liep tot de zomer van           is content met een langer verblijf in  Ik heb veel meegemaakt  successen de KNVB Beker gewonnen en het  nationale elftal 
+  gehaald Ik heb veel aan AZ te danken daarom wil ik niet transfervrij vertrekken Ik hoop hier nog meer successen te behalen"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Sport, tokonized_text)
+
 string = "De openingstijdrit van de Ronde van start in sportcomplex  in. Van daaruit moeten de renners kilometer tegen de klok rijden, zo maakte de organisatie maandag bekend.
 De organisatie doet in het parcours uit de doeken, al was er al veel bekend. Zo was al duidelijk dat er in het begin drie etappes zijn in. 
 Op vrijdag is de tijdrit, daarna volgen twee ritten door de  provincie: van  naar  op en een dag later in omgekeerde richting.
@@ -955,7 +1230,156 @@ while  i < parsed["tokens"].length
 end
 news.train(:Sport, tokonized_text)
 
-string = "verzorgt op  een openbare spiritualiteitavond in de Yogastudio op in. De bijeenkomst duurt van"
+string = " Het MMAdebuut van   uit  was  bijzonder succesvol In n ronde rekende hij af met de    Hij won door een technische  heeft alles gewonnen wat er te winnen valt 
+ in het kickboksen Hij was op zoek naar een nieuwe uitdaging en die  In  maakte  zijn debuut in de RXF een  MMAcompetitie Bij Mixed Martial Arts beter bekend als 
+ MMA nemen de vechters het tegen elkaar op in de octagon een achthoekige ring"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Sport, tokonized_text)
+
+string = " Door een fout van het boekingsbureau is de jaarlijkse schoolreis van  mavo van het  College in het water gevallen Dat zegt   directeur van de school
+ in  leerlingen van  mavo keerden  vervroegd terug van een schoolreisje naar  Daar verbleven de  leerlingen en  begeleiders inhostel    waar ook 
+ leerlingen van verschillende andere scholen zatenHet boekingsbureau had de leerlingen van het  College niet bij elkaar onder gebracht maar verdeeld 
+ over het hele gebouw En dan heb je verschillende groepen jongeren bij elkaar op n gang De andere scholen hadden duidelijk een andere manier van hoe 
+ leerlingen en begeleiders met elkaar omgaan zegt  Je kan je misschien voorstellen wat er gebeurt als je groepen pubers bij elkaar zet met te weinig 
+ regels en te weinig toezichtRuziesGeluidsoverlast ruzies en handtastelijkheden waren het gevolg Niets ernstigs maar wel vervelend Er werd bijvoorbeeld 
+ steeds s nachts op de deuren geklopt zegt Woonink En sommige kinderen werden opdringerig en handtastelijkDaarbij zou bij een meisje 
+ ongewenst lichamelijk contact zijn geweest Dat bevestigt  Voor het meisje een vervelende ervaring en tegen haar zin Maar het incident was niet 
+ ernstig genoeg om aangifte te doen Wel hebben de begeleidende docenten toen in overleg met de leerlingen besloten om naar huis te gaan Ook 
+ om escalatie te voorkomenGesprek met boekingsbureauVolgend schooljaar komt er gewoon weer een schoolreisje voor de leerlingen van  mavo  havo en  
+ atheneum De school heeft tot nu toe alleen maar goede ervaring gehad Er komt nog wel een gesprek met het boekingsbureau want 
+ daar is de school niet over te spreken Dit is voor het eerst dat we dit hebben meegemaakt heel jammer zegt WooninkHet  
+ College heeft nu herfstvakantie maar daarna komt nog een bijeenkomst voor de leerlingen die mee waren naar  en hun ouders Woonink Om het goed af te ronden"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Politiek, tokonized_text)
+
+string = " Begin volgend jaar zullen mannen met prostaatkanker ook in  en  een flink kortere serie bestralingen krijgen die net zo effectief is als de bestaande therapie 
+ De nieuwe methode is ontwikkeld in  en  en afgelopen weekend wereldwijd gepresenteerdEen korte serie bestralingen met een hogere dosis straling bij prostaatkanker 
+ is net zo effectief als de bestaande methode van zon  behandelingen met een lagere dosis aldus onderzoekers van het  MC Kanker Instituut in  en het  van  in 
+ reeks behandelingen kan bijna met de helft omlaag aldus de  onderzoeksleider   behandeling misschien zelfs beterDe resultaten lijken bij de nieuwe snelle methode 
+ zelfs iets beter te zijn al is dat strikt genomen statistisch nog niet aangetoond De onderzoekers volgden een groep van  patinten met prostaatkanker over 
+ een periode van jaar De ene groep werd bestraald volgens de conventionele methode de andere helft kreeg een kortere reeks behandelingen met een hogere 
+ dosis straling Van de groep die de conventionele bestraling kreeg was na jaar  procent kankervrij in de snelle groep was dat procentMinder belastend en 
+ goedkoperVolgens de onderzoekers zijn de voordelen van de nieuwe methode groot patinten hoeven minder vaak naar het ziekenhuis en omdat minder bestralingen 
+ voldoen kan de apparatuur voor meer patinten worden ingezet Effectiever en goedkoper dus  keer per week naar het ziekenhuis of maar  keer en  keer in totaal 
+ versus  dat maakt een groot verschil Een bestraling duurt slechts kort maar mensen zijn toch dikwijls een dagdeel kwijt aan het ziekenhuisbezoek aldus 
+ in andere  bereidt een wetenschappelijke publicatie voor over zijn onderzoek waarna de methode begin  in andere Nederlandse ziekenhuizen zal worden ingevoerd 
+ waaronder het  in  en het  Instituut Arnhem Deze ziekenhuizen deden mee aan het onderzoek"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Overig, tokonized_text)
+
+string = "  Voetballen is niet de grootste kwaliteit van    Heracles Almelomiddenvelder   heeft dat op een pijnlijke manier ondervonden Tijdens  raakte  de 
+  profvoetballer vol in zn edele delen  Grap in What The   van   What The  dat afgelopen  werd uitgezonden In de  werd een grap uitgehaald met  een trouwe 
+  supporter van de club uit Almelo Zijn partner  zat in het complot en wist plots enorm veel van voetbal met wat hulp van de  en de spelers van Heracles  
+  schopte het zelfs tot stadionspeaker Ben je er klaar voorEn in diezelfde aflevering gaat   dus ook even voetballen met wat spelers van Heracles Balletje 
+  trappen met  ik ben benieuwd zegt aanvoerder  nog Nou daar komt ie Ben je er klaar voor kondigt  zn kanonskogel aan En ding is duidelijk aan   is 
+  geen profvoetballer verloren gegaan Of in de woorden van een  Wat kan ie zingen h die "
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Overig, tokonized_text)
+
+string = " van  uit  is weer een stap dichter bij haar grote droom gekomen De  inwoonster van  overleefde  de eerste liveshow van  zoekt  bij  In de show wordt een 
+   nieuwe bezetting van  gezocht"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Overig, tokonized_text)
+
+string = "Inwoners van zijn deze week bezig met de laatste voorbereidingen voor de  om  Vanaf aanstaande  staat het  stadje drie dagen in het teken van de gebeurtenissen 
+uit  acteurs uit heel  spelen de verovering van de vesting Groltijdens de   na De inwoners van  maken daar n keer in de drie jaar een feestelijk spektakel van 
+Maar was er in  eigenlijk wel reden voor feestvreugde bijde GrollenarenDe Ridders van Gelre storten zich maandag in de  De vaderlandse 
+geschiedenisboeken spreken van een glorieuze strijd waarbij de protestantse  onafhankelijk werden van het katholieke  Maar voor  viel er tussen  en  
+weinig te vieren De  en  legers vochten decennialang om de  steden en maakten het platteland onveilig  historici wijzen erop dat de meeste inwoners van  
+de verovering van hun stad door het  leger niet als een bevrijding zagenTweederangs burgersDat geldt zeker voor de inwoners van  Na de  werden de katholieke 
+inwoners tweederangsburgers in hun eigen stad  procent van de  was katholiek Zij moesten op  de mis buiten de stadspoorten bijwonen en in sommige periodes 
+stond op het belijden van de katholieke godsdienst een zware  van  Ridders van  zijn aanstaande maandag in  om de actuele en historische gebeurtenissen rond de 
+Slag om  te bespreken Ridder  is op  waar hij n van de meest beruchte  ridders uit de geschiedenis ontmoet  Ren reist naar  voor een kennismaking methistoricus  
+van  Hij vertelt welke man het protestantisme voor altijd naar  brachtis maandagavond te zien op TV  vanaf  uur "
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Overig, tokonized_text)
+
+string = " Het nieuwe album van   is binnengekomen op nummer in de Album Top  De nieuwe plaat van  heet  en kwam vorige week  uit Het is de  in de albumlijst voor   
+ En daar mag op geproost worden DankjewelOp  staan twaalf nummers waaronder de nieuwe single Dankjewel De liedjes op het nieuwe album schreef  samen met  "
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Overig, tokonized_text)
+
+string = "Na twee wedstrijddagen gaat de zonneauto van het    aan de leiding in   van de negentien teamleden komen uit     neemt aan de race deel met de opvallende 
+zonnewagen Red One De deelnemers aan de race moeten ongeveer  kilometer op zonneenergie door de  woestijn rijden van  in het noorden naar  in het zuiden 
+De race is nu  beheersen de zonneraceNaast het Solar Team  doen nog meer  teams me die ook goed presteren Het Nuon  Team uit  staat op de tweede plaats In een 
+andere categorie doet nog een team uit  mee Dat staat daar tweedeRadiopresentator  van  belde met een blij teamlid in  site Team Solar "
 string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
 string.gsub!('somethingthatneveroccurs', '%20')
@@ -1108,6 +1532,26 @@ De  doet het goed en groeit uit het jasje. Daar moeten we het museum niet voor s
 zegt VVD-fractievoorzitter . GroenLinks-fractievoorzitter   wijst op de toezegging van het  
 college dat er de komende jaren niet meer op cultuur gekort zou worden.
 Over de vraag op welke manier de kortingen teruggedraaid moeten worden, verschillen de verschillen de verschillende partijen nog van mening."
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Politiek, tokonized_text)
+
+string = " jaar schoolfotos in  aan de  Die tentoonstelling is in de  in het dorp te zienDe oudste schoolfoto in  dateert uit  Ook schoolreisjes en schoolkampfotos 
+ ontbreken niet op de expositie die  begint Vrijwel alle namen van klassen van de voorbije  jaar zijn bekend zeggen de initiatiefnemers de Werkgroep 
+ Historisch  aan de  WHAMDe eerste decennia mochten de kinderen op de foto niet lachen dat mocht pas later De eerste kleurenfotos stammen uit  de  
+ verzamelde alles over  basis voor de getoonde collectie is afkomstig van de in  overleden dorpsbewoner  van de  volgens WHAM de man die alles verzamelde 
+ over zijn woonplaats fotos krantenartikelen bidprentjes Later filmde hij ook bijzondere gebeurtenissen in  zijn  ontfermde een zus van Van de  zich 
+ over zijn verzameling In  kwam de collectie in van WHAM"
 string.gsub!(' ', 'somethingthatneveroccurs')
 string.gsub!(/\W/,'')
 string.gsub!('somethingthatneveroccurs', '%20')
@@ -1517,6 +1961,23 @@ while  i < parsed["tokens"].length
 end
 news.train(:Overig, tokonized_text)
 
+string = "God houdt van U2 In ieder geval volgens de titel van de kerkdienst die  werd gehouden in  Nieuwe Kerk hield een zogenoemde fakkelvieringDat zijn diensten die 
+afwijken van de reguliere dienst Tijdens deze dienst werd er muziek gedraaid van U2 en er werd gelezen uit  Korinthe het mooiste lied over de liefdeDe fakkelvieringen
+ worden acht keer per jaar gehouden op de derde  van de  en vinden plaats na de reguliere dienst"
+string.gsub!(' ', 'somethingthatneveroccurs')
+string.gsub!(/\W/,'')
+string.gsub!('somethingthatneveroccurs', '%20')
+response = RestClient.get 'http://localhost:9200/snowball/_analyze?analyzer=snowball&text=' + string
+json = response
+parsed = MultiJson.load(json)
+i = 0
+tokonized_text = ""
+while  i < parsed["tokens"].length 
+	tokonized_text += parsed["tokens"][i]["token"] + " "
+	i +=1
+end
+news.train(:Overig, tokonized_text)
+
 string = "Burgers en boeren dichter bij elkaar brengen. Dat is het doel van het . Akkerbouwer   uit  mag het een week lang gaan proberen. 
 Het leek mij een goed initiatief om te laten zien wat er op een boerenbedrijf gebeurt.
  is de eerste  boer die in  tekens over zijn werk en leven mag vertellen via . Op de bijbehorende Facebook-pagina krijgt hij iets meer ruimte. 
@@ -1611,7 +2072,7 @@ end
 news.train(:Overig, tokonized_text)
 
 # Get the specific news article from our Elasticsearch server.
-response = RestClient.get 'http://localhost:9200/news/article/'+id_input.to_s
+response = RestClient.get 'http://localhost:9200/news/news/'+id_input.to_s
 json = response
 parsed = MultiJson.load(json)
 if( parsed["exists"])
