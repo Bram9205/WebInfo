@@ -13,7 +13,7 @@ class P2000Scraper {
     function __construct($url) {
         $this->target_url = $url;
         $this->html = new simple_html_dom(); // creat new object
-        $this->html->load_file($url); // load target url
+        $this->html->load_file($this->target_url); // load target url
         $this->loadIframe(); // load iframe in target url
         $this->form_base = explode("?", $this->target_url, 2)[0] . "?";
         $this->rawNotifications = array();
@@ -44,11 +44,8 @@ class P2000Scraper {
 
     public function scrapePage() {
         foreach ($this->html->find('table[style=align:center]') as $table) {
-            $startwrapper = "<" . $table->tag . ">"; // used for testing
-            $endwrapper = "</" . $table->tag . ">"; // used for testing
-
             foreach ($table->find('tr') as $tr) {
-                //echo $tr . "<br/>";
+                            
                 static $prevLength = 0;
                 $length = count($tr->find('td'));
 
@@ -63,7 +60,7 @@ class P2000Scraper {
                     $rawRow = $rawRow . $tr->outertext;
                 } else if ($emptyRow) {
                     $rawRow = $rawRow . $tr->outertext;
-                    //echo $startwrapper . $rawRow . $endwrapper; // used for testing
+
                     array_push($this->rawNotifications, $rawRow);
                 }
                 $prevLength = $length;
@@ -85,6 +82,7 @@ class P2000Scraper {
                     }
                     $formStr = substr($formStr, 0, -1); // remove last '&'
                     $this->html->load_file($this->form_base . $formStr);
+                    $this->target_url= $this->form_base.$formStr;
                     return; // break foreach
                 }
             }
