@@ -17,10 +17,19 @@ if (!$rootUrl)
     return;
 }
 
-echo Util::removeLastUrlPart($rootUrl);
+$crawler = new Crawler($rootUrl, 15);
 
-//$crawler = new Crawler($rootUrl, 15);
-//$crawler->crawl(1);
+$page = new Page($rootUrl, $crawler);
+$page1 = new Page($page->getLinks()[0], $crawler);
+$page2 = new Page($page->getLinks()[1], $crawler);
+$page3 = new Page($page->getLinks()[2], $crawler);
+$page4 = new Page($page->getLinks()[3], $crawler);
+
+echo "url: ".$page->getPageUrl()."| title: ".$page->getTitle()."\n";
+echo "url: ".$page1->getPageUrl()."| title: ".$page1->getTitle()."\n";
+echo "url: ".$page2->getPageUrl()."| title: ".$page2->getTitle()."\n";
+echo "url: ".$page3->getPageUrl()."| title: ".$page3->getTitle()."\n";
+echo "url: ".$page4->getPageUrl()."| title: ".$page4->getTitle()."\n";
 
 echo '</pre>';
 
