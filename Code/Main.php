@@ -131,7 +131,7 @@ class Main {
             $type = explode(">", $row1[2])[1];
             $region = explode(">", $row1[3])[1];
             $content = explode(">", $row1[4])[1];
-            preg_match_all('/[0-9]{4}\s?[a-zA-Z]{2}/', $content, $postals);
+            preg_match_all('/\b[0-9]{4}\s?[a-zA-Z]{2}\b/', $content, $postals);
             $postal = (!empty($postals[0])) ? $postals[0][0] : "";
 
             $notification = new Notification($date, $time, $type, $region, $postal, $content);
