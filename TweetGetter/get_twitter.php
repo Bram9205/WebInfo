@@ -15,6 +15,8 @@
 		$twitter = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
 		
 		$date = $notification['date'];
+		$keywords = array("sirene", "gevaar", "ongeluk", "ambulance", "ziekenwagen", "ongeval", "gewond", "letsel",
+		"brand", "vlam", "vuur", "brandweer", "blus", "water", "overval", "politie", "dief", "wapen", "letsel", "inbraak", "schiet", "misdrijf");
 		$start_date = "since:" . date(DATE_FORMAT, $date);
 		$end_date = "until:" . date(DATE_FORMAT, strtotime("+1 day", $date));
 		//$search_string = $notification['town'] . " " . implode(" OR ", $keywords) . " -p2000 " . $start_date . " " . $end_date;
@@ -23,7 +25,7 @@
 		
 		$params = array('q' 	=> $search_string
 						,'lang'	=>	'nl'			//Welke taal doen we?
-						,'count' =>	'1000'			//How many tweets do we want for every notification?
+						,'count' =>	'20000'			//How many tweets do we want for every notification?
 						);		
 		
 		$statuses = json_encode((array)$twitter->get("search/tweets", $params));
