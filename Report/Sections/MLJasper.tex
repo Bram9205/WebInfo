@@ -1,12 +1,25 @@
-\subsection{Classify news feed / Twitter data}
+\subsection{Classify news feed}
 \textbf{Name:} Jasper Selman \indent \textbf{StudentNumber:} 0741516
 
 \subsubsection*{Motivation}
-People often want to know what is happening in the neighbourhood, but they do not want to know every little thing that is happening.
+People often want to know what is happening in the neighborhood, but they do not want to know every little thing that is happening.
 They are only interested in certain type of news. This is why we want to classify the news feed / Twitter data such that people can choose from a set of subjects. For example people only want news about events which involved an ambulance. 
 
 \subsubsection*{Approach}
-The real approach to do this is yet to be researched and determined, but an initial idea is to first create a set of subjects we offer the user to choose from. For every possibility in that set we should create a set of relevant similar words. Next to that we should classify every news item with some kind of algorithm such that if one of the words of the set for a search term occurs enough (the amount has to be determined) in the news item, then the item is classified for that search term.
+First of all, the initial idea was that I would classify both news feed and Twitter data. But training a classifier was a lot of work, which I will elaborate on in the upcoming text, and one of my team member had a ML task which was of not very much value to the group,
+we decided to split this ML task into two tasks. So my ML task now only comprehends the classification of news feed.\\
+As proposed we first determined all the different news classes for the news. We came up with the following classes: \texttt{Accident}, \texttt{Crime}, \texttt{Police}, \texttt{Ambulance}, \texttt{Firefighters} and \texttt{Rest}.\\
+Since our project concerns neighborhood safety we were not concerned in any political, economical or foreign news.\\
+As a classifier we choose to use a Na\"{i}ve Bayes classifier, because it is easy to comprehend and can be trained very well using the right data. 
+Luckily for us we found an already implemented, in Ruby, classifier to do this. For more information on this classifier see \autoref{app:classifier}.
+Implementing the classifier was really easy and now the only thing left to do for me was to train the classifier and that is where the bigger part of the work was. 
+At first we thought that local news sites would have a lot of information about local accidents and they also did, but they contained even more articles about non interesting events like a local sportsmen won some kind of event or bakery has a new bread or something like that. \\
+This meant that the \texttt{Rest} class should contain a lot of different data, which might be hard to achieve. This is why we choose to make more labels e.g. \texttt{Economy}, \texttt{Sport} and \texttt{Political}. At the end these three labels were still interpreted as \texttt{Rest} but we thought more classes would work better because there is more overlap within the clause.\\
+Another difficulty we ran into is the different style of writing on each news sites. For example a news site from Amsterdam had articles which were written on a spectacular way such that people were easily tricked into reading them, while a news site from the east part of the country was more straightforward and based on facts. Due to this we had to create test data from most of the sites to deal with this problem. \\
+The last problem we faced was the problem that we had to remove dates, names and places from the test data. For example at the start I used two articles about drugs incidents in Eindhoven as training data for the \texttt{Crime} label. However this caused most articles from Eindhoven to be labeled as \texttt{Crime}, due to the matching on place names. This was definitely undesired behavior so we had to remove all this from our training data. \\
+Overall the problems we had to face did not seem to difficult but achieving an acceptable rate for the classifier to label articles right took a whole lot of test iterations and evaluated in a large set of training data, but in the end we were happy with our classifier.
 
 \subsubsection*{Evaluation }
-This will be checked manually, because it is very easy to check, when you choose a subject, if the resulting news feed shown indeed involved the subject or that also other news is shown.
+The evaluation of this part was very easy to do. We created a test data set of news feed which was not yet seen by the classifier. We read all these articles ourselves and labeled them with the label we thought most appropriate. After that we let the classifier label the news feed and when it was finished we compared the labels. If they were different from each other we checked to see if the label of the classifier was even better and if not we marked it as a wrongly classified label. At the end if we thought the classifier labeled to many articles incorrect we added some training data to the classifier and tried it again. We kept doing this until we were satisfied. 
+
+DIT MOET NOG GETYPT WORDEN ALS DE APPLICATIE AF IS.

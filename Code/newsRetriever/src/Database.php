@@ -9,9 +9,9 @@
 class Database {
 
     private static $CONN_ARGS = [
-        "178.62.156.148", //178.62.156.148
+        "95.85.50.60", //178.62.156.148
         "admin",
-        "LiftenZijnGevaarlijk",
+        "t249DJK8",
         "test",
         3306
     ];
@@ -73,7 +73,7 @@ class Database {
         $statement = $mysqli->prepare($query);
         $statement->bind_param('sss', $startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $rootUrl);
         $statement->execute();
-        
+
         $statement->bind_result($date, $title, $siteRoot, $pageUrl, $content);
 
         $articles = array();
@@ -105,14 +105,61 @@ class Database {
         $statement->bind_result($pageurl);
 
         $titles = array();
-        
+
         while ($statement->fetch())
         {
             array_push($titles, $pageurl);
         }
-        
+
         $mysqli->close();
         return $titles;
+    }
+
+    public static function removeDupicates()
+    {
+        $titles = array();
+
+        $duplicateIds = array();
+
+        $mysqli = self::connect();
+
+        $query = "SELECT id, title, siteroot FROM news_retriever_page";
+
+        $statement = $mysqli->prepare($query);
+
+        $statement->execute();
+
+        $statement->bind_result($id, $title, $siteroot);
+
+        while ($statement->fetch())
+        {
+            $titleRoot = $title . $siteroot;
+            if (!in_array($titleRoot, $titles, true))
+            {
+                array_push($titles, $titleRoot);
+                continue;
+            }
+            array_push($duplicateIds, $id);
+        }
+
+        $removed = 0;
+        
+        foreach ($duplicateIds as $dId)
+        {
+            $clause = implode(',', $duplicateIds);
+            
+            $query = "DELETE FROM news_retriever_page WHERE id IN ($clause)";
+
+            $statement = $mysqli->prepare($query);
+
+            $statement->execute();
+            
+            $removed++;
+        }
+
+        $mysqli->close();
+        
+        return $removed;
     }
 
 }

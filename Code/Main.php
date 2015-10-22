@@ -37,22 +37,23 @@ class Main {
     /**
      * Return an array of raw html notifications, delay in [s]
      */
-    private function getAndIndexNotifications($daysBack=14, $delay = 0.5) {
+    private function getAndIndexNotifications($daysBack = 14, $delay = 0.5) {
         $date = new DateTime(); // DateTime::createFromFormat('d-m-Y', $enddate);
-        date_sub($date, date_interval_create_from_date_string($daysBack.' days'));
-        
+        date_sub($date, date_interval_create_from_date_string($daysBack . ' days'));
+
         $p = 0;
-        $alreadyStoredPages=0;
+        $alreadyStoredPages = 0;
 
         // remove database entries older than given date
         $this->deleteEntriesInDatabase($date);
 
         $Scraper = new P2000Scraper("http://www.p2000-online.net/alleregiosf.html");
-        while ($this->entriesInDatabase($date) == 0 && $alreadyStoredPages<5) {
+        while ($this->entriesInDatabase($date) == 0) {//&& $alreadyStoredPages<5) {
             $Scraper->scrapePage();
 
+                    
             $now = round(microtime(true) * 1000);
-            $alreadyStored=$this->indexNotifications($Scraper->getRawNotifications());
+            $alreadyStored = $this->indexNotifications($Scraper->getRawNotifications());
             $elapsed = round(microtime(true) * 1000) - $now;
 
             if ($elapsed < $delay * 1000.0) { // ensure proper delay between requests
@@ -60,7 +61,7 @@ class Main {
             }
             $end = round(microtime(true) * 1000) - $now;
 
-            if($alreadyStored==15){
+            if ($alreadyStored == 15) {
                 $alreadyStoredPages++;
             }
             $Scraper->clearRawNotifications();
@@ -86,7 +87,7 @@ class Main {
             $stmt->bind_param("s", $date);
             $stmt->execute();
             $stmt->close();
-            fwrite(STDOUT,"----- Deleted entries! -----");
+            fwrite(STDOUT, "----- Deleted entries! -----");
             // delete orphan capcodes
             $stmt = $db->prepare("DELETE FROM capcodes WHERE notification_id NOT IN (SELECT id FROM notifications)");
             $stmt->execute();
@@ -118,7 +119,7 @@ class Main {
      * Split and store Notification objects
      */
     private function indexNotifications($rawNotifications) {
-        $alreadyStored=0;
+        $alreadyStored = 0;
         if ($rawNotifications == null || empty($rawNotifications)) {
             return false;
         }
@@ -136,7 +137,7 @@ class Main {
             $notification = new Notification($date, $time, $type, $region, $postal, $content);
 
             if (!$notification->isActualNotification()) {
-            	continue; //Skip current iteration, this notification won't be stored
+                continue; //Skip current iteration, this notification won't be stored
             }
 
             if (count($raw) >= 4) {
@@ -147,15 +148,17 @@ class Main {
                     $notification->addCapCode($cc);
                 }
             }
-            
-            if($notification->existsInDatabase()){
+
+            if ($notification->existsInDatabase()) {
                 $alreadyStored++;
                 continue; // Skip detectTown() and store()
             }
+
             
-            if($notification->detectTown() == ""){
-            	//echo "No town detected (no postal code and no town in content)\n";
-            	fwrite(STDOUT, "No town detected (no postal code and no town in content)\n"); // for running on CLI
+
+            if ($notification->detectTown() == "") {
+                //echo "No town detected (no postal code and no town in content)\n";
+                fwrite(STDOUT, "No town detected (no postal code and no town in content)\n"); // for running on CLI
             }
 
             $notification->cluster(); //sets the cluster this notification belongs to, if any. Call after detectTown
@@ -163,15 +166,24 @@ class Main {
             if (!$notification->store()) {
                 //echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
                 fwrite(STDOUT, "Notification was already in database! Nothing stored.\n"); // for CLI
-                
             }
+            
+            // TEST GEOCODE ---------------------------------------------------------------------------------------------
+            if (strlen($notification->postalCode) == 6) {
+                $output = GeoCoder::geocode($notification->postalCode);                
+                if ($output){
+                    fwrite(STDOUT, "Lat: ".$output[0]."\tLong: ".$output[1]."\n"); 
+                }            
+            }
+            // END TEST -------------------------------------------------------------------------------------------------
+            
             // $notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
         }
         return $alreadyStored;
     }
 
     //TODO: delete this function which is solely for testing
-    public function test(){
+    public function test() {
         $rawNotifications = $this->getTestNotifications();
         foreach ($rawNotifications as $raw) {
             $raw = explode("</tr>", $raw);
@@ -185,9 +197,9 @@ class Main {
             $postal = (!empty($postals[0])) ? $postals[0][0] : "";
 
             $notification = new Notification($date, $time, $type, $region, $postal, $content);
-            if($notification->detectTown() == ""){
-            	echo "No town detected (no postal code and no town in content)\n";
-            	//fwrite(STDOUT, "No town detected (no postal code and no town in content)\n"); // for running on CLI
+            if ($notification->detectTown() == "") {
+                echo "No town detected (no postal code and no town in content)\n";
+                //fwrite(STDOUT, "No town detected (no postal code and no town in content)\n"); // for running on CLI
             }
             $notification->cluster();
             $notification->store();

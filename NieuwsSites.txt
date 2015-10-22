@@ -10,3 +10,9 @@ Friesland: http://www.lc.nl/
 Overijssel: http://www.rtvoost.nl/
 Drenthe: http://www.rtvdrenthe.nl/nieuws
 Utrecht: http://www.rtvutrecht.nl/
+
+DEZE WORDEN GEBRUIKT DOOR DE CRAWLER:
+Zuid-Holland: http://www.rijnmond.nl/
+Noord-Holland: http://www.rtvnh.nl/
+Gelderland: http://www.omroepgelderland.nl/
+Noord-Brabant: http://www.omroepbrabant.nl/
