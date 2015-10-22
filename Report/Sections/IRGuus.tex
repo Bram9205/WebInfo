@@ -2,11 +2,55 @@
 \textbf{Name:} Guus van Lankveld \indent \textbf{StudentNumber:} 0629468
 
 \subsubsection*{Motivation}
-To be able to link certain (groups of) P2000 notifications to news articles. These articles need to be retrieved from a number of sources and filtered for relevant information.
+One of the projects goals was to associate P2000 notifications with relevant local news articles. In order for the system to be able to process these articles they need to be retrieved from the web. When examining a number of news websites (such as \url{http://www.ed.nl} or  \url{http://www.rtvnh.nl}) it appeared that:
+\begin{enumerate}
+\item There is no universal page design for news articles.
+\item There is no straightforward querying method that applies to all news websites (no general API).
+\item All news article pages contain links to related article pages.
+\item Most news article pages contain a large amount of noise (e.g. advertisements, headers, footers)
+\item All news pages use HTML as markup language.
+\end{enumerate}
 
-\subsubsection*{Approach}
-A (yet to be determined) number of local news websites will be scanned based on a specified date and time and all pages within this timeframe are returned. Which local website is chosen will be based on a specified location. After retrieving the pages, all non-relevant information such as scripts and style information will be removed before returning the article.\\\\
-To be able to determine which news site should be accessed based on the input location, the system also needs to extract a city region from a specified geolocation or town name.
-
-\subsubsection*{Evaluation }
-Evaluation of this component will be accomplished by manually assessing if both small and large timeframes and location combinations as input will yield a set of news articles and tweets that match them.
+\subsection*{Approach}
+When taking notion 2 and 3 (in the list above) into account, it is clear that a web crawler is suited for the retrieval task. This crawler will attempt to index all the news articles within a specified date range for a number of specified news websites. The websites that were chosen for this project are:
+\begin{itemize}[noitemsep]
+\item RTV Rijmnond (Zuid-Holland): \url{http://www.rijnmond.nl/}
+\item RTV Noord-Holland: \url{http://www.rtvnh.nl/}
+\item Omroep Gelderland: \url{http://www.omroepgelderland.nl/}
+\item Omroep Noord-Brabant: \url{http://www.omroepbrabant.nl/}
+\end{itemize}
+These websites were chosen because they contain a large number of articles about local news, which is more relevant to the project than for instance national or international news.\\
+The crawler will need to operate using the following rules:
+\begin{enumerate}
+\item Crawling will start at a specified page on the news website (seed).
+\item Crawling will be executed using a set of politeness rules: a maximum number of crawls per minute are maintained and robots.txt is respected.
+\item Only links that lead to the domain of the specified news website will be crawled, otherwise the probability that irrelevant websites are indexed (for instance: advertisers) is too high.
+\item The crawler operates on a single thread. This is sufficient considering the limited scope of the project and reduces the time needed to implement the crawler.
+\end{enumerate}
+\subsection*{Implementation and evaluation}
+The crawling algorithm used for the crawler has the following input:
+\begin{itemize}[noitemsep]
+\item $url = $ the (seed) url where the crawler will start
+\item $nrOfDaysBack = $ the number of days the crawler will 'look back': pages older than $nrOfDaysBack$ days are not processed.
+\item $timeToLive = $ how long the algorithm will keep running.
+\end{itemize}
+The crawling algorithm (in simplified form) executes the following steps:
+\begin{enumerate}
+\item intitialize $urlForntier = \emptyset$; $alreadyCrawled = \emptyset$
+\item Retrieve the page at $url$ and determine its $rootUrl$ (for instance: if $url = $\url{http://www.omroepbrabant.nl/nieuws/8346234} then $rootUrl = $\url{http://www.omroepbrabant.nl}.
+\item Process the page by extracting the date and removing all scripts, images and other html tags deemed irrelevant. Then, retrieve all the pages' relevant links $L$, determined by their rootUrl. Put each link $l \in L$ into $urlFrontier$ if $l \not\in alreadyCrawled$. 
+\item Store the processed page into the project's database.
+\item Put $url$ into $alreadyCrawled$
+\item $url := urlFrontier[0]$ and then remove item at index 0 from $urlFrontier$.
+\item Update $timeToLive$ by subtracting the amount of time that has passed while executing the algorithm so far.
+\item Repeat steps 2-7 until $urlFrontier = \emptyset \vee timeToLive \le 0$
+\item Store 
+\end{enumerate}
+Evaluation of the crawler was done by setting the $timeToLive$ to a few minutes and checking the logs and database manually and determining if the following properties held for all four chosen news websites:
+\begin{enumerate}
+\item Only pages in the $rootUrl$ domain are retrieved
+\item Most of the retrieved pages are news articles
+\item The extracted dates matches the one in the articles
+\item No relevant HTML tags were removes (the content of the article has remained intact)
+\end{enumerate}
+Fulfilling these requirements enables further processing of the article (such as extracting the body of the article tokenization and stemming) which is done by other modules of the retrieval system.
