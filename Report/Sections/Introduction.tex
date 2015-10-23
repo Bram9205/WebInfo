@@ -12,13 +12,27 @@ There are several sites which can be used to retrieve this data.
 The second part contains the news feed or Twitter data we want to show when people are searching for their city. 
 We do not yet know whether we want to use Twitter data, local newsfeeds, or both as we do not know how hard it is to retrieve data from local news sites and we do not know how much noise Twitter will contain.
 
-\subsection*{TODO: Dit stukje moet verandert worden in achieved Goals. Typen wanneer alles klaar is!!}
-The goals in this project are as follows. 
-At first we want to create a basic system where people can search for a city and a time frame. 
+\subsection*{Achieved Goals}
+We achieved almost all the goals we had set for our self in this project. 
+What we wanted to create was a system where people can search for a city and a time frame.
 When they do, we want to visualize a map of the Netherlands zoomed in on that city. 
 The map will contain several colored dots. 
 Every dot will represent an event in which the emergency services were involved. 
-We want to use different colors for different services (police, fire department and ambulance) and let the size of the circle depend on how serious the event was. This is the basic outline of the project which has to work for 100$\%$. Furthermore, we want to be able to click on the circles which will trigger a pop up to appear with local, related news to the event. This news is extracted from either Twitter or local news sites as mentioned before. Another feature we would like to implement is to use classifications in the search. For example I would like to only see events which involved murder or robbery. We do not know how difficult this will turn out to be, so we regard this as an optional feature.
+We want to use different colors for different services (police, fire department and ambulance) and let the size of the circle depend on how serious the event was. This is the basic outline of the project which has to work for 100$\%$. Furthermore, we want to be able to click on the circles which will trigger a pop up to appear with local, related news to the event. This news is extracted from either Twitter or local news sites as mentioned before. Another feature we would like to implement is to use classifications in the search. For example I would like to only see events which involved murder or robbery. We do not know how difficult this will turn out to be, so we regard this as an optional feature.\\
+The realized project does something quite similar, we are able to search for a city and that city is visualized on a map.
+P2000 notifications are now represented with pins on a map. 
+TODO CHECK OF DIT GELUKT IS IN DE GUI. The color of the pin represents whether a notification concerns the police (blue), the fire fighters (red) or an ambulance (yellow).
+When a person selects a notification on the right-hand side related news and twitter is shown.\\
+The things that we did not achieve to do is to do this real-time or for the whole country. 
+For doing this real time, it just takes too long to crawl the news sites and notifications and to index all the retrieved data.
+We were able to do this for a test set of data consisting a week and several locations.\\
+Also the associations we wanted to create the between the notification and twitter and news was not as strong as we wanted it to be.
+This is due to the fact that it turned out to be very difficult to relate every notification to twitter feed and news about that event (if there was such data).
+Therefore we settled that we want to show related news to the notification.
+For example if you click on a fire notification, we show news about other (or possibly the same) fires in the neighborhood.
+This type of association was easier to create.\\
+The eventual code for the whole project can be found \href{https://www.dropbox.com/home/Public/Code_2IMW15_Group_20}{here}.
+TODO VOEG HIER EEN PLAATJE VAN DE GUI TOE!
 \subsection*{Tasks}
 The IR and ML tasks are divided such that one person contributes at at least one of each. The tasks are shown in \autoref{tab:tasks}
 
@@ -26,13 +40,13 @@ The IR and ML tasks are divided such that one person contributes at at least one
 \begin{center}
 \begin{tabular}{|l|l|l|l|}
 \hline
-                   & {\bf Student ID} & {\bf Information Retrieval}                                                                                      & {\bf Machine Learning}                                                                  \\ \hline
-Francis Hoogendijk & 0834628          & Collect P2000 notifications                                                                                      & \begin{tabular}[c]{@{}l@{}}Retrieving keywords from \\ P2000 notifications\end{tabular} \\ \hline
-Bram Kohl          & 0746107          & Indexing of notifications                                                                                        & Cluster notifications                                                                   \\ \hline
-Guus van Lankveld  & 0629468          & Collect news feed                                                                                                & \begin{tabular}[c]{@{}l@{}}Cluster news feed / \\ twitter data\end{tabular}             \\ \hline
-Jasper Selman      & 0741516          & \begin{tabular}[c]{@{}l@{}}Language detection \& \\ spell check\end{tabular}                                     & \begin{tabular}[c]{@{}l@{}}Classify news feed / \\ twitter data\end{tabular}            \\ \hline
-Ramon de Vaan      & 0758873          & \begin{tabular}[c]{@{}l@{}}Create database of P2000 \\ notification codes \&\\ Collect twitter data\end{tabular} & Association analyzer                                                                    \\ \hline
-Bart van Wezel     & 0740608          & \begin{tabular}[c]{@{}l@{}}Indexing of news feed / \\ twitter data\end{tabular}                                  & Classify P2000 notifications                                                            \\ \hline
+            		& {\bf Student ID} 	& {\bf Information Retrieval}                                                                                      						& {\bf Machine Learning} \\ \hline
+Francis Hoogendijk 	& 0834628          	& Collect P2000 Notifications                                                                                     						& \begin{tabular}[c]{@{}l@{}}Classify Twitter Data \\ $\&$ Create GUI\end{tabular} \\ \hline
+Bram Kohl          	& 0746107          	& Indexing of Notifications                                                                                        						& Cluster Notifications \\ \hline
+Guus van Lankveld  & 0629468          	& Collect News Feed                                                                                                						& \begin{tabular}[c]{@{}l@{}}Association Analyzer \\ Between P2000 \\  Notifications $\&$ News\end{tabular} \\ \hline
+Jasper Selman      	& 0741516          	& \begin{tabular}[c]{@{}l@{}}Language Detection \& \\ Spell Check\end{tabular}         					& \begin{tabular}[c]{@{}l@{}}Classify News Feed\end{tabular}            \\ \hline
+Ramon de Vaan      	& 0758873          	& \begin{tabular}[c]{@{}l@{}}Create Database of P2000 \\ Notification Codes \& \\ Collect Twitter Data \end{tabular}  	& \begin{tabular}[c]{@{}l@{}}Association Analyzer \\ Between P2000 \\  Notifications \& Twitter\end{tabular}  \\  \hline
+Bart van Wezel     	& 0740608          	& \begin{tabular}[c]{@{}l@{}}Indexing of News Feed / \\ Twitter Data\end{tabular}                                  			& Classify P2000 Notifications \\ \hline
 \end{tabular}
 \caption{Tasks}
 \label{tab:tasks}

@@ -40,7 +40,7 @@ class GeoCoder {
                 return false;
             }
         } else {
-            fwrite(STDOUT, "Response: " . $resp['status'] . ".\n");
+            fwrite(STDOUT, "GeoCode API Response: " . $resp['status'] . ".\n");
             return false;
         }
 

@@ -11,18 +11,20 @@ class Notification {
     public $town;
     public $capCodes = array();
     public $cluster;
+    public $coords;
     private $minContentLength = 5;
     private $filterWords = array('test','scenario','proefalarm','dienstwissel');
     private $clusterDeltaTime = 30; //minutes before and after a notification that can be taken into a cluster
     private $matchpercentage = 72; //percentage of whole words of shortest message that has to occur in both notifications to qualify for a cluster
 
-    function __construct($date, $time, $type, $region, $postalCode, $content) {
+    function __construct($date, $time, $type, $region, $postalCode, $content, $coords) {
         $this->date = DateTime::createFromFormat('d-m-y', $date);
         $this->time = $time;
         $this->type = $type;
         $this->region = $region;
         $this->postalCode = $postalCode;
         $this->content = $content;
+        $this->coords = $coords;
     }
 
     /**
@@ -33,9 +35,9 @@ class Notification {
             return false;
         }
         $db = Database::getConnection();
-        $stmt = $db->prepare("INSERT INTO notifications (date, time, type, region, postal_code, town, content, cluster) VALUES (?,?,?,?,?,?,?,?)");
+        $stmt = $db->prepare("INSERT INTO notifications (date, time, type, region, postal_code, town, content, cluster, coordinates) VALUES (?,?,?,?,?,?,?,?,?)");
         $date = $this->date->format('Y/m/d');
-        $stmt->bind_param("ssssssss", $date, $this->time, $this->type, $this->region, $this->postalCode, $this->town, $this->content, $this->cluster);
+        $stmt->bind_param("sssssssss", $date, $this->time, $this->type, $this->region, $this->postalCode, $this->town, $this->content, $this->cluster, $this->coords);
         $stmt->execute();
         $nId = $db->insert_id;
         $stmt->close();
