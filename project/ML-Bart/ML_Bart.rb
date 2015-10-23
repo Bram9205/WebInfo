@@ -11,7 +11,7 @@ require 'csv'
 
 # these classifiers use word stemming by default, but if it has weird
 # behavior, then you can disable it on init:
-brandweer = StuffClassifier::TfIdf.new("Brandweer", :stemming => false)
+brandweer = StuffClassifier::Bayes.new("Brandweer", :stemming => false)
 politie = StuffClassifier::Bayes.new("Politie", :stemming => false)
 ziekenhuis = StuffClassifier::TfIdf.new("Ziekenhuis", :stemming => false)
 

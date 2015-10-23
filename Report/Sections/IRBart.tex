@@ -3,9 +3,39 @@
 
 \subsubsection*{Motivation}
 The indexing should happen after the Language detection \& spell check is applied. This way we know that the input data is mostly correct.  The collected data should be stored in a efficient way, such that queries can be executed on the data. This should be done in an efficient way, which can be done with indexing the collected data. 
+For example we know that a lot of queries will want to look for the location and the date. 
+We will probably also use the whole text for classying the news or tweet. 
 
 \subsubsection*{Approach}
-How the data is going to be indexed still depends on the queries needed by the machine learning components. Especially the components: Classify news feed/twitter data and the Association analyser. If those components need phrase queries , we create a Positional index.  A positional index is now commonly used, because of the power and usefulness of phrase and proximity queries. However if no phrase queries are needed, a simple Inverted index construction will be used. Here multiple query optimization techniques will be applied. For example the merge method with skip pointers could be implemented. 
+We used a plugin to index the text, because this way we could execute fast search queries on full text. 
+TEKST OVER ELASTIC SEARCH EN WAAROM HET SUPER MEGA COOL IS EN LINK NAAR APPENDIX WOEHOOEE \\
+Before we index the text from the news page or tweet, we first apply the tokonizer on the text.
+However to tokonize the text, we have to find the correct text, that needs to be tokonized.
+Since the tweets use a default format, we can easily get this text from the tweet. 
+However the news page are all in HTML format and not every news site uses the same format. 
+So to parse those HTML files, we had to apply some different rules for different news sites.
+Luckily each news site had some formatting done on the pages, so we could take the text of a CSS part of the page. 
+We defined this part for each of the news site, so we could import the text of those news pages.  \\
+We also search for the location in the news pages. 
+Since most news pages write the name of the city before the article, we decided to use this location.
+There were some minor problems with looking for cities that consists of multiple words. 
+At first we only compared the first word, however `DEN' is not a city and `DEN HAAG' is. 
+We solved this problem by comparing both the first word as the first two words with every city name in the Netherlands. \\
+ For the tweets we take the location of the tweet if present. 
+If the tweet has no location, the location of the user is used. 
+This is ussualy the home town of the user and not the location from which the tweet was send.\\ 
 
-\subsubsection*{Evaluation }
-The evaluation of the Indexing of news feed / twitter data component, can be done by executing queries on the indexed data. Then we can compare those results with actually searching the documents for the same query. Actually searching the documents can be done automatically, but will probably take some time. For testing the queries this is not a real problem, because the tests can be executed before the indexing is going to be used. The tests are probably secure, because actually searching the original documents gives the exact desired outcome. This outcome should match the outcome of the queries. However we will probably only execute this tests just after indexing, because storing all the original documents will occupy a lot of space. 
+\subsubsection*{Evaluation $\&$ Possible Improvements }
+TODO EVALUATION
+Improvements could be made in the indexing. Now some tweets and news pages failed to be inserted into the tokonizer, because of an unusual text format. 
+This could be increased by converting the format, before applying the tokonizer. 
+However this were only a few cases in which the text format was really different, so we did not focus on those cases yet. \\
+Another improvement could be a more advanced location finder. 
+Now we assume that news page write their location at the start of the article and compare it to a list of Dutch cities.
+However not all news articles have such an location and some locations are not real cities, but a popular area. 
+We could improve the indexing in such a way that it searches for a location inside the text. This was still pretty hard, because some Dutch cities have the same name as words that are also used in texts. For example EEN and MEER are Dutch words that are used a lot, but they are also cities. \\
+Another improvement could be to look for the time of the news article. The time can be found on the page or in the text. 
+For example we could find `Saturday morning', then we know it happend between 6.00 and 12.00 am. 
+Another search could be to the time the article is published. 
+However this gives problems with updates of the article and multiple times on the news page. 
+Perhaps this could be done, by making an unique learner for each different news site. 

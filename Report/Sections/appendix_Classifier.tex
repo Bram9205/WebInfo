@@ -1,3 +1,41 @@
 \section{Appendix Ruby Classifier} \label{app:classifier}
-Bart gaat hippe shit in deze appendix stypen!
+
+We used a Ruby library, so before installing the library we have to install Ruby and Rubygems.
+This can be done on an Ubuntu 14.04 server by the following commands. 
+\begin{lstlisting}[frame=single]
+sudo apt-get install ruby
+sudo apt-get install rubygems-integration
+\end{lstlisting}
+For installing Ruby somewhere else, we recommend looking at: \url{ https://www.ruby-lang.org/en/} for more information to install Ruby on another operating system. \\
+\textbf{Stuff-Classifier:} \\
+A library for classifying text into multiple categories.
+It currently provides two different classifiers namely: 
+\begin{enumerate}
+\item A Naive Bayes classifier
+\item A classifier based on TF-IDF weights
+\end{enumerate}
+It can be installed with the following command: 
+\begin{lstlisting}[frame=single]
+gem install stuff-classifier
+\end{lstlisting}
+The classifier can be used like this:
+
+\begin{lstlisting}[language=Ruby]
+require 'stuff-classifier'
+
+cls = StuffClassifier::Bayes.new("Cats or Dogs")
+# Creates a new Naive Bayes classifier.
+# To create a TF-IDF classifier you should replace Bayes by TF-IDF
+cls.train(:dog, "So which one should you choose? A dog, definitely.")
+# Trains the label dog for the classifier
+cls.train(:cat, "My cat's favorite place to purr is on my keyboard")
+# Trains the label cat for the classifier
+cls.classify("This test is about dogs.") 
+# Returns dog
+cls.classify("Get off my keyboard!") 
+# Returns cat
+
+\end{lstlisting}
+
+
 \clearpage
