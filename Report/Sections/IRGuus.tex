@@ -12,7 +12,7 @@ One of the projects goals was to associate P2000 notifications with relevant loc
 \end{enumerate}
 
 \subsection*{Approach}
-When taking notion 2 and 3 (in the list above) into account, it is clear that a web crawler is suited for the retrieval task. This crawler will attempt to index all the news articles within a specified date range for a number of specified news websites. The websites that were chosen for this project are:
+When taking notion 2 and 3 (in the list above) into account, it is clear that a web crawler is suited for the retrieval task. This crawler will attempt to retrieve all the news articles within a specified date range for a number of specified news websites. The websites that were chosen for this project are:
 \begin{itemize}[noitemsep]
 \item RTV Rijnmond (Zuid-Holland): \url{http://www.rijnmond.nl/}
 \item RTV Noord-Holland: \url{http://www.rtvnh.nl/}
@@ -24,7 +24,7 @@ The crawler will need to operate using the following rules:
 \begin{enumerate}
 \item Crawling will start at a specified page on the news website (seed).
 \item Crawling will be executed using a set of politeness rules: a maximum number of crawls per minute are maintained and robots.txt is respected.
-\item Only links that lead to the domain of the specified news website will be crawled, otherwise the probability that irrelevant websites are indexed (for instance: advertisers) is too high.
+\item Only links that lead to the domain of the specified news website will be crawled, otherwise the probability that irrelevant websites are retrieved (for instance: advertisers) is too high.
 \item The crawler operates on a single thread. This is sufficient considering the limited scope of the project and reduces the time needed to implement the crawler.
 \end{enumerate}
 \subsection*{Implementation and evaluation}
@@ -51,7 +51,7 @@ Evaluation of the crawler was done by setting the $timeToLive$ to a few minutes 
 \item Only pages in the $rootUrl$ domain are retrieved
 \item Most of the retrieved pages are news articles
 \item The extracted dates matches the one in the articles
-\item No relevant HTML tags were removes (the content of the article has remained intact)
+\item No relevant HTML tags were removed (the content of the article has remained intact)
 \end{enumerate}
 Fulfilling these requirements enables further processing of the article (such as extracting the body of the article tokenization and stemming) which is done by other modules of the retrieval system.\\
 \subsection*{Improvements and future work}
