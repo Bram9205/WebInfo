@@ -4,17 +4,17 @@
 \subsubsection*{Motivation}
 The indexing should happen after the Language detection \& spell check is applied. This way we know that the input data is mostly correct.  The collected data should be stored in a efficient way, such that queries can be executed on the data. This should be done in an efficient way, which can be done with indexing the collected data. 
 For example we know that a lot of queries will want to look for the location and the date. 
-We will probably also use the whole text for classying the news or tweet. 
+We will probably also use the whole text for classifying the news or tweet. 
 
 \subsubsection*{Approach}
-We used a plugin to index the text, because this way we could execute fast search queries on full text. 
+We used a plug-in to index the text, because this way we could execute fast search queries on full text. 
 We have decided to use Elasticsearch. 
 Elasticsearch builds distributed capabilities on top of Apache Lucene to provide one of the most powerful full- text search capabilities available in any open source product. 
-Powerful, developer-friendly query API supports multilingual search, geolocation, contextual did-you-mean suggestions, autocomplete, and result snippets.
+Powerful, developer-friendly query API supports multilingual search, geolocation, contextual did-you-mean suggestions, auto complete, and result snippets.
 All fields are indexed by default, and all the indices can be used in a single query, to easily return complex results at great speed.  
 Almost any action can be performed using a simple RESTful API using JSON over HTTP. Client libraries are available for many programming languages.\\
-Before we index the text from the news page or tweet, we first apply the tokonizer on the text.
-However to tokonize the text, we have to find the correct text, that needs to be tokonized.
+Before we index the text from the news page or tweet, we first apply the tokenizer on the text.
+However to tokenize the text, we have to find the correct text, that needs to be tokenized.
 Since the tweets use a default format, we can easily get this text from the tweet. 
 The news page are all in HTML format and not every news site uses the same format. 
 So to parse those HTML files and had to apply some different rules for different news sites.
@@ -30,22 +30,22 @@ At first we only compared the first word, however `DEN' is not a city and `DEN H
 We solved this problem by comparing both the first word as the first two words with every city name in the Netherlands. \\
  For the tweets we take the location of the tweet if present. 
 If the tweet has no location, the location of the user is used. 
-This is ussualy the home town of the user and not the location from which the tweet was send.\\ 
+This is usually the home town of the user and not the location from which the tweet was send.\\ 
 
 \subsubsection*{Evaluation $\&$ Possible Improvements }
 The indexing was evaluated by executing queries on ElasticSearch. 
 We first indexed 100 news articles in to ElasticSearch.
 Before we indexed those articles, we defined their locations and defined which articles contained certain words.
 Then we executed queries on the locations and words and checked if they were correct. \\
-Improvements could be made in the indexing. Now some tweets and news pages failed to be inserted into the tokonizer, because of an unusual text format. 
-This could be increased by converting the format, before applying the tokonizer. 
+Improvements could be made in the indexing. Now some tweets and news pages failed to be inserted into the tokenizer, because of an unusual text format. 
+This could be increased by converting the format, before applying the tokenizer. 
 However this were only a few cases in which the text format was really different, so we did not focus on those cases yet. \\
 Another improvement could be a more advanced location finder. 
 Now we assume that news page write their location at the start of the article and compare it to a list of Dutch cities.
 However not all news articles have such an location and some locations are not real cities, but a popular area. 
 We could improve the indexing in such a way that it searches for a location inside the text. This was still pretty hard, because some Dutch cities have the same name as words that are also used in texts. For example EEN and MEER are Dutch words that are used a lot, but they are also cities. \\
 Another improvement could be to look for the time of the news article. The time can be found on the page or in the text. 
-For example we could find `Saturday morning', then we know it happend between 6.00 and 12.00 am. 
+For example we could find `Saturday morning', then we know it happened between 6.00 and 12.00 am. 
 Another search could be to the time the article is published. 
 However this gives problems with updates of the article and multiple times on the news page. 
 Perhaps this could be done, by making an unique learner for each different news site. 

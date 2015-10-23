@@ -33,38 +33,21 @@ begin
 		string = dips
 		if( string.length > 4)
 			x = string.downcase
-			if( row[3] == 'http://www.rtvnh.nl/')
-				c = string.downcase.split()
-				i = 0 
-				while  i < data.length 
-						d1 = data[i][0]
-						if(d1 != nil)
-							d1 = d1.downcase.gsub(/[^a-z0-9\s\-\']/i, '')
-							if(d1 != nil)
-								if( d1 == c[0] or d1 == c[0] + ' ' + c[1])
-									locatie = d1
-								end
-							end
-						end
-						i +=1
-				end
-			else
-				c = x.match(/([\w ']+)/)
-				c = c[0].gsub!(/\W/,'')
-				i = 0 
-				while  i < data.length 
+			c = string.downcase.split()
+			i = 0 
+			while  i < data.length 
 					d1 = data[i][0]
 					if(d1 != nil)
 						d1 = d1.downcase.gsub(/[^a-z0-9\s\-\']/i, '')
 						if(d1 != nil)
-							if( d1 == c)
+							if( d1 == c[0] or d1 == c[0] + ' ' + c[1])
 								locatie = d1
 							end
 						end
 					end
 					i +=1
-				end
 			end
+
 			string.gsub!(' ', 'xbartiscoolx')
 			string.gsub!(/\W/,'')
 			string.gsub!('xbartiscoolx', '%20')
