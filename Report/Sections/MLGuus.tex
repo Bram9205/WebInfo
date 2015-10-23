@@ -37,16 +37,27 @@ Some example data that the associator will use is illustrated in \autoref{tab:p2
 
 \begin{table}[]
 \centering
-\begin{tabular}{|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|}
 \hline
-\textbf{notification} & \textbf{label} & \textbf{sublabel} & \textbf{date} & \textbf{town} \\ \hline
-16129                 & Ambulance      & Accident          &               & Amsterdam     \\ \hline
-34537                 & Police         & Crime             & 16-10-2015    & Eindhoven     \\ \hline
-68778                 & Fire dept.     &                   & 19-10-2015    &               \\ \hline
+\textbf{news\_id} & \textbf{label} & \textbf{date} & \textbf{location} \\ \hline
+24                & Police         &  16-10-2015             & Eindhoven         \\ \hline
+76                & Fire dept.     & 16-10-2015    & Arnhem         \\ \hline
+89                & Ambulance      & 19-10-2015    & Amsterdam            \\ \hline
 \end{tabular}
 \caption{Example labeled news article data}
 \label{tab:newsData}
 \end{table}
+
+The algorithm to build association rules works as follows:
+\begin{enumerate}
+\item Compare each P2000 $p$ notification and news article $n$ with each other and create an association rule if both of the following conditions hold: 
+	\begin{itemize}[noitemsep]
+	\item The location tag is the same for both the P2000 notification and the news article
+	\item At least one label that occurs in $p$ also occurs in $n$: $labels(p) \cap labels(n) \not= \emptyset$
+	\end{itemize}
+\item Compute the support and confidence of both sides of the association rule, as well as the lift.
+\item Compute a score for each rule:
+\end{enumerate}
 
 
 \subsection{Improvements and future work}
