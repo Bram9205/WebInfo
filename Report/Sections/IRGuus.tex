@@ -14,7 +14,7 @@ One of the projects goals was to associate P2000 notifications with relevant loc
 \subsection*{Approach}
 When taking notion 2 and 3 (in the list above) into account, it is clear that a web crawler is suited for the retrieval task. This crawler will attempt to index all the news articles within a specified date range for a number of specified news websites. The websites that were chosen for this project are:
 \begin{itemize}[noitemsep]
-\item RTV Rijmnond (Zuid-Holland): \url{http://www.rijnmond.nl/}
+\item RTV Rijnmond (Zuid-Holland): \url{http://www.rijnmond.nl/}
 \item RTV Noord-Holland: \url{http://www.rtvnh.nl/}
 \item Omroep Gelderland: \url{http://www.omroepgelderland.nl/}
 \item Omroep Noord-Brabant: \url{http://www.omroepbrabant.nl/}
@@ -53,4 +53,10 @@ Evaluation of the crawler was done by setting the $timeToLive$ to a few minutes 
 \item The extracted dates matches the one in the articles
 \item No relevant HTML tags were removes (the content of the article has remained intact)
 \end{enumerate}
-Fulfilling these requirements enables further processing of the article (such as extracting the body of the article tokenization and stemming) which is done by other modules of the retrieval system.
+Fulfilling these requirements enables further processing of the article (such as extracting the body of the article tokenization and stemming) which is done by other modules of the retrieval system.\\
+\subsection*{Improvements and future work}
+Because of the scope of this project and the amount of time allocated to it, the crawler has a simple design. A few improvements which could be implemented in future projects:
+\begin{itemize}
+\item The current implementation uses  a single thread. If multiple threads would be used, then more pages could be crawled at the same time.
+\item The crawler assumes that every news-article it has already crawled, does not change anymore. Therefore, known urls are not crawled again. This was sufficient for our project and saves time that would otherwise be spent on crawling (unchanged) pages which were already indexed. In future implementations, a more sophisticated method of checking  crawled pages could be used.
+\end{itemize}
