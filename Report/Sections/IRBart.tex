@@ -8,15 +8,22 @@ We will probably also use the whole text for classying the news or tweet.
 
 \subsubsection*{Approach}
 We used a plugin to index the text, because this way we could execute fast search queries on full text. 
-TEKST OVER ELASTIC SEARCH EN WAAROM HET SUPER MEGA COOL IS EN LINK NAAR APPENDIX WOEHOOEE \\
+We have decided to use Elasticsearch. 
+Elasticsearch builds distributed capabilities on top of Apache Lucene to provide one of the most powerful full- text search capabilities available in any open source product. 
+Powerful, developer-friendly query API supports multilingual search, geolocation, contextual did-you-mean suggestions, autocomplete, and result snippets.
+All fields are indexed by default, and all the indices can be used in a single query, to easily return complex results at great speed.  
+Almost any action can be performed using a simple RESTful API using JSON over HTTP. Client libraries are available for many programming languages.\\
 Before we index the text from the news page or tweet, we first apply the tokonizer on the text.
 However to tokonize the text, we have to find the correct text, that needs to be tokonized.
 Since the tweets use a default format, we can easily get this text from the tweet. 
-However the news page are all in HTML format and not every news site uses the same format. 
-So to parse those HTML files, we had to apply some different rules for different news sites.
+The news page are all in HTML format and not every news site uses the same format. 
+So to parse those HTML files and had to apply some different rules for different news sites.
 Luckily each news site had some formatting done on the pages, so we could take the text of a CSS part of the page. 
-We defined this part for each of the news site, so we could import the text of those news pages.  \\
-We also search for the location in the news pages. 
+We defined this part for each of the news site, so we could import the text of those news pages.  
+This way we only got the text of the news article instead of all the content of the page.
+This also filtered out the news pages, that were not news articles. 
+Since there were a lot of pages, that were not articles like the contact page, become member page, questions page etc.  \\
+We also searched for the location in the news pages, so we could index this too. 
 Since most news pages write the name of the city before the article, we decided to use this location.
 There were some minor problems with looking for cities that consists of multiple words. 
 At first we only compared the first word, however `DEN' is not a city and `DEN HAAG' is. 
@@ -26,7 +33,10 @@ If the tweet has no location, the location of the user is used.
 This is ussualy the home town of the user and not the location from which the tweet was send.\\ 
 
 \subsubsection*{Evaluation $\&$ Possible Improvements }
-TODO EVALUATION
+The indexing was evaluated by executing queries on ElasticSearch. 
+We first indexed 100 news articles in to ElasticSearch.
+Before we indexed those articles, we defined their locations and defined which articles contained certain words.
+Then we executed queries on the locations and words and checked if they were correct. \\
 Improvements could be made in the indexing. Now some tweets and news pages failed to be inserted into the tokonizer, because of an unusual text format. 
 This could be increased by converting the format, before applying the tokonizer. 
 However this were only a few cases in which the text format was really different, so we did not focus on those cases yet. \\
