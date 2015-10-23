@@ -51,7 +51,7 @@ class Main {
         while ($this->entriesInDatabase($date) == 0) {//&& $alreadyStoredPages<5) {
             $Scraper->scrapePage();
 
-                    
+
             $now = round(microtime(true) * 1000);
             $alreadyStored = $this->indexNotifications($Scraper->getRawNotifications());
             $elapsed = round(microtime(true) * 1000) - $now;
@@ -134,7 +134,23 @@ class Main {
             preg_match_all('/\b[0-9]{4}\s?[a-zA-Z]{2}\b/', $content, $postals);
             $postal = (!empty($postals[0])) ? $postals[0][0] : "";
 
-            $notification = new Notification($date, $time, $type, $region, $postal, $content);
+            // TEST GEOCODE ---------------------------------------------------------------------------------------------
+            //fwrite(STDOUT, "Postal: ".$postal.", strlen: ".strlen($postal)."\n"); // Test output
+            
+            if (strlen($postal) == 6) {
+                $coordArray = GeoCoder::geocode($postal);
+                if ($coordArray) {
+                    $coords= "{lat: ".$coordArray[0].", lng: ".$coordArray[1]."}";
+                    //example: {lat: 51.440044, lng: 5.482570}
+                    fwrite(STDOUT, $coords."\n"); // Test output
+                }
+            } else {
+                $coords = "";
+            }
+            
+            // END TEST -------------------------------------------------------------------------------------------------
+
+            $notification = new Notification($date, $time, $type, $region, $postal, $content, $coords);
 
             if (!$notification->isActualNotification()) {
                 continue; //Skip current iteration, this notification won't be stored
@@ -154,7 +170,7 @@ class Main {
                 continue; // Skip detectTown() and store()
             }
 
-            
+
 
             if ($notification->detectTown() == "") {
                 //echo "No town detected (no postal code and no town in content)\n";
@@ -167,16 +183,7 @@ class Main {
                 //echo '<span style="color: blue;">Notification was already in database! Nothing stored.</span><br/>';
                 fwrite(STDOUT, "Notification was already in database! Nothing stored.\n"); // for CLI
             }
-            
-            // TEST GEOCODE ---------------------------------------------------------------------------------------------
-            if (strlen($notification->postalCode) == 6) {
-                $output = GeoCoder::geocode($notification->postalCode);                
-                if ($output){
-                    fwrite(STDOUT, "Lat: ".$output[0]."\tLong: ".$output[1]."\n"); 
-                }            
-            }
-            // END TEST -------------------------------------------------------------------------------------------------
-            
+
             // $notification->printNotification(); echo "<hr>"; //TODO: remove, just for testing
         }
         return $alreadyStored;
