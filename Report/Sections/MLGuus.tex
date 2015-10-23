@@ -7,10 +7,46 @@ Our project attempts to find relevant news articles for certain P2000 notificati
 \item Each notification has a date, a number of labels and possibly a location.
 \item Each news article has a date and a number of labels.
 \end{enumerate}
-Using a modified version of association rule learning, the relations between each group of P2000 notifications and group of news articles can be determined.  
+Using a simple modified version of association rule learning, the relations between each group of P2000 notifications and group of news articles can be determined.  
 
 \subsubsection*{Approach}
-
-
+The assumption is made that the other parts of the system have already classified both P2000 notifications and news articles and that these labels are correct. A simple matching scheme is implemented that matches notifications according to their labels and assigned date and location tags. The labels and tags of each matching notification and article can be converted to an association rule corresponding to the relation between these items. For each association rule, a number of metrics can be computed (e.g. support, confidence) which can be used to create a ranking that indicates the strength of the association. This data can be used by other parts of the system to display the most relevant news articles.
 
 \subsubsection*{Implementation and Evaluation }
+An custom algorithm is used to build the association list. The input of the algorithm are a list of classified P2000 notification data and a list of classified news article data. A few remarks about the data which is outputted by both the notification classifier and the news classifier are (by examining the results outputted by those parts):
+\begin{enumerate}
+\item Every P2000 notification and news article has an id number and primary label
+\item Most P2000 notifications have a second label. 
+\item Most P2000 notifications have a location tag.
+\item All news articles have a location tags.
+\end{enumerate}
+
+Some example data that the associator will use is illustrated in \autoref{tab:p2000data} and \autoref{tab:newsData}. 
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{notification} & \textbf{label} & \textbf{sublabel} & \textbf{date} & \textbf{town} \\ \hline
+16129                 & Ambulance      & Accident          &               & Amsterdam     \\ \hline
+34537                 & Police         & Crime             & 16-10-2015    & Eindhoven     \\ \hline
+68778                 & Fire dept.     &                   & 19-10-2015    &               \\ \hline
+\end{tabular}
+\caption{Example labeled P2000 data}
+\label{tab:p2000data}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{notification} & \textbf{label} & \textbf{sublabel} & \textbf{date} & \textbf{town} \\ \hline
+16129                 & Ambulance      & Accident          &               & Amsterdam     \\ \hline
+34537                 & Police         & Crime             & 16-10-2015    & Eindhoven     \\ \hline
+68778                 & Fire dept.     &                   & 19-10-2015    &               \\ \hline
+\end{tabular}
+\caption{Example labeled news article data}
+\label{tab:newsData}
+\end{table}
+
+
+\subsection{Improvements and future work}
