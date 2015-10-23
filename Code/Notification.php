@@ -13,7 +13,8 @@ class Notification {
     public $cluster;
     private $minContentLength = 5;
     private $filterWords = array('test','scenario','proefalarm','dienstwissel');
-    private $clusterDeltaTime = 30;//minutes before and after a notification that can be taken into a cluster
+    private $clusterDeltaTime = 30; //minutes before and after a notification that can be taken into a cluster
+    private $matchpercentage = 72; //percentage of whole words of shortest message that has to occur in both notifications to qualify for a cluster
 
     function __construct($date, $time, $type, $region, $postalCode, $content) {
         $this->date = DateTime::createFromFormat('d-m-y', $date);
@@ -76,21 +77,63 @@ class Notification {
      * Sets the cluster id if there is another notification that seems to be concerning the same incident
      * null otherwise
      * @pre detectTown called
+     * @return whether a cluster has been found
      */
     public function cluster(){
         $db = Database::getConnection();
-        $stmt = $db->prepare('SELECT id FROM notifications WHERE date = ? AND time BETWEEN ? AND ? AND ((town != "" AND town = ?) 
-            OR (postal_code != "" AND postal_code = ?)) ORDER BY id ASC LIMIT 1');
+        $query = 'SELECT id, content FROM notifications WHERE date = ? AND time BETWEEN ? AND ?';
+        
         $date = $this->date->format("Y/m/d");
         $dt = DateTime::createFromFormat('H:i:s',$this->time);
         $low = $dt->sub(DateInterval::createFromDateString($this->clusterDeltaTime . " minutes"))->format("H:i:s");
         $high = $dt->add(DateInterval::createFromDateString(2*$this->clusterDeltaTime . " minutes"))->format("H:i:s");
-        $stmt->bind_param('sssss', $date, $low, $high, $this->town, $this->postalCode);
+
+        if(isset($this->postalCode) && $this->postalCode != ""){
+            if (isset($this->town) && $this->town != "") {
+                //postal code and town present in $this: Match at least one of two + if postal code present, it has to match
+                $query .= ' AND (postal_code = ? OR (postal_code = "" && town = ?)) ORDER BY id ASC';
+                $stmt = $db->prepare($query);
+                $stmt->bind_param('sssss', $date, $low, $high, $this->postalCode, $this->town);
+            } else {
+                //just postal code here (not probable as town can be deduced using postal code), postal code has to match
+                $query .= ' AND postal_code = ? ORDER BY id ASC';
+                $stmt = $db->prepare($query);
+                $stmt->bind_param('ssss', $date, $low, $high, $this->postalCode);
+            }
+        } else {
+            if (isset($this->town) && $this->town != "") {
+                //we only have the town, town has to match
+                $query .= ' AND town = ? ORDER BY id ASC';
+                $stmt = $db->prepare($query);
+                $stmt->bind_param('ssss', $date, $low, $high, $this->town);
+            } else {
+                //we neither have the town, nor the postal code here, no clustering
+                return false;
+            }
+        } 
+
         $stmt->execute();
-        $stmt->bind_result($cluster);
-        $stmt->fetch();
+        $stmt->bind_result($cluster, $content);
+        $clusters = array();
+        while ($stmt->fetch()) {
+            //only if $this->matchpercentage% of whole words match, cluster
+            if($this->wordMatchPercentage($content, $this->content) > ($this->matchpercentage/100)){
+                $clusters[] = array('cluster' => $cluster, 'content' => $content);
+            }
+        }
         $stmt->close();
-        $this->cluster = $cluster;
+        if(count($clusters) > 1){
+            $min = PHP_INT_MAX;
+            foreach ($clusters as $c) {
+                $min = min($c['cluster'], $min);
+            }
+            $this->cluster = $min;
+        } else if (count($clusters) == 1) {
+            $this->cluster = $clusters[0]['cluster'];
+        } else {
+            return false; //no cluster found
+        }
+        return true;
     }
 
     /**
@@ -211,6 +254,36 @@ class Notification {
         return $json;
     }
 
+    /**
+     * Helper function to calculate the percentage of words that match between two sentences, relative to the shortest sentence.
+     */
+    public static function wordMatchPercentage($sentence1, $sentence2, $caseSensitive = false){
+        if(!$caseSensitive){
+            $sentence1 = strtolower($sentence1);
+            $sentence2 = strtolower($sentence2);
+        }
+        preg_match_all("/\b\w+\b/", $sentence1, $words1);
+        preg_match_all("/\b\w+\b/", $sentence2, $words2);
+        
+        if (count($words1[0]) == 0 || count($words2[0]) == 0) {
+            return 0; //no match if a sentence has no words
+        }
+
+        if (count($words1[0]) < count($words2[0])) {
+            $shortSentence = $words1[0]; $longSentence = $words2[0];
+        } else {
+            $shortSentence = $words2[0]; $longSentence = $words1[0];
+        }
+
+        $matches = 0;
+        foreach ($shortSentence as $word) {
+            if(($key = array_search($word, $longSentence)) !== false){
+                $matches++;
+                unset($longSentence[$key]); //only want to match each word once (e.g. "word word word","word bla bla bla" should give 1/3 match, not 3/3)
+            }
+        }
+        return $matches/count($shortSentence);
+    }
 }
 
 ?>

@@ -16,4 +16,3 @@ Zuid-Holland: http://www.rijnmond.nl/
 Noord-Holland: http://www.rtvnh.nl/
 Gelderland: http://www.omroepgelderland.nl/
 Noord-Brabant: http://www.omroepbrabant.nl/
-Utrecht: http://www.rtvutrecht.nl/

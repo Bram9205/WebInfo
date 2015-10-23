@@ -7,7 +7,10 @@ In this part we will explain how you should install Elasticsearch on your own co
 \texttt{bin/plugin -i elasticsearch/marvel/latest}. This should give an interface to work with Elasticsearch.
 \item Now in the config directory open the file \texttt{elasticsearch.yml} and add the following two properties to the file: 
 \texttt{indices.analysis.hunspell.dictionary.ignore$\_$case: true} and \texttt{indices.analysis.hunspell.dictionary.strict$\_$affix$\_$parsing: true}. 
-\item In the same directory create a new folder called \texttt{hunspell} and put the Dutch dictionary in it. This dictionary was provided in the TODO LOCATIE VAN DIT TOEVOGEN.
+\item In the same directory create a new folder called \texttt{hunspell} and put the Dutch dictionary in it. This dictionary , named \texttt{n$\_$NL}, can be downloaded from \\
+\url{http://download.services.openoffice.org/contrib/dictionaries/}.
+\item Unpack it in the \texttt{hunspell} directory and make sure that the path structure is\\
+ \texttt{config/hunspell/nl$\_$NL/}.
 \item Now go to the url \url{http://localhost:9200/_plugin/marvel/sense/index.html}.
 \item Now in the left side put the two analyzers provided on the next page (simple copy and paste would work).
 \item When you hover over the line with \texttt{put} on it, you see a green triangle. When you click it you create the new analyzer. This has to be done for each of the two analyzers.

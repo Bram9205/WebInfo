@@ -92,6 +92,8 @@ class Page {
             }
         }
 
+        echo "Lowest date found: ".$lowestDate->format("d-m-Y")."\n";
+        
         return $lowestDate;
     }
 
@@ -157,17 +159,17 @@ class Page {
             
             if (Util::isRelative($url))
             {
-                $pageUrl = '';
-                if (!Util::endsWith($this->pageUrl, '/'))
-                {
-                    $pageUrl = Util::removeParams($this->pageUrl);
-                    $pageUrl = Util::removeLastUrlPart($pageUrl);
-                }
+//                $pageUrl = '';
+//                if (!Util::endsWith($this->pageUrl, '/') && $this->pageUrl !== $this->crawler->getRootUrl())
+//                {
+//                    $pageUrl = Util::removeParams($this->pageUrl);
+//                    $pageUrl = Util::removeLastUrlPart($pageUrl);
+//                }
                 
-                $url = $pageUrl.$url;
+                $url = $this->crawler->getRootUrl().$url;
             }
             
-            if (in_array($url, $this->crawler->getCrawled()) || in_array($url, $this->crawler->getCrawled()))
+            if (in_array($url, $this->crawler->getCrawled(), true) || in_array($url, $this->crawler->getCrawled(), true))
             {
                 //echo "link $url is already crawled or ignored \n";
                 continue;
