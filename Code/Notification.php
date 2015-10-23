@@ -142,7 +142,7 @@ class Notification {
      */
     public function detectTown(){
         if($this->postalCode !== null && $this->postalCode != ""){
-            $address = $this->get_address($this->postalCode);
+            $address = Notification::get_address($this->postalCode);
             if($address['success']){
                 $this->town = $address['resource']['town'];
                 return $this->town;
@@ -236,7 +236,7 @@ class Notification {
         return $this->capCodes;
     }
 
-    function get_address($postcode){ 
+    public static function get_address($postcode){ 
         $postcode=strtoupper(preg_replace("/\s+/", '', $postcode));
         $url="http://api.postcodeapi.nu/".$postcode;
 
