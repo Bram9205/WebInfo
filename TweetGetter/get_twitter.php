@@ -18,7 +18,7 @@
 		$keywords = array("sirene", "gevaar", "ongeluk", "ambulance", "ziekenwagen", "ongeval", "gewond", "letsel",
 		"brand", "vlam", "vuur", "brandweer", "blus", "water", "overval", "politie", "dief", "wapen", "letsel", "inbraak", "schiet", "misdrijf");
 		$start_date = "since:" . date(DATE_FORMAT, $date);
-		$end_date = "until:" . date(DATE_FORMAT, strtotime("+6 day", $date));
+		$end_date = "until:" . date(DATE_FORMAT, strtotime("+1 day", $date));
 		//$search_string = $notification['town'] . " " . implode(" OR ", $keywords) . " -p2000 " . $start_date . " " . $end_date;
 		$search_string = implode(" OR ", KEYWORDS_GEN) . " -p2000 -RT " . $start_date . " " . $end_date;
 
@@ -54,7 +54,7 @@
 			$total_num = $total_num + $num_stat;
 			
 			$min_id = $new_stat[$num_stat - 1]->id;
-			array_push($statuses, $new_stat);
+			$statuses = array_merge($statuses, $new_stat);
 		}
 		
 		//What do I do with the statuses?
@@ -62,6 +62,6 @@
 	}
 
 	//EXAMPLE: 
-//	$arr = array('date' => '1444737600', 'num_tweets' => '1000');
-//	print_r(getTweets($arr));
+	//$arr = array('date' => '1444737600', 'num_tweets' => '1000');
+	//print_r(getTweets($arr));
 ?>

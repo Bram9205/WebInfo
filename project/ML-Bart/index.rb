@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-i = 1
-while(i < 31132)
+i = 11891
+while(i < 44158)
 	j = i
 	system("ruby ML_Bart.rb " + j.to_s)
 	i += 1

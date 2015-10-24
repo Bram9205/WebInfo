@@ -2,15 +2,16 @@
 \textbf{Name:} Bart van Wezel \indent \textbf{StudentNumber:} 0740608
 
 \subsubsection*{Motivation}
-Not all P2000 notification are really clear. A example of an notification can be: \\ 
+Not all P2000 notification are really clear. A sample P2000 notification is: \\ 
 10-09-15	16:05:06	Ambulance	Midden- en West Brabant	B1 5011ME X : Mahlerstraat X Tilburg 67893  \\
-This notification is not really interesting to see, because when you get to see such a notification you probably have no idea what happened. 
 With a bit of research you can find that B1 means ordered transport. For example from the hospital to a nursing home. 
+This notification is not really interesting to see, because when you get to see such a notification you probably have no idea what happened. 
+This makes it harder to associate the notifications with news and twitter data. 
+Also the user wants to see what happens in the neighbourhood and classiying the notifications can help the user understand what those notifications mean.
 We are going to try to classify the P2000 notifications, such that we can get a clear classification for each P2000 notification.
-This way we can use those classification to filter the notifications and easier find notifications that are useful for users. 
+This way we can use those classification to filter the notifications and find notifications that are useful for users. 
 A lot of notifications are uninteresting, so by classifying the notifications, we can give the user the ability to easily filter notifications.
 Another use of the classification can be to help find associations with news and tweets that have the same classification.
-
 
 \subsubsection*{Approach}
 We have thought of three different methods to classify the notifications.
@@ -46,7 +47,7 @@ We can also evaluate notifications that are not labelled correctly and use those
 We can also create more classes. This would increase the chances to find relating tweets or news. An example class is now FIRE.
  We could create classes: House on Fire, Car on Fire etc. This would increase the chances to find relevant news and tweets. However this is also possible by improving the association analyzer. \\
  Another possible improvement would be to save the classifier. Now the classifier is trained again for each notification. 
- Of course this affects the performance, but the classifier is still fast enough for application, because the notifications get in earlier as the news and tweets. 
+ Of course this affects the performance, but the classifier is still fast enough for our application, because the notifications get in earlier as the news and tweets. 
  Furthermore the classifier has a relative small training data set, since it does not need a lot of notifications as training and each notifications does not have a lot of text.\\
 Also we should keep in mind that the classifier depends on the current way the notifications are written. 
 If the way the notifications are written changes, the classifier would perform way worse.
