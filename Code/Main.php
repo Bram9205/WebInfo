@@ -136,18 +136,16 @@ class Main {
 
             // TEST GEOCODE ---------------------------------------------------------------------------------------------
             //fwrite(STDOUT, "Postal: ".$postal.", strlen: ".strlen($postal)."\n"); // Test output
-            
+            $coords = "";
             if (strlen($postal) == 6) {
-                $coordArray = GeoCoder::geocode($postal);
-                if ($coordArray) {
-                    $coords= "{lat: ".$coordArray[0].", lng: ".$coordArray[1]."}";
-                    //example: {lat: 51.440044, lng: 5.482570}
-                    fwrite(STDOUT, $coords."\n"); // Test output
+                $address = Notification::get_address($postal);
+                if ($address['success']) {
+                    $coords = "{lat: " . $address['resource']['latitude'] . ", lng: " . $address['resource']['longitude'] . "}";
                 }
-            } else {
-                $coords = "";
+                fwrite(STDOUT, $coords . "\n"); // Test output
             }
-            
+
+
             // END TEST -------------------------------------------------------------------------------------------------
 
             $notification = new Notification($date, $time, $type, $region, $postal, $content, $coords);

@@ -7,10 +7,70 @@ Our project attempts to find relevant news articles for certain P2000 notificati
 \item Each notification has a date, a number of labels and possibly a location.
 \item Each news article has a date and a number of labels.
 \end{enumerate}
-Using a modified version of association rule learning, the relations between each group of P2000 notifications and group of news articles can be determined.  
+Using a simple modified version of association rule learning, the relations between each group of P2000 notifications and group of news articles can be determined.  
 
 \subsubsection*{Approach}
-
-
+The assumption is made that the other parts of the system have already classified both P2000 notifications and news articles and that these labels are correct. A simple matching scheme is implemented that matches notifications according to their labels and assigned date and location tags. The labels and tags of each matching notification and article can be converted to an association rule corresponding to the relation between these items. For each association rule, a number of metrics can be computed (e.g. support, confidence) which can be used to create a ranking that indicates the strength of the association. This data can be used by other parts of the system to create a ranking and display the most relevant news articles.
 
 \subsubsection*{Implementation and Evaluation }
+An custom algorithm is used to build the association list. The input of the algorithm are a list of classified P2000 notification data and a list of classified news article data. A few remarks about the data which is outputted by both the notification classifier and the news classifier are (by examining the results outputted by those parts):
+\begin{enumerate}
+\item Every P2000 notification and news article has an id number and primary label
+\item Most P2000 notifications have a second label. 
+\item Most P2000 notifications have a location tag.
+\item All news articles have a location tag.
+\end{enumerate}
+
+Some example data that the associator will use is illustrated in \autoref{tab:p2000data} and \autoref{tab:newsData}. 
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{notification} & \textbf{label} & \textbf{sublabel} & \textbf{date} & \textbf{town} \\ \hline
+16129                 & Ambulance      & Accident          &               & Amsterdam     \\ \hline
+34537                 & Police         & Crime             & 16-10-2015    & Eindhoven     \\ \hline
+68778                 & Fire dept.     &                   & 19-10-2015    &               \\ \hline
+\end{tabular}
+\caption{Example labeled P2000 data}
+\label{tab:p2000data}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{news\_id} & \textbf{label} & \textbf{date} & \textbf{location} \\ \hline
+24                & Police         &  16-10-2015             & Eindhoven         \\ \hline
+76                & Fire dept.     & 16-10-2015    & Arnhem         \\ \hline
+89                & Ambulance      & 19-10-2015    & Amsterdam            \\ \hline
+\end{tabular}
+\caption{Example labeled news article data}
+\label{tab:newsData}
+\end{table}
+
+The algorithm to build association rules works as follows:
+\begin{enumerate}
+\item Compare each P2000 $p$ notification and news article $n$ with each other and create an association rule if both of the following conditions hold: 
+	\begin{itemize}[noitemsep]
+	\item The location tag is the same for both the P2000 notification and the news article
+	\item At least one label that occurs in $p$ also occurs in $n$: $labels(p) \cap labels(n) \not= \emptyset$
+	\end{itemize}
+The example data from the \autoref{tab:p2000data} and \autoref{tab:newsData} will therefore yield the following rules (a notification id is prepended by $p\_$ and a news id is prepended by $n\_$):\\
+$\{p\_16129\} \rightarrow \{n\_89\}$\\
+$\{p\_34537, $16-10-2015$\} \rightarrow \{n\_24\}$
+\item Compute the support and confidence of both sides of the association rule, as well as the lift.
+\item Compute a score for each rule:
+	\begin{itemize}
+	\item The score is computed as follows: $score(r) = support(r.right) \times (1-support(r.left))$. The reason for this computation is because we assume that a news article with a high support (and therefore with more P2000 notifications pointing to it) has a high relevance. This value is combined with an inverse support for the P2000 notification (the left-hand side of the association). This is done because if the same P2000 notification points to multiple news articles, it is considered less relevant (the probability that it is not specific enough is too high). 
+	\item if $r$ has an associated date, then add $1$ the score. Because P2000 and notifications with a matching date are more likely to point to the same event.
+	\end{itemize}
+\end{enumerate}
+
+The score computed for each association can be used by other parts of the system as basis for ranking news articles that are matched to certain P2000 notifications.
+
+\subsection{Improvements and future work}
+Future versions of the system may implement the following features:
+\begin{itemize}
+\item The current version of the associator assumes that all associations that do not contain a date, are still relevant to some extent. To compute a more accurate score, the timespan between the date of a news article and P2000 notification can be another metric that influences the score of an association and therefore its ranking.
+\item Clusters of P2000 notifications are not taken into account, but maybe a method that uses associations with clusters of P2000 notifications to clusters of news articles is another interesting metric.
+\end{itemize}
