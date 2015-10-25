@@ -22,11 +22,11 @@ So we started looking if they were used consequently.
 Unfortunately this was not the case, since not all notifications are made up in the same way. 
 A lot of notifications follow some structure, but this structure was different in some regions. \\
 So we started looking at classifying the notifications with Naive Bayes and TF.IDF. 
-We found an Ruby library that implemented both of them and was easy to use. 
+We found a Ruby library that implemented both of them and was easy to use. 
 For more information on this classifier see \autoref{app:classifier}. \\
 Since there is a extension that implements both methods, we decided to try both of them and see which one worked better.\\
-To classify the notifications, we first divided the notifications in three groups: Fire department, Police, Ambulance.
-The reason for this is that each department uses different structures. For example the Ambulance department only shows an abbreviations, while the Fire department is usually some text and the police a combination of both. 
+To classify the notifications, we first divided the notifications in three groups: Fire department, Police and Ambulance.
+The reason for this is that each department uses different structures. For example the Ambulance department only shows abbreviations, while the Fire department usually  uses some text and the police a combination of both. 
 However the police and fire department do not write the same text and the police and ambulance use different abbreviations. So we decided to train the classifier for each of those departments. \\
 When training the classifiers, we only used the part of the notification that had something to do with the classifier, because otherwise we would need a much larger training set. 
 Things that have no influence on the classifier such as city, street and other codes such as the id of the cars that are going to that alert. Then it would classify most incidents in the same street incorrect and thus we only used the relevant part of the notifications to train the classifier. \\
