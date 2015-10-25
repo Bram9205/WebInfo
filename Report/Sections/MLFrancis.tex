@@ -8,7 +8,7 @@ Because of this, my task was changed to assist in the classification tasks, whic
 \subsubsection*{Motivation}
 \textbf{Classification of tweets}\\
 The classification of twitter messages is required to facilitate association analysis between P2000 notifications and tweets. Tweets are by definition short text messages.\\
-\\
+
 \textbf{Graphical User Interface}\\
 To present people the functionality of this system, a Graphical User Interface (GUI) is a must. People should be able to search for their city and view their neighborhood on a map and be able to click on items they find relevant. 
 \subsubsection*{Approach}
@@ -18,7 +18,7 @@ For classifying the twitter messages, the same Ruby library as used for classify
 The tweets were divided in the classes: \emph{Police}, \emph{Ambulance}, \emph{Firefighters}, \emph{Fire}, \emph{Accident}, \emph{Crime}, and \emph{Other}. The Other class has some subdivisions to reduce its size, which would otherwise give it too much weight. This is necessary because there are a lot of irrelevant tweets. Also the tweets relating to firefighters became a large class, so it was split into tweets relating to actual fires, and other tasks for which firefighters are also called.\\
 
 The above mentioned approaches could be used because previous classification tasks were already done on P2000 notifications and the news feed. This facilitated me to only focus on the time consuming part of creating a training data set and getting a good sense of the classifiers.\\
-\\
+
 \textbf{Graphical User Interface}\\
 Due to my limited programming experience, I chose to use Java's Swing to build the GUI, combined with the JxBrowser library from TeamDev. This library allows the embedding of a chromium-based element in Swing applications. These elements could then load HTML files containing JavaScript code for dynamic and interactive layouts of the pages. The JxBrowser library also facilitates the possibility to perform function calls between the Java application and the HTML files (and back too).\\ 
 
@@ -34,7 +34,7 @@ Using the system, a user queries their town of interest on a date of interest. T
 \subsubsection*{Evaluation $\&$ Possible Improvements}
 \textbf{Classification of tweets}\\
 The classifier was evaluated analogue to the method used to classify news and P2000 notifications. This was done by giving the classifier unlabeled data and comparing its outcome with labels that we deemed fitting. If it labeled many tweets incorrectly, the training set was increased in size. This process was repeated until reaching desired behavior. In this case, desired was to allow for false negatives, but prevent false positives. Since the labels or classes are used in the association analysis, this would reduce the amount of irrelevant tweets as much as possible at the cost of maybe missing some relevant ones. This would give the user confidence in the suggested associations, whereas viewing irrelevant suggestions repeatedly quickly will reduce the users' confidence in the system.\\
-\\
+
 \textbf{Graphical User Interface}\\
 The evaluation of the GUI was done manually by looking for associations of news items and tweets in the database. Then by querying the corresponding town, clicking the P2000 notification on the map and viewing the correct items appearing, the GUI was deemed functional. \\
 
