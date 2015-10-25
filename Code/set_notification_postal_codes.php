@@ -9,7 +9,7 @@ function __autoload($class_name) {
 
 $db = Database::getConnection();
 //retrieve notifications which dont have a postal code but do have a town.
-$stmt = $db->prepare('SELECT id, town, content FROM notifications WHERE postal_code = "" AND town != "" AND id < 28642 AND id > 300');
+$stmt = $db->prepare('SELECT id, town, content FROM notifications WHERE postal_code = "" AND town != "" AND id < 30390 AND id > 300');
 $stmt->execute();
 $stmt->bind_result($id, $town, $content);
 $notifications = array();
