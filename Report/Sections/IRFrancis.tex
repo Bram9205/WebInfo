@@ -2,7 +2,7 @@
 \textbf{Name:} Francis Hoogendijk \indent \textbf{StudentNumber:} 0834628
 
 \subsubsection*{Motivation}
-As described in the introduction, the program should show events which required emergency services in a specified neighbourhood. For this we plan to use notifications of the Dutch P2000 system. These notifications can be accessed through several different websites and contain timestamped information about which emergency response team is required, where they should go and sometimes other information. Since the P2000 system is continually operational, the system should frequently check for new notifications.
+As described in the introduction, the program should show events which required emergency services in a specified neighborhood. For this we plan to use notifications of the Dutch P2000 system. These notifications can be accessed through several different websites and contain timestamped information about which emergency response team is required, where they should go and sometimes other information. Since the P2000 system is continually operational, the system should frequently check for new notifications.
 
 \subsubsection*{Approach}
 To obtain the notifications, a purpose-built website scraper was made for the website \url{http://www.p2000-online.net}. This particular website was chosen because it offers the notifications in a somewhat structured manner (table rows), which can be extracted using a simple DOM-parser.\\
@@ -22,3 +22,4 @@ The scraper at first needed to be slowed down for politeness, where the assumpti
 The person responsible for the indexing admitted it could be made more efficient but we agreed that for a proof of concept this approach suffices.\\
 
 An improvement that may be made to is to incorporate another scraper for another website that shows P2000 notifications. Processing the contents and comparing them may increase the number of notifications that can be retrieved. This is because these websites are not official, and use decoders to detect notification messages. Also, some existing P2000 websites already show possible associations or geolocations. These may be used for reference but for the purpose of this course, extracting this information from those websites was deemed too complex.
+

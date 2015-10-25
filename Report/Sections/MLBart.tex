@@ -3,13 +3,13 @@
 
 \subsubsection*{Motivation}
 Not all P2000 notification are really clear. A sample P2000 notification is: \\ 
-10-09-15	16:05:06	Ambulance	Midden- en West Brabant	B1 5011ME X : Mahlerstraat X Tilburg 67893  \\
+10-09-15 16:05:06 Ambulance Midden- en West Brabant B1 5011ME X : Mahlerstraat X Tilburg 67893 \\
 With a bit of research you can find that B1 means ordered transport. For example from the hospital to a nursing home. 
 This notification is not really interesting to see, because when you get to see such a notification you probably have no idea what happened. 
 This makes it harder to associate the notifications with news and twitter data. 
-Also the user wants to see what happens in the neighbourhood and classiying the notifications can help the user understand what those notifications mean.
+Also the user wants to see what happens in the neighborhood and classifying the notifications can help the user understand what those notifications mean.
 We are going to try to classify the P2000 notifications, such that we can get a clear classification for each P2000 notification.
-This way we can use those classification to filter the notifications and find notifications that are useful for users. 
+This way we can use those classifications to filter the notifications and find notifications that are useful for users. 
 A lot of notifications are uninteresting, so by classifying the notifications, we can give the user the ability to easily filter notifications.
 Another use of the classification can be to help find associations with news and tweets that have the same classification.
 
@@ -21,7 +21,7 @@ As stated in the motivation, B1 means ordered transport.
 So we started looking if they were used consequently. 
 Unfortunately this was not the case, since not all notifications are made up in the same way. 
 A lot of notifications follow some structure, but this structure was different in some regions. \\
-So we  started looking at classifying the notifications with Naive Bayes and TF.IDF. 
+So we started looking at classifying the notifications with Naive Bayes and TF.IDF. 
 We found an Ruby library that implemented both of them and was easy to use. 
 For more information on this classifier see \autoref{app:classifier}. \\
 Since there is a extension that implements both methods, we decided to try both of them and see which one worked better.\\
@@ -30,24 +30,24 @@ The reason for this is that each department uses different structures. For examp
 However the police and fire department do not write the same text and the police and ambulance use different abbreviations. So we decided to train the classifier for each of those departments. \\
 When training the classifiers, we only used the part of the notification that had something to do with the classifier, because otherwise we would need a much larger training set. 
 Things that have no influence on the classifier such as city, street and other codes such as the id of the cars that are going to that alert. Then it would classify most incidents in the same street incorrect and thus we only used the relevant part of the notifications to train the classifier. \\
-For the Police and Fire department Naive Bayes turned out to give better results. For the Ambulance the TF.IDF was giving better results. Which was as  expected, because the Ambulance was using a lot of abbrovations. 
+For the Police and Fire department Naive Bayes turned out to give better results. For the Ambulance the TF.IDF was giving better results. Which was as expected, because the Ambulance was using a lot of abbreviations. 
 
 \subsubsection*{Evaluation $\&$ Possible Improvements }
 After applying the classifier to a test data set of 500 notifications, we compared the results of the classifier with the test data. 
-There were 198 relevant labels in the test data set. The classifier labelled 21 labels incorrect. 
+There were 198 relevant labels in the test data set. The classifier labeled 21 labels incorrect. 
 However most of the incorrect labels were irrelevant labels. 
-It labelled 200 labels as relevant labels of which 196 were relevant. 
+It labeled 200 labels as relevant labels of which 196 were relevant. 
 So the precision is $196/200$ and the recall $196/198$. 
 We think this is good enough, but this could be improved in the future. \\
 Possible improvement are looking at which notifications do not occur very often. 
 Notifications that belong to very big accidents, probably have a different structure. 
-We are unsure if they would be labelled correctly, because such notifications depend on the events. 
+We are unsure if they would be labeled correctly, because such notifications depend on the events. 
 However we for our application those labels are important, because such events reappear in the news and on twitter. \\
-We can also evaluate notifications that are not labelled correctly and use those notifications to improve the training data set. 
+We can also evaluate notifications that are not labeled correctly and use those notifications to improve the training data set. 
 We can also create more classes. This would increase the chances to find relating tweets or news. An example class is now FIRE.
- We could create classes: House on Fire, Car on Fire etc. This would increase the chances to find relevant news and tweets. However this is also possible by improving the association analyzer. \\
- Another possible improvement would be to save the classifier. Now the classifier is trained again for each notification. 
- Of course this affects the performance, but the classifier is still fast enough for our application, because the notifications get in earlier as the news and tweets. 
- Furthermore the classifier has a relative small training data set, since it does not need a lot of notifications as training and each notifications does not have a lot of text.\\
+We could create classes: House on Fire, Car on Fire etc. This would increase the chances to find relevant news and tweets. However this is also possible by improving the association analyzer. \\
+Another possible improvement would be to save the classifier. Now the classifier is trained again for each notification. 
+Of course this affects the performance, but the classifier is still fast enough for our application, because the notifications get in earlier as the news and tweets. 
+Furthermore the classifier has a relative small training data set, since it does not need a lot of notifications as training and each notifications does not have a lot of text.\\
 Also we should keep in mind that the classifier depends on the current way the notifications are written. 
 If the way the notifications are written changes, the classifier would perform way worse.
