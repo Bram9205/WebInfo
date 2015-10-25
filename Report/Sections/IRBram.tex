@@ -17,4 +17,6 @@ Now that we have the postal code for all notifications which either have a posta
 
 When we have isolated and transformed all the data we need, we store it in SQL database tables with a clear structure, so we can later easily access the data. We create indexes on this database on several fields (e.g. date and time and postal code) to speed up future search queries.
 \subsubsection*{Evaluation}
-The indexing of notifications will be evaluated by manually checking the resulting data in the database, to see whether the data has been split up properly, and by running queries and testing how long they take to see whether the indexes are working properly. These manual tests showed that (in the end) everything works as expected.
+The indexing of notifications will be evaluated by manually checking the resulting data in the database, to see whether the data has been split up properly, and by running queries and testing how long they take to see whether the indexes are working properly. These manual tests showed that (in the end) everything works as expected.\\
+
+Finding the street name in the notification and retrieving the postal codes from street and town names had the largest impact on the performance. This took about 8 hours to run for about 15000 notifications (the ones which did not have a postal code yet but did have a town). To speed this up we split the notifications in two parts (one took the id's smaller than the median id and the other greater or equal than the median id). This way it completed in about 4 hours.
