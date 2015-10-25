@@ -1,33 +1,68 @@
-\subsection{Associate the data sources}
+\subsection{Associate the Twitter Data}
 \textbf{Name:} Ramon de Vaan \indent \textbf{StudentNumber:} 0758873
 
 \subsubsection*{Motivation}
-As stated in the introduction, one of the main goals for the project is to find news sources that are related to a certain P2000 notification.
-From P2000 notifications alone, it is difficult to fully grasp the events that occurred at a certain location, as they tend to be rather basic, containing only basic information.
-If incidents occurs, the first slivers of information regarding these are provided by local news media and twitter sources, often within a very small time frame. \\
-Thus, to provide the user with as much information as possible, we would like to link these information sources to the lacking P2000 notifications.
+Now that we have both a set of Tweets, and a set of P2000 notifications, we want to associate the two.
+Preferably, we want a number of tweets per P2000 notification, in a ranking.
+In that way, when the user will inspect a certain P2000 notification, he will be able to gather additional information from the related tweets.
 
 \subsubsection*{Approach}
-At this step in the process, we will have already mined keywords from both P2000 notifications and local news/twitter sources, with hopes these accurately describe what the corresponding source is about.
-We will need to develop an algorithm that can produce a measure of relevance between a pair of these keyword sets.
-There might be different options and/or configuration for the algorithm we will use, but most likely several will need to be tested and compared. \\
+We have devised a Java program that grabs all twitter messages and all notifications from the server, and writes the associations between them back to the server using the JDBC library.
+However, we want to associate on a cluster level, instead of on a notification level.
+Therefore, some preprocessing is required before the association analysis. \\
+Notifications are assigned the lowest notification id of the notifications in its cluster.
+However, notifications not belonging to a cluster may be given cluster id \textsc{NULL}.
+Additionally, it might occur that the head of a cluster is given cluster id \textsc{NULL}. \\
+To solve this, first of all we assign every notification that has \textsc{NULL} as a cluster id, its own notification id as cluster id.
+We can then sort the notifications by cluster id, and merge notifications with the same cluster id. \\
 
-Given a certain location and timespan, we will find the corresponding P2000 notifications.
-For each of these, we will be iterating over a (sub)set of data sources, producing a relevance score between each P2000 - data source pair.
-We will then sort the data sources based on the relevance score our algorithm produces.
-The top-most relevant sources can then be displayed to the user.
-Additionally, it might be wise to declare a lower bound for the relevance score. 
-It might be better to show the user there were no relevant data sources than to have the user read those that are not relevant at all. \\
+To compute the measure of association, we use the \textit{tf.idf} algorithm described in class.
+In this case, the clusters are to serve as queries, and the twitter messages serve as documents.
+Now that we have clusters, we need to turn the set of notifications into a query.
+We do this by merging the text of each of the notifications, and removing duplicate terms.
+Additionally, the cluster is given the set of notification types appearing in its notifications. \\
+The twitter data is preprocessed as well. 
+We compute the set of terms that appear in them, compute the term frequency per message, and the document frequency per term. \\
 
-There are a few additions to this approach, however.
-We will need to filter the results depending on the options the user has selected.
-For example, the user may have selected to only show twitter messages.
-If possible, it would be best to apply a filter on the data sources before computing the relevance, as the latter is probably a more costly operation, so running that on fewer entries would increase performance. \\
-Additionally, it might be wise to not only show the top-most relevant sources, but try to maintain a certain variance in data sources.
-For example, it might be better to show a few local news articles instead of solely twitter messages, even if they have a higher relevance score.
+With the data preprocessed, we're ready to start computing the score.
+However, we have one added requirement.
+We do not want Twitter data that is in no way related to a cluster to be assigned a score for that cluster. \\
+A twitter message may score very high based on the same terms occurring in both a cluster a tweet, but as we discussed earlier, P2000 notifications are not very well defined.
+As such, a P2000 notification that has the word ambulance in it, may be associated to twitter messages on the other side of the country, also saying ambulance.
+We want to ensure that only twitter messages that have a chance of being related are considered. \\
 
+To solve this, we grab a subset of twitter messages from the document collection by comparing metadata.
+Twitter messages are often assigned a location from where they were tweeted.
+P2000 messages are assigned both a town and a region.
+As such, a twitter message is only selected if its message contains the town or region from a P2000 notification, or if its location is equal to one of those. \\
+Additionally, twitter messages have been assigned a label by the classification algorithm.
+A twitter message won't be considered if the label is not related to the notification type of the notification. \\
+Lastly, we only consider twitter messages that are posted after the earliest notification in a cluster.
+We assume that P2000 notifications occur before related twitter messages, as people would be more inclined to call emergency services in the event of an accident, than to post about it on Twitter.
+As a result, any messages that occur before a notification are assumed to be related to another notification. \\
 
+For every message that remains after the filtering, the score is calculated, and written to the database.
 
 \subsubsection*{Evaluation}
-There is no solid means to evaluate the performance of the algorithm apart from user testing.
-As stated above, we will have to test different algorithms and manually compare the results.
+The program successfully produces a set of association entries in the database.
+Each of these is given a score corresponding to what extent the twitter message associates to the P2000 cluster.
+However, as of now, it is not much of a machine learning task.
+There is no evaluation in the sense that we learn from what associations we produced in the past, to influence associations in the future, it has become more of an extended IR task.
+It is rather difficult to do so using the means we were taught in class. \\
+If we had a large userbase for our program, we could attempt to measure how many times each tweet was clicked in relation to a cluster of P2000 notifications, and let that affect the score.
+In that way, when another user inspects the same cluster, the system will have learned from previous users.
+But the use of this is debatable, for one, users will probably be interested in the latest data for a given location, so the number of clicks may not have influenced the ranking as much. \\
+
+One could argue that there is still some amount of machine learning through the use of P2000 and Twitter labels by the program.
+These do alter the association results, as the labels have to match for a tweet to be considered as associated.
+As the labelling algorithms mature, the set of associated tweets will probably return better results as well. \\
+Additionally, the clustering of the P2000 notifications will alter the results.
+Good clusters will produce better association results, while clusters that have unrelated P2000 notifications may return a multitude of twitter message that are not necessarily related to each P2000 notification in a cluster. \\
+
+Another issue is the fact that the program does not run on the server, instead running on a local computer.
+It would be better to re-run the program every time a new set of P2000 notifications and Twitter messages are collected, after the clustering and classification steps.
+The current program simply grabs all notifications and all twitter messages and tries to associate them. 
+Obviously, as the set of notifications and twitter messages grow, this will eventually become to expensive in terms of bandwidth usage, and computational power.
+However, the program can easily be adapted to run on subsets, and on the server.
+The server would have to be adapted to keep track of the set of terms, and the document frequency of each term.
+For the duration of this course, the current implementation suffices.
