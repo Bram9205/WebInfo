@@ -13,7 +13,7 @@ Using a simple modified version of association rule learning, the relations betw
 The assumption is made that the other parts of the system have already classified both P2000 notifications and news articles and that these labels are correct. A simple matching scheme is implemented that matches notifications according to their labels and assigned date and location tags. The labels and tags of each matching notification and article can be converted to an association rule corresponding to the relation between these items. For each association rule, a number of metrics can be computed (e.g. support, confidence) which can be used to create a ranking that indicates the strength of the association. This data can be used by other parts of the system to create a ranking and display the most relevant news articles.
 
 \subsubsection*{Implementation and Evaluation }
-An custom algorithm is used to build the association list. The input of the algorithm are a list of classified P2000 notification data and a list of classified news article data. A few remarks about the data which is outputted by both the notification classifier and the news classifier are (by examining the results outputted by those parts):
+A custom algorithm is used to build the association list. The input of the algorithm is a list of classified P2000 notification data and a list of classified news article data. A few remarks about the data which is outputted by both the notification classifier and the news classifier are (by examining the results outputted by those parts):
 \begin{enumerate}
 \item Every P2000 notification and news article has an id number and primary label
 \item Most P2000 notifications have a second label. 
@@ -68,7 +68,7 @@ $\{p\_34537, $16-10-2015$\} \rightarrow \{n\_24\}$
 
 The score computed for each association can be used by other parts of the system as basis for ranking news articles that are matched to certain P2000 notifications.
 
-\subsection{Improvements and future work}
+\subsection*{Improvements and future work}
 Future versions of the system may implement the following features:
 \begin{itemize}
 \item The current version of the associator assumes that all associations that do not contain a date, are still relevant to some extent. To compute a more accurate score, the time span between the date of a news article and P2000 notification can be another metric that influences the score of an association and therefore its ranking.
