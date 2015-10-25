@@ -7,8 +7,8 @@ Because of this, my task was changed to assist in the classification tasks, whic
 
 \subsubsection*{Motivation}
 \textbf{Classification of tweets}\\
-The classification of twitter messages is required to facilitate association analysis between P2000 notifications and tweets. Tweets by definition short text messages.\\
-
+The classification of twitter messages is required to facilitate association analysis between P2000 notifications and tweets. Tweets are by definition short text messages.\\
+\\
 \textbf{Graphical User Interface}\\
 To present people the functionality of this system, a Graphical User Interface (GUI) is a must. People should be able to search for their city and view their neighbourhood on a map and be able to click on items they find relevant. 
  
@@ -16,24 +16,26 @@ To present people the functionality of this system, a Graphical User Interface (
 \textbf{Classification of tweets}\\
 For classifying the twitter messages, the same Ruby library as used for classifying P2000 notifications and news feed was used (\autoref{app:classifier}). The Na\"{i}ve Bayes classifier was chosen for the twitter messages, since TF.IDF is regarded as inferior for short documents, as they can contain a lot of noise. From the gathered tweets in the database, a sample set was chosen and their content was labeled and used to train the classifier analogue to the training of the other classification tasks. Only relevant training words were added by removing irrelevant words from tweets such as names of towns or places.\\
 
-The tweets were divided in the classes: \emph{Police}, \emph{Ambulance},\emph{Firefighters}, \emph{Fire}, \emph{Accident}, \emph{Crime},  and \emph{Other}. The Other class has some subdivisions to reduce its size, which would otherwise give it too much weight. This is necessary because there are a lot of irrelevant tweets. Also the tweets relating to firefighters became a large class, so it was split into tweets relating to actual fires, and other tasks for which firefighters are also called.\\
+The tweets were divided in the classes: \emph{Police}, \emph{Ambulance}, \emph{Firefighters}, \emph{Fire}, \emph{Accident}, \emph{Crime},  and \emph{Other}. The Other class has some subdivisions to reduce its size, which would otherwise give it too much weight. This is necessary because there are a lot of irrelevant tweets. Also the tweets relating to firefighters became a large class, so it was split into tweets relating to actual fires, and other tasks for which firefighters are also called.\\
 
-The above mentioned approaches could be used because previous classification tasks were already done on P2000 notifications and the news feed. This facilitated me to only focus on the time consuming part of creating a training data set and getting a good sense of the classifiers.
-
+The above mentioned approaches could be used because previous classification tasks were already done on P2000 notifications and the news feed. This facilitated me to only focus on the time consuming part of creating a training data set and getting a good sense of the classifiers.\\
+\\
 \textbf{Graphical User Interface}\\
 Due to my limited programming experience, I chose to use Java's Swing to build the GUI, combined with the JxBrowser library from TeamDev. This library allows the embedding of a chromium-based element in Swing applications. These elements could then load HTML files containing JavaScript code for dynamic and interactive layouts of the pages. The JxBrowser library also facilitates the possibility to perform function calls between the Java application and the HTML files (and back too).\\ 
 
-The required interactive components of the GUI flowed from our description of the system; it needs a search box to have users enter their city, and a display to show them a map of that city. The map can show the locations of the P2000 notifications based on the extracted textual location information, and passing that through a geocoding API to extract coordinates. Also, since there may be many P2000 notifications, the user must specify a date to view only data of that specific date. This is implemented using a slider, as it intuitively visualizes a timeline on which one can go back. \\
+The required interactive components of the GUI flowed from our description of the system; it needs a search box to have users enter their city, and a display to show them a map of that city. 
+The locations of the P2000 notifications can be shown on a map. The locations are based on the extracted textual location information, which are passed through a geocoding API to extract real coordinates. 
+Also, since there may be many P2000 notifications, the user must specify a date to view only data of that specific date. This is implemented using a slider, as it intuitively visualizes a timeline on which one can go back. \\
 Besides the P2000 notifications, the system has to show the possibly related news items and tweets. For this purpose, the GUI was designed as a full-screen 
 application split in two halves. The left half shows the map using the Google maps API with obove it a search box and button accompanied by a time slider. The right half is split in a top and bottom quarter for related news items and tweets respectively. \\
 
-Using the system, a user queries their town of interest on a date of interest. The user can then click markers that have appeared on the map which represent the locations of P2000 notifications. The markers are color coded red for firefighters, blue for police and yellow for ambulance. Upon clicking a marker, related P2000 notifications (from the P2000 notification clustering) are shown in a pop-up info window, and the related news items and tweets are extracted from the database and shown on the right half of the screen. \\
+Using the system, a user queries their town of interest on a date of interest. The user can then click on markers that have appeared on the map which represent the locations of P2000 notifications. The markers are color coded red for firefighters, blue for police and yellow for ambulance. Upon clicking a marker, related P2000 notifications (from the P2000 notification clustering) are shown in a pop-up info window, and the related news items and tweets are extracted from the database and shown on the right half of the screen. \\
 
 
 \subsubsection*{Evaluation $\&$ Possible Improvements}
 \textbf{Classification of tweets}\\
-The classifier was evaluated analogue to the method used to classify news and P2000 notifications. This was done by giving the classifier unlabeled data and comparing its outcome with labels that we deemed fitting. If it labeled many tweets incorrectly, the training set was increased in size. This process was repeated until reaching desired behavior. In this case, desired was to allow for false negatives, but prevent false positives. Since the labels or classes are used in the association analysis, this would reduce the amount of irrelevant tweets as much as possible at the cost of maybe missing some relevant ones. This would give the user confidence in the suggested associations, whereas viewing irrelevant suggestions repeatedly quickly will reduce the users' confidence in the system.
-
+The classifier was evaluated analogue to the method used to classify news and P2000 notifications. This was done by giving the classifier unlabeled data and comparing its outcome with labels that we deemed fitting. If it labeled many tweets incorrectly, the training set was increased in size. This process was repeated until reaching desired behavior. In this case, desired was to allow for false negatives, but prevent false positives. Since the labels or classes are used in the association analysis, this would reduce the amount of irrelevant tweets as much as possible at the cost of maybe missing some relevant ones. This would give the user confidence in the suggested associations, whereas viewing irrelevant suggestions repeatedly quickly will reduce the users' confidence in the system.\\
+\\
 \textbf{Graphical User Interface}\\
 The evaluation of the GUI was done manually by looking for associations of news items and tweets in the database. Then by querying the corresponding town, clicking the P2000 notification on the map and viewing the correct items appearing, the GUI was deemed functional. \\
 
