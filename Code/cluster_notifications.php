@@ -12,7 +12,7 @@ $db = Database::getConnection();
 //Start by first notification, then set cluster to the _cluster_ value of candidate with highest id found, or to own id if none found 
 //otherwise notification 1 might point to notification 30 (cluster 30) while 30 points to 60 (if 60 is out of time range 1, this may happen)
 //don't retrieve cluster yet, as it may be updated when we actually need it
-$stmt = $db->prepare('SELECT id, date, time, region, postal_code, town, content FROM notifications WHERE postal_code != "" ORDER BY date ASC, time ASC LIMIT 33600,1000000');
+$stmt = $db->prepare('SELECT id, date, time, region, postal_code, town, content FROM notifications WHERE postal_code != "" WHERE cluster = NULL ORDER BY date ASC, time ASC');
 $stmt->execute();
 $stmt->bind_result($id, $date, $time, $region, $postal, $town, $content);
 $notifications = array();
