@@ -79,12 +79,15 @@ public class TweetCollection {
         List<Tweet> ret = new ArrayList<>();
 
         for(Tweet t : tweets) {
-            NotificationType nt = NotificationType.parseNotificationType(t.getLabel());
+            NotificationType nt = NotificationType.parseNotificationType(t.getLabel().toLowerCase());
+
+            if(t.getDate() < c.getEarliestTime() || (!c.getNotificationTypes().contains(nt) &&
+                    !LabelMatcher.containsMatch(t.getLabel(), c.getLabels()) &&
+                    !LabelMatcher.containsMatch(t.getLabel(), c.getSubLabels()))) {
+                continue;
+            }
 
             for(P2000 p : c.getNotifications()) {
-                if (t.getDate() < p.getDate() || nt != p.getNotificationType()) {
-                    continue;
-                }
                 boolean cont = false;
                 if (p.getTown() != null && !p.getTown().isEmpty() &&
                         (t.getTokenized_text().contains(p.getTown()) || t.getLocation().contains(p.getTown()))) {

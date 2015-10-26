@@ -49,7 +49,7 @@ foreach ($notifications as $notification) {
 		}
 	}
 	fwrite(STDOUT, "\n");
-	usleep(360000);
+	usleep(360000);//delay for API limit
 	$i++;
 }
 fwrite(STDOUT, "Added " . $added . " coordinates!");

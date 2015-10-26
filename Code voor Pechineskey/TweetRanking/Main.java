@@ -8,14 +8,17 @@ public class Main {
     private final static String TWEET_TABLE_NAME = "tweets";
     private final static String TWEET_LABELS_TABLE_NAME = "labels_tweets";
     private final static String P2000_TABLE_NAME = "notifications";
+    private final static String P2000_LABEL_TABLE_NAME = "labels";
     private final static String ASSOC_TABLE_NAME = "p2000_tweets_assoc";
 
     private final static String FORMAT = "INSERT INTO `test`.`" + ASSOC_TABLE_NAME + "` (`p2000_id`, `tweet_id`, `score`) VALUES ('%1$s', '%2$s', '%3$s');";
     private final static String TWEETS_QUERY =
             "select * " + "from `" + TWEET_TABLE_NAME + "` as t1, `" + TWEET_LABELS_TABLE_NAME + "` as t2 " +
-                    "where t1.id = t2.id_tweet";
+                    "WHERE t1.id = t2.id_tweet";
     private final static String P2000_QUERY =
-            "select * " + "from `" + P2000_TABLE_NAME + "` as n ORDER BY  n.`" + P2000.CLUSTER_COLUMN_NAME + "` ASC ";
+            "select * " + "from `" + P2000_TABLE_NAME + "` as n, `" + P2000_LABEL_TABLE_NAME + "` as l " +
+                    "WHERE l.`notification` = n.`id`" +
+                    "ORDER BY  n.`" + P2000.CLUSTER_COLUMN_NAME + "` ASC ";
 
     private static Assoc[] getAssociations(Cluster[] clusters, TweetCollection tweets) {
         List<Assoc> ret = new ArrayList<>();
@@ -96,7 +99,6 @@ public class Main {
 
             ResultSet p2000Rs = s.executeQuery(P2000_QUERY);
             P2000[] p2000s = P2000.getP2000sFromResultSet(p2000Rs);
-
             p2000Rs.close();
             Cluster[] clusters = getClusters(p2000s);
 
