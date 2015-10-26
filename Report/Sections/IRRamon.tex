@@ -1,23 +1,108 @@
-\subsection{Document P2000 notification codes \& Collect Twitter data}
+\subsection{Document P2000 notification codes}
 \textbf{Name:} Ramon de Vaan \indent \textbf{StudentNumber:} 0758873
 
 \subsubsection*{Motivation}
-Most of the P2000 notifications contain an extra attribute, which provides some extra data regarding the nature of the incident.
-This attribute comes in the form of a notification code.
-We need to translate these codes to human-readable text, so that we can use it later on for classification. \\
-
-As stated above, we would like to link P2000 notifications to additional data sources.
-Twitter is an interesting source of information, as it is a very fast-pace and accessible medium.
-As a result, when an incident occurs, corresponding messages often appear within a very small time frame.
-Additionally, Twitter offers an API which facilitates data retrieval.
+The brunt of P2000 notifications contain very little data, or somewhat obfuscated data.
+Hence, it can be rather difficult to find associations with news sources and social media, since there simply is not much to check.
+Luckily, we can often find extra data related to the notifications. \\
+A lot of the notifications have contain one or more alarmcodes.
+In and of itself, these codes don't mean anything, it is just a number.
+However, there are websites that specify the meaning of each of those codes.
+For our program, it would definitely be beneficial to be able to link those codes to a notification.
+In that way, we can add information to a notification for the association algorithms to use, and for the user to see.
 
 \subsubsection*{Approach}
-First of all, we should obtain a list of P2000 notification codes, which may differ per region.
-In the database, we could add a table with the notification code as key, and the meaning as an attribute.
-Later on, when indexing the P2000 notifications, this table can be referenced to gather the meaning of the codes. \\
+We have found a website that contains a list of regional alarmcodes in \href{https://www.alarmeringen.nl/alarmcodes.html}{alarmeringen.nl}.
+However, obviously, the website is in HTML. 
+Grabbing the alarmcodes with descriptions would have been much easier to do if the website provided an API of some kind. 
+Now, we need to parse the HTML for each of the regions, and save the resulting alarmcodes to the server we have in use. \\
+To solve this, we have devised a java program, using the \href{http://jsoup.org/}{jsoup} library for HTML parsing, and the JDBC library for connecting to the database.
+The program visits the link provided above and parses the links pointing to the regional alarmcode descriptions.
+For each of these links, the program attempts to find a table, adding an entry in the database for each row in the table. \\
 
-As for the Twitter data collection, Twitter offers an API which allows us to easily query Twitter.
-We will search for Twitter notifications within a specified time frame and a location, depending on the P2000 notifications we receive.
+Initially, the program would not run.
+It turns out the website refused to handle requests made by the program, as it knew they were not made by a human.
+To solve this, we give the HTML requests a user agent, thus faking a request by a browser. \\
 
-\subsubsection*{Evaluation }
-Since both of these data sources are of a rather strict format, running the program a few times should be sufficient to evaluate the behaviour. 
+The resulting program can be run by any machine that supports Java.
+It produces a jar file, that has to be run with the arguments specifying the website to grab requests from,
+the ip of the server, and the server's user name and password. 
+
+\subsubsection*{Evaluation and future improvements}
+The program successfully grabs all alarmcodes from every region stated on the website.
+However, the sole fact that we have to grab these from a website is less than ideal. \\
+HTML is a markup language.
+This means that when the website authors want to change the looks of the website, the HTML will change as well.
+There is no guarantee that the program will still work if the authors change the code.
+Usually, the impact of layout alterations is softened by the fact that specific HTML elements can be given classes and id's.
+These would remain unchanged in the updated version, so that the program will still be able to find that element, even if the location has changed.
+However, the given website does not provide us with anything of the sort.
+Instead, it would have been much easier if we could rely on a public API, as these tend to stay the same, or backwards compatible when they are updated. \\
+
+Additionally, there is the issue that the alarmcodes may be updated.
+The current program runs on a local machine, instead of the server.
+There is no polling to check for changes in the alarmcodes, the program is intended to only run once.
+If there ever were changes in the alarmcodes, the program would have to be run again, manually, and the issue given above may become apparent. \\
+
+Conversely, one could argue that both of the issues given above do not really matter.
+The alarmcodes are likely to remain unchanged, as they are mostly situation descriptive.
+For example, an alarmcode may denote ``Noodprocedure'', meaning ``Emergency procedure''. \\
+Even if we were to implement the program on the server, issues with the HTML changing would remain.
+However, given that the alarmcodes unlikely to be subject to change, running it once on a local machine will prove sufficient.
+
+\subsection*{Collect Twitter Data}
+\textbf{Name:} Ramon de Vaan \indent \textbf{StudentNumber:} 0758873
+
+\subsubsection*{Motivation}
+As stated earlier, P2000 notifications do not provide the user with a lot of information, other than location and emergency services involved.
+Therefore, one of the main ideas of the program is to associate social media to P2000 notifications, to give users a better idea of what was going on when emergency services were called.
+Twitter offers a very easily accessible platform for users to document small but meaningful bits of information.
+It has grown immensely in popularity over the last few years, due to its approachable nature.
+Additionally, twitter provides an understandable, easy to access API, to allow for tweet collection by developers.
+When an accident occurs, where people are involved, there is bound to be some tweet about it.
+As a result, the Twitter platform seems very much suitable for use by our program.
+
+\subsubsection*{Approach}
+Initially, our goal was to perform a request to the Twitter API for each notification, finding the associated tweets.
+However, there are several problems with that. \\
+First of all, the Twitter API puts limits on the number of requests.
+We are currently limited to 450 requests every fifteen minutes to the twitter API.
+Though we are unsure about the number of P2000 notifications every fifteen minutes, even if it works out now, there is no guarantee that this number will be enough, as more regions are starting to make use of the P2000 system.
+Additionally, subsequent notifications within are region are often related to each other.
+If there is a fire somewhere, there would be a fire station notification to extinguish the fire, an ambulance notification to transport the victims, and a police notification to preserve order.
+In that case, three requests would be made, and all of them would probably result in the same set of twitter messages. \\
+
+Instead, what we opted to do was to simply grab all Twitter messages which are related to P2000 notifications, with some restrictions.
+While it seems this may increase the number of requests to the Twitter API, it actually provides us with the means to decide for ourselves the number of requests. \\
+First of all, we can grab a greater number of Twitter messages per request. 
+If we try to find Twitter messages on a per notification basis, we may find but a small number of messages.
+However, grabbing all Twitter messages at once, we can get up to 100 messages per request.
+If we manage to query the Twitter API in a correct manner, each one of those will be related to a P2000 notification.
+Additionally, we can set the server to simply perform exactly 450 requests per 15 minutes, thus maximizing our Twitter potential. \\
+
+However, we need to ensure that the Twitter messages that are returned, are in fact related to a P2000 notification.
+We have devised a list of words that are commonly related to accidents, fires, or events that will often prompt a P2000 notification. 
+This list needs to remain rather short, as Twitter suggests a maximum of 10 words per query.
+We have slightly surpassed that amount, having 20 search words, as this turned out to provide the best results.
+Next, we limit the request to return Dutch tweets only, as this increases the change that the tweets originate from the Netherlands, where the P2000 system is active.
+Additionally, we provide the query a date, from which to look for queries. 
+This increases our effectiveness in polling regularly, since we can simply ignore Tweets that we may have scanned before.
+We do need to keep in mind, however, that the Twitter API does not let us query tweets that are over a week old. \\
+
+With the set-up given above, the Twitter API returned a multitude of related Twitter messages.
+However, as it turns out, there are a number of Twitter accounts that simply post P2000 notifications on Twitter.
+We want to filter them out as much as possible, as these tweets obviously do not add any other information to a P2000 notification, so we altered the query to not include any tweets that contain P2000 related words. \\
+Another issue was that we found a lot of duplicate tweets.
+It turns out retweets also show up in the results, thus we adjusted our query to block these as much as possible, as having identical tweets for a P2000 notification is not at all helpful.
+
+\subsubsection*{Evaluation and future improvements}
+Using the techniques described above, we can successfully grab any number of tweets from a given date.
+P2000 notification tweets and retweets have mostly been filtered out, but some may still remain.
+This is somewhat due to the fact that we are limited in the amount of search words, and the difficulty to check for P2000 notification tweets. \\
+
+The server is not set to poll tweets at a regular as of now, but it will only require a small change to the code.
+The server that we have available has a finite capacity and bandwidth, so for this moment, it will suffice. \\
+There is still a problem in the order of tweets in the return statement, however.
+When querying for $n$ tweets up to a given time, the Twitter API will only return the last tweets up to that time.
+We have managed to avoid this problem by simply repeating the query to slightly before the earliest tweet, but if the number of tweets we grab is low, we will only get the last tweets up to a given time.
+Thus, it is definitely beneficial to grab as much tweets as possible, or the brunt of them will be around the same time period.

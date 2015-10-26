@@ -8,7 +8,7 @@ $main = new Main();
 $assoc = $main->getAssociator();
 $assoc->createAssociations();
 
-echo "This file is only used for testing<br/>";
+echo "<br/>Build associations...<br/>";
 
 echo '<pre>';
 
