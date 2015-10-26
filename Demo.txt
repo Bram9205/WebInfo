@@ -1,0 +1,31 @@
+Vertellen dat ons doel is om evenementen in de buurt te laten zien. Op de map zie je de P2000 Notificaties.
+Rechts zie je dan gerelateerde artikelen en tweets. Mocht er een tweet over exact die notificatie staan dan is het de bedoeling dat die bovenaan staat.
+Het volgende voorbeeld geeft dit goed weer:
+
+Zoek op plaats Rijen met dataum 18-10. Kies het ambulance bericht wat over de crazy cat lady gaat.
+
+Vervolgens kun je vertellen dat het niet altijd de notificatie zelf voorkomt in deze lijsten. Dit komt omdat er simpelweg geen tweets of nieuws over is.
+
+Zoek op Tilburg op 16-10 en kies bovin bij de brandweer notificatie, de ambulance notificatie die gaat over een fiets aanrijding.
+Dit zou gerelateerd nieuws en twitter berichten op moeten leveren
+
+Verder hebben we nog twee voorbeelden van brandweer waar de notificatie overeenkomt met het nieuws:
+Zoek hiervoor op Raamdonksveer op 18 & 19 Oktober. De meldingen zijn hier tegen middernacht en daarom verspreid.
+Het tweede voorbeeld is Nijmegen op 19 oktober. Dit gaat over een gaslek. Zoek bovenin de twee brandweer notificaties dicht bij elkaar en pak de linkse.
+
+Nu kun je nog zeggen dat politie lastige te vinden is omdat veel meldingen geen locatie bevatten.
+Echter zijn er wel gebieden die dat wel goed doen. Hiervoor kun je Amsterdam laten zien. 
+Je kunt hier ook vertellen dat er weinig nieuws is omdat de site lastige te crawlen was en omdat daar zoveel gebeurd dat niet elk ongeval meer nieuws is.
+
+Voor veel gerelateerd nieuws kun je op Eindhoven zoeken op 20 oktober en een politie notificatie kiezen.
+In eindhoven was toen veel negatief nieuws over drugs.
+
+Als laatste om te laten zien dat het echt gaat over nieuws wat dichtbij is hebben we nog een notificatie gevonden die gaat over de TU.
+Hier moest ambulance en motors bij te pas komen om een motorrijder op te lappen die onderuit gegaan was.
+Een aantal van ons heeft de politie en ambulance gezien en vroegen zich af wat daar precies gebeurd was en ons systeem doet dus precies waar het voor bedoelt is.
+
+Zoek hiervoor op 19-10 op Eindhoven en kies de notificatie bij de John F kennedylaan (bunker) bij de TU.
+
+Verder mensen nog zelf laten zoeken als ze dat leuk vinden.
+Nieuws hebben we uit Gelderland, Brabant en Noord en Zuid Holland een beetje.
+Notificaties uit het hele land.
