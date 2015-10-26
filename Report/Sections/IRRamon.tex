@@ -75,7 +75,7 @@ In that case, three requests would be made, and all of them would probably resul
 Instead, what we opted to do was to simply grab all Twitter messages which are related to P2000 notifications, with some restrictions.
 While it seems this may increase the number of requests to the Twitter API, it actually provides us with the means to decide for ourselves the number of requests. \\
 First of all, we can grab a greater number of Twitter messages per request. 
-If we try to find Twitter messages on a per notification basis, we may find but a smaller number of messages.
+If we try to find Twitter messages on a per notification basis, we may find but a small number of messages.
 However, grabbing all Twitter messages at once, we can get up to 100 messages per request.
 If we manage to query the Twitter API in a correct manner, each one of those will be related to a P2000 notification.
 Additionally, we can set the server to simply perform exactly 450 requests per 15 minutes, thus maximizing our Twitter potential. \\
