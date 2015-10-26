@@ -19,6 +19,8 @@ public class P2000 {
     private final static String CONTENT_COLUMN_NAME = "content";
     public final static String CLUSTER_COLUMN_NAME = "cluster";
     private final static String COORDS_COLUMN_NAME = "coordinates";
+    private final static String LABEL_COLUMN_NAME = "label";
+    private final static String SUBLABEL_COLUMN_NAME = "sublabel";
 
     private int id;
     private long date;
@@ -29,8 +31,11 @@ public class P2000 {
     private String text;
     private int cluster;
     private String coords;
+    private String label;
+    private String sublabel;
 
-    public P2000(int id, long date, NotificationType notificationType, String region, String postal, String town, String text, int cluster, String coords) {
+    public P2000(int id, long date, NotificationType notificationType, String region, String postal, String town,
+                 String text, int cluster, String coords, String label, String sublabel) {
         this.id = id;
         this.date = date;
         this.notificationType = notificationType;
@@ -40,6 +45,8 @@ public class P2000 {
         this.text = text.toLowerCase();
         this.cluster = cluster == 0 ? id : cluster;
         this.coords = coords;
+        this.label = label;
+        this.sublabel = sublabel;
     }
 
     public int getId() {
@@ -78,6 +85,14 @@ public class P2000 {
         return coords;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public String getSublabel() {
+        return sublabel;
+    }
+
     public static P2000[] getP2000sFromResultSet(ResultSet rs) {
         try {
             if(rs.first()) {
@@ -109,7 +124,9 @@ public class P2000 {
                 rs.getString(ind[6]),
                 rs.getString(ind[7]),
                 rs.getInt(ind[8]),
-                rs.getString(ind[9]));
+                rs.getString(ind[9]),
+                rs.getString(ind[10]),
+                rs.getString(ind[11]));
     }
 
     private static int[] getIndices(ResultSet rs) throws SQLException {
@@ -123,7 +140,9 @@ public class P2000 {
                 rs.findColumn(TOWN_COLUMN_NAME),
                 rs.findColumn(CONTENT_COLUMN_NAME),
                 rs.findColumn(CLUSTER_COLUMN_NAME),
-                rs.findColumn(COORDS_COLUMN_NAME)
+                rs.findColumn(COORDS_COLUMN_NAME),
+                rs.findColumn(LABEL_COLUMN_NAME),
+                rs.findColumn(SUBLABEL_COLUMN_NAME)
         };
     }
 
