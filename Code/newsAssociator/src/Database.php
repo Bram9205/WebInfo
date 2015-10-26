@@ -74,7 +74,7 @@ class Database {
     {
         $mysqli = self::connect();
 
-        $query = "SELECT l.news_id, l.label, n.datum, n.locatie "
+        $query = "SELECT n.news_id, l.label, n.datum, n.locatie "
                 . "FROM labels_news l, news n WHERE l.news_id = n.id";
 
         $statement = $mysqli->prepare($query);
